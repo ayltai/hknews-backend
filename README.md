@@ -1,8 +1,8 @@
 # HK News Backend
 
 [![Build](https://img.shields.io/circleci/project/github/ayltai/hknews-backend/master.svg?style=flat)](https://circleci.com/gh/ayltai/hknews-backend)
-[![Code Quality](https://img.shields.io/codacy/grade/84c3fa5d54124374be0d0c8cb8876ef7.svg?style=flat)](https://app.codacy.com/project/ayltai/hknews-backend/dashboard)
-[![Code Coverage](https://img.shields.io/codacy/coverage/84c3fa5d54124374be0d0c8cb8876ef7.svg?style=flat)](https://app.codacy.com/project/ayltai/hknews-backend/dashboard)
+[![Code Quality](https://img.shields.io/codacy/grade/2c5a8d9d71ca4da794494c08bffdd73a.svg?style=flat)](https://app.codacy.com/app/AlanTai/hknews-backend/dashboard)
+[![Code Coverage](https://img.shields.io/codacy/coverage/2c5a8d9d71ca4da794494c08bffdd73a.svg?style=flat)](https://app.codacy.com/app/AlanTai/hknews-backend/dashboard)
 [![Code Coverage](https://img.shields.io/codecov/c/github/ayltai/hknews-backend.svg?style=flat)](https://codecov.io/gh/ayltai/hknews-backend)
 [![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/2686/badge)](https://bestpractices.coreinfrastructure.org/projects/2686)
 [![Release](https://img.shields.io/github/release/ayltai/hknews-backend.svg?style=flat)](https://github.com/ayltai/hknews-backend/releases)
