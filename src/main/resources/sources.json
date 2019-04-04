@@ -1,0 +1,468 @@
+[
+    {
+        "name"       : "蘋果日報",
+        "imageUrl"   : "/images/appledaily.png",
+        "categories" : [
+            {
+                "name" : "即時港聞",
+                "url"  : "https://hk.appledaily.com/video/videolist/{}/local/home/0"
+            },
+            {
+                "name" : "即時國際",
+                "url"  : "https://hk.appledaily.com/video/videolist/{}/international/home/0"
+            },
+            {
+                "name" : "即時經濟",
+                "url"  : "https://hk.appledaily.com/video/videolist/{}/finance/home/0"
+            },
+            {
+                "name" : "即時娛樂",
+                "url"  : "https://hk.appledaily.com/video/videolist/{}/entertainment/home/0"
+            },
+            {
+                "name" : "即時體育",
+                "url"  : "https://hk.appledaily.com/video/videolist/{}/sports/home/0"
+            }
+        ]
+    },
+    {
+        "name"       : "東方日報",
+        "imageUrl"   : "/images/orientaldaily.png",
+        "categories" : [
+            {
+                "name" : "港聞",
+                "url"  : "http://orientaldaily.on.cc/rss/news.xml"
+            },
+            {
+                "name" : "國際",
+                "url"  : "http://orientaldaily.on.cc/rss/china_world.xml"
+            },
+            {
+                "name" : "經濟",
+                "url"  : "http://orientaldaily.on.cc/rss/finance.xml"
+            },
+            {
+                "name" : "娛樂",
+                "url"  : "http://orientaldaily.on.cc/rss/entertainment.xml"
+            },
+            {
+                "name" : "副刊",
+                "url"  : "http://orientaldaily.on.cc/rss/lifestyle.xml"
+            },
+            {
+                "name" : "體育",
+                "url"  : "http://orientaldaily.on.cc/rss/sport.xml"
+            }
+        ]
+    },
+    {
+        "name"       : "星島日報",
+        "imageUrl"   : "/images/singtao.png",
+        "categories" : [
+            {
+                "name" : "港聞",
+                "url"  : "http://std.stheadline.com/daily/section-list.php?cat=12"
+            },
+            {
+                "name" : "國際",
+                "url"  : "http://std.stheadline.com/daily/section-list.php?cat=13"
+            },
+            {
+                "name" : "兩岸",
+                "url"  : "http://std.stheadline.com/daily/section-list.php?cat=16"
+            },
+            {
+                "name" : "經濟",
+                "url"  : "http://std.stheadline.com/daily/section-list.php?cat=15"
+            },
+            {
+                "name" : "地產",
+                "url"  : "http://std.stheadline.com/daily/section-list.php?cat=20"
+            },
+            {
+                "name" : "娛樂",
+                "url"  : "http://std.stheadline.com/daily/section-list.php?cat=17"
+            },
+            {
+                "name" : "體育",
+                "url"  : "http://std.stheadline.com/daily/section-list.php?cat=14"
+            }
+        ]
+    },
+    {
+        "name"       : "星島即時",
+        "imageUrl"   : "/images/singtao.png",
+        "categories" : [
+            {
+                "name" : "即時港聞",
+                "url"  : "http://std.stheadline.com/instant/articles/listview/%E9%A6%99%E6%B8%AF/"
+            },
+            {
+                "name" : "即時國際",
+                "url"  : "http://std.stheadline.com/instant/articles/listview/%E5%9C%8B%E9%9A%9B/"
+            },
+            {
+                "name" : "即時兩岸",
+                "url"  : "http://std.stheadline.com/instant/articles/listview/%E4%B8%AD%E5%9C%8B/"
+            },
+            {
+                "name" : "即時經濟",
+                "url"  : "http://std.stheadline.com/instant/articles/listview/%E7%B6%93%E6%BF%9F/"
+            },
+            {
+                "name" : "即時地產",
+                "url"  : "http://std.stheadline.com/instant/articles/listview/%E5%9C%B0%E7%94%A2/"
+            },
+            {
+                "name" : "即時娛樂",
+                "url"  : "http://std.stheadline.com/instant/articles/listview/%E5%A8%9B%E6%A8%82/"
+            },
+            {
+                "name" : "即時體育",
+                "url"  : "http://std.stheadline.com/instant/articles/listview/%E9%AB%94%E8%82%B2/"
+            }
+        ]
+    },
+    {
+        "name"       : "經濟日報",
+        "imageUrl"   : "/images/hket.png",
+        "categories" : [
+            {
+                "name" : "港聞",
+                "url"  : "http://www.hket.com/rss/hongkong"
+            },
+            {
+                "name" : "國際",
+                "url"  : "http://www.hket.com/rss/world"
+            },
+            {
+                "name" : "兩岸",
+                "url"  : "http://www.hket.com/rss/china"
+            },
+            {
+                "name" : "副刊",
+                "url"  : "http://www.hket.com/rss/lifestyle"
+            },
+            {
+                "name" : "即時副刊",
+                "url"  : "http://www.hket.com/rss/technology"
+            }
+        ]
+    },
+    {
+        "name"       : "成報",
+        "imageUrl"   : "/images/singpao.png",
+        "categories" : [
+            {
+                "name" : "港聞",
+                "url"  : "https://www.singpao.com.hk/index.php?fi=news1"
+            },
+            {
+                "name" : "國際",
+                "url"  : "https://www.singpao.com.hk/index.php?fi=news8"
+            },
+            {
+                "name" : "經濟",
+                "url"  : "https://www.singpao.com.hk/index.php?fi=news3"
+            },
+            {
+                "name" : "娛樂",
+                "url"  : "https://www.singpao.com.hk/index.php?fi=news4"
+            },
+            {
+                "name" : "體育",
+                "url"  : "https://www.singpao.com.hk/index.php?fi=news5"
+            },
+            {
+                "name" : "副刊",
+                "url"  : "https://www.singpao.com.hk/index.php?fi=news7"
+            }
+        ]
+    },
+    {
+        "name"       : "明報",
+        "imageUrl"   : "/images/mingpao.png",
+        "categories" : [
+            {
+                "name" : "港聞",
+                "url"  : "https://news.mingpao.com/rss/pns/s00002.xml"
+            },
+            {
+                "name" : "國際",
+                "url"  : "https://news.mingpao.com/rss/pns/s00014.xml"
+            },
+            {
+                "name" : "兩岸",
+                "url"  : "https://news.mingpao.com/rss/pns/s00013.xml"
+            },
+            {
+                "name" : "經濟",
+                "url"  : "https://news.mingpao.com/rss/pns/s00004.xml"
+            },
+            {
+                "name" : "娛樂",
+                "url"  : "https://news.mingpao.com/rss/pns/s00016.xml"
+            },
+            {
+                "name" : "體育",
+                "url"  : "https://news.mingpao.com/rss/pns/s00015.xml"
+            },
+            {
+                "name" : "副刊",
+                "url"  : "https://news.mingpao.com/rss/pns/s00005.xml"
+            },
+            {
+                "name" : "教育",
+                "url"  : "https://news.mingpao.com/rss/pns/s00011.xml"
+            },
+            {
+                "name" : "即時港聞",
+                "url"  : "https://news.mingpao.com/rss/ins/s00001.xml"
+            },
+            {
+                "name" : "即時國際",
+                "url"  : "https://news.mingpao.com/rss/ins/s00005.xml"
+            },
+            {
+                "name" : "即時兩岸",
+                "url"  : "https://news.mingpao.com/rss/ins/s00004.xml"
+            },
+            {
+                "name" : "即時經濟",
+                "url"  : "https://news.mingpao.com/rss/ins/s00002.xml"
+            },
+            {
+                "name" : "即時地產",
+                "url"  : "https://news.mingpao.com/rss/ins/s00003.xml"
+            },
+            {
+                "name" : "即時娛樂",
+                "url"  : "https://news.mingpao.com/rss/ins/s00007.xml"
+            },
+            {
+                "name" : "即時體育",
+                "url"  : "https://news.mingpao.com/rss/ins/s00006.xml"
+            }
+        ]
+    },
+    {
+        "name"       : "頭條日報",
+        "imageUrl"   : "/images/headline.png",
+        "categories" : [
+            {
+                "name" : "港聞",
+                "url"  : "http://hd.stheadline.com/rss/news/daily/?category=hongkong"
+            },
+            {
+                "name" : "國際",
+                "url"  : "http://hd.stheadline.com/rss/news/daily/?category=international"
+            },
+            {
+                "name" : "兩岸",
+                "url"  : "http://hd.stheadline.com/rss/news/daily/?category=chain"
+            },
+            {
+                "name" : "經濟",
+                "url"  : "http://hd.stheadline.com/rss/news/daily/?category=finance"
+            },
+            {
+                "name" : "地產",
+                "url"  : "http://hd.stheadline.com/rss/news/daily/?category=property"
+            },
+            {
+                "name" : "娛樂",
+                "url"  : "http://hd.stheadline.com/rss/news/daily/?category=entertainment"
+            },
+            {
+                "name" : "副刊",
+                "url"  : "http://hd.stheadline.com/rss/news/daily/?category=supplement"
+            },
+            {
+                "name" : "教育",
+                "url"  : "http://hd.stheadline.com/rss/news/daily/?category=sports"
+            }
+        ]
+    },
+    {
+        "name"       : "頭條即時",
+        "imageUrl"   : "/images/headline.png",
+        "categories" : [
+            {
+                "name" : "即時港聞",
+                "url"  : "http://hd.stheadline.com/news/realtime/hk/"
+            },
+            {
+                "name" : "即時國際",
+                "url"  : "http://hd.stheadline.com/news/realtime/wo/"
+            },
+            {
+                "name" : "即時兩岸",
+                "url"  : "http://hd.stheadline.com/news/realtime/chi/"
+            },
+            {
+                "name" : "即時經濟",
+                "url"  : "http://hd.stheadline.com/news/realtime/fin/"
+            },
+            {
+                "name" : "即時地產",
+                "url"  : "http://hd.stheadline.com/news/realtime/pp/"
+            },
+            {
+                "name" : "即時娛樂",
+                "url"  : "http://hd.stheadline.com/news/realtime/ent/"
+            },
+            {
+                "name" : "即時體育",
+                "url"  : "http://hd.stheadline.com/news/realtime/spt/"
+            }
+        ]
+    },
+    {
+        "name"       : "晴報",
+        "imageUrl"   : "/images/skypost.png",
+        "categories" : [
+            {
+                "name" : "港聞",
+                "url"  : "http://skypost.ulifestyle.com.hk/rss/sras001"
+            },
+            {
+                "name" : "國際",
+                "url"  : "http://skypost.ulifestyle.com.hk/rss/sras004"
+            },
+            {
+                "name" : "經濟",
+                "url"  : "http://skypost.ulifestyle.com.hk/rss/sras003"
+            },
+            {
+                "name" : "娛樂",
+                "url"  : "http://skypost.ulifestyle.com.hk/rss/sras002"
+            },
+            {
+                "name" : "體育",
+                "url"  : "http://skypost.ulifestyle.com.hk/rss/sras005"
+            },
+            {
+                "name" : "副刊",
+                "url"  : "http://skypost.ulifestyle.com.hk/rss/sras006"
+            },
+            {
+                "name" : "教育",
+                "url"  : "http://skypost.ulifestyle.com.hk/rss/sras007"
+            }
+        ]
+    },
+    {
+        "name"       : "信報",
+        "imageUrl"   : "/images/hkej.png",
+        "categories" : [
+            {
+                "name" : "即時經濟",
+                "url"  : "http://www.hkej.com/rss/onlinenews.xml"
+            }
+        ]
+    },
+    {
+        "name"       : "香港電台",
+        "imageUrl"   : "/images/rthk.png",
+        "categories" : [
+            {
+                "name" : "即時港聞",
+                "url"  : "http://rthk.hk/rthk/news/rss/c_expressnews_clocal.xml"
+            },
+            {
+                "name" : "即時國際",
+                "url"  : "http://rthk.hk/rthk/news/rss/c_expressnews_cinternational.xml"
+            },
+            {
+                "name" : "即時兩岸",
+                "url"  : "http://rthk.hk/rthk/news/rss/c_expressnews_greaterchina.xml"
+            },
+            {
+                "name" : "即時經濟",
+                "url"  : "http://rthk.hk/rthk/news/rss/c_expressnews_cfinance.xml"
+            },
+            {
+                "name" : "即時體育",
+                "url"  : "http://rthk.hk/rthk/news/rss/c_expressnews_csport.xml"
+            }
+        ]
+    },
+    {
+        "name"       : "南華早報",
+        "imageUrl"   : "/images/scmp.png",
+        "categories" : [
+            {
+                "name" : "即時港聞",
+                "url"  : "http://www.scmp.com/rss/2/feed"
+            },
+            {
+                "name" : "即時國際",
+                "url"  : "http://www.scmp.com/rss/5/feed"
+            },
+            {
+                "name" : "即時兩岸",
+                "url"  : "http://www.scmp.com/rss/4/feed"
+            },
+            {
+                "name" : "即時經濟",
+                "url"  : "http://www.scmp.com/rss/92/feed"
+            },
+            {
+                "name" : "即時地產",
+                "url"  : "http://www.scmp.com/rss/96/feed"
+            },
+            {
+                "name" : "即時體育",
+                "url"  : "http://www.scmp.com/rss/95/feed"
+            },
+            {
+                "name" : "即時副刊",
+                "url"  : "http://www.scmp.com/rss/94/feed"
+            }
+        ]
+    },
+    {
+        "name"       : "英文虎報",
+        "imageUrl"   : "/images/thestandard.png",
+        "categories" : [
+            {
+                "name" : "即時港聞",
+                "url"  : "http://www.thestandard.com.hk/ajax_sections_list.php?sid=4"
+            },
+            {
+                "name" : "即時國際",
+                "url"  : "http://www.thestandard.com.hk/ajax_sections_list.php?sid=6"
+            },
+            {
+                "name" : "即時兩岸",
+                "url"  : "http://www.thestandard.com.hk/ajax_sections_list.php?sid=3"
+            },
+            {
+                "name" : "即時經濟",
+                "url"  : "http://www.thestandard.com.hk/ajax_sections_list.php?sid=2"
+            },
+            {
+                "name" : "即時體育",
+                "url"  : "http://www.thestandard.com.hk/ajax_sections_list.php?sid=8"
+            }
+        ]
+    },
+    {
+        "name"       : "文匯報",
+        "imageUrl"   : "/images/wenweipo.png",
+        "categories" : [
+            {
+                "name" : "即時港聞",
+                "url"  : "http://news.wenweipo.com/list_news.php?cat=000IN&instantCat=hk"
+            },
+            {
+                "name" : "即時國際",
+                "url"  : "http://news.wenweipo.com/list_news.php?cat=000IN&instantCat=china"
+            },
+            {
+                "name" : "即時兩岸",
+                "url"  : "http://news.wenweipo.com/list_news.php?cat=000IN&instantCat=world"
+            }
+        ]
+    }
+]

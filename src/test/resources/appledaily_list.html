@@ -1,0 +1,258 @@
+<script type="text/javascript">
+$(function(){
+	$(".vdoBox .DotPagerPrev").hide();
+	$(".vdoBox .DotPagerNext").hide();	
+  // assign the slider to a variable
+  var vdoBox = $('#vdoSlider').bxSlider({
+		pager : true,
+		pagerSelector : ".vdoBox .dotController",
+    	controls: false,
+	    onBeforeSlide: function(currentSlideNumber, totalSlideQty, currentSlideHtmlObject){
+	    $(".vdoBox .dotController a").hide();
+	    var n = 0;
+	    for(var i = 1; i <= totalSlideQty ; i++)
+	    {
+	    	
+	    	if((i > (currentSlideNumber-2) || i > (totalSlideQty-6)) && n < 6){
+	    		n++;
+		    	$(".vdoBox .pager-"+i).show();	   
+		    } 
+	    }
+	  },
+	    onAfterSlide: function(currentSlideNumber, totalSlideQty, currentSlideHtmlObject){
+	    if(currentSlideNumber ==0) {
+		    $(".vdoBox .dotController a").hide();
+
+		    var n = 0;
+		    if(totalSlideQty > 1) {
+			    $(".vdoBox .DotPagerPrev").show();
+			    $(".vdoBox .DotPagerNext").show();			    
+			    for(var i = 1; i <= totalSlideQty ; i++)
+			    {
+			    	
+			    	if((i > (currentSlideNumber-2) || i > (totalSlideQty-6)) && n < 6){
+			    		n++;
+				    	$(".vdoBox .pager-"+i).show();	   
+				    } 
+			    }
+		    }
+		    
+	    }
+	  }		  			    
+  });
+
+
+/*
+	$('.vdoBox .dotController a.pager-link').click(function(){
+		var paged = $(this).html();
+		alert(paged);
+			vdoBox.goToSlide(paged);  
+	});
+*/
+
+	$('.vdoBox .DotPagerNext').click(function(){
+		vdoBox.goToNextSlide();
+	});
+	
+   $('.vdoBox .DotPagerPrev').click(function(){
+		vdoBox.goToPreviousSlide();
+    });
+    
+    $('.vdoBox .SildeTo').click(function(){
+    	var paged = $("#vdo_paged").val();
+	    vdoBox.goToSlide(paged);  
+    }); 
+    
+    $('.vdoBox .SildeToFirst').click(function(){
+	    vdoBox.goToSlide(0);  
+    });    
+    
+   $('.LHS .item a').click(
+	  function() {
+		 $('.LHS .item a').removeClass('Hovered');
+		 $(this).addClass('Hovered');     // On hover add the class 'hovered' and apply the hovered styles 
+	  }
+   );    
+});
+
+
+</script> 
+	<div class="LHSTitle page_video">
+	<a class="page_video_link" href="https://hk.video.appledaily.com/actionnews/index/appledaily_list.html"></a>
+ 
+
+    <div class="LHSTitle_inner vdoBox">
+    	<table cellpadding="0" cellspacing="0" style="margin:0 auto">
+        	<tr>
+            	<td>
+                    <div class="DotPager">
+            
+                        <a href="javascript:void(0);" style="display:none" class="SildeToFirst"></a>             
+                        <a href="javascript:void(0);" style="display:none" class="SildeTo"></a>   
+                        <a href="javascript:void(0);" class="DotPagerPrev"></a>                
+                        <div class="dotController">
+                        
+                        </div>            
+                        <a href="javascript:void(0);" class="DotPagerNext"></a>
+                    </div>
+            	</td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div class="itemContainer">
+				<ul id="vdoSlider">
+					<li class="vdo_layer" style="width:540px">
+				            <div class="item">
+					<a class="switchvdo_btn v_20191240" href="https://hk.video.appledaily.com/actionnews/local/20180918/20502187/20191240">
+                        <img src="https://static.appledaily.hk/images/apple-photos/video/20180918/160pix/1537208110_61db.jpg" title="【山竹襲港】唔肯宣佈停工　奶媽死撐叫蟻民互諒互讓" alt="【山竹襲港】唔肯宣佈停工　奶媽死撐叫蟻民互諒互讓" class="photo"/>
+                        <span>【山竹襲港】唔肯宣佈停工　奶媽死撐叫蟻民互諒互讓</span>
+                         <span class="small_view">110,193</span>                        <img src="https://staticlayout.appledaily.hk/web_images/layout/icons/overlay_play.png" class="overlay_play"/>
+                    </a>
+	            </div>
+	            	            <div class="item">
+					<a class="switchvdo_btn v_20191247" href="https://hk.video.appledaily.com/actionnews/local/20180918/20502041/20191247">
+                        <img src="https://static.appledaily.hk/images/apple-photos/video/20180918/160pix/1537209203_f2ec.jpg" title="東鐵癱瘓　市民鬧爆：林鄭真係唔掂" alt="東鐵癱瘓　市民鬧爆：林鄭真係唔掂" class="photo"/>
+                        <span>東鐵癱瘓　市民鬧爆：林鄭真係唔掂</span>
+                         <span class="small_view">78,740</span>                        <img src="https://staticlayout.appledaily.hk/web_images/layout/icons/overlay_play.png" class="overlay_play"/>
+                    </a>
+	            </div>
+	            	            <div class="item">
+					<a class="switchvdo_btn v_20191236" href="https://hk.video.appledaily.com/actionnews/local/20180918/20502104/20191236">
+                        <img src="https://static.appledaily.hk/images/apple-photos/video/20180918/160pix/1537208280_ca27.jpg" title="【山竹襲港】Uber小巴佬發災難財　北區人有旅巴愛心義載" alt="【山竹襲港】Uber小巴佬發災難財　北區人有旅巴愛心義載" class="photo"/>
+                        <span>【山竹襲港】Uber小巴佬發災難財　北區人有旅巴愛心義載</span>
+                         <span class="small_view">50,131</span>                        <img src="https://staticlayout.appledaily.hk/web_images/layout/icons/overlay_play.png" class="overlay_play"/>
+                    </a>
+	            </div>
+	            	            <div class="item">
+					<a class="switchvdo_btn v_20191246" href="https://hk.video.appledaily.com/actionnews/local/20180918/20502122/20191246">
+                        <img src="https://static.appledaily.hk/images/apple-photos/video/20180918/160pix/1537209211_bef3.jpg" title="北區打工仔悲歌　冇車返工幾坎坷" alt="北區打工仔悲歌　冇車返工幾坎坷" class="photo"/>
+                        <span>北區打工仔悲歌　冇車返工幾坎坷</span>
+                         <span class="small_view">67,827</span>                        <img src="https://staticlayout.appledaily.hk/web_images/layout/icons/overlay_play.png" class="overlay_play"/>
+                    </a>
+	            </div>
+	            	            <div class="item">
+					<a class="switchvdo_btn v_20191233" href="https://hk.video.appledaily.com/actionnews/local/20180918/20501926/20191233">
+                        <img src="https://static.appledaily.hk/images/apple-photos/video/20180918/160pix/1537208324_89e3.jpg" title="【山竹襲港】學生哥或成最大贏家　又停課！" alt="【山竹襲港】學生哥或成最大贏家　又停課！" class="photo"/>
+                        <span>【山竹襲港】學生哥或成最大贏家　又停課！</span>
+                         <span class="small_view">63,178</span>                        <img src="https://staticlayout.appledaily.hk/web_images/layout/icons/overlay_play.png" class="overlay_play"/>
+                    </a>
+	            </div>
+	            	            <div class="item">
+					<a class="switchvdo_btn v_20191237" href="https://hk.video.appledaily.com/actionnews/local/20180918/20501945/20191237">
+                        <img src="https://static.appledaily.hk/images/apple-photos/video/20180918/160pix/1537208172_d176.jpg" title="【山竹襲港】假天花玻璃窗全冧！紅磡海濱廣場office敗陣" alt="【山竹襲港】假天花玻璃窗全冧！紅磡海濱廣場office敗陣" class="photo"/>
+                        <span>【山竹襲港】假天花玻璃窗全冧！紅磡海濱廣場office敗陣</span>
+                         <span class="small_view">100,427</span>                        <img src="https://staticlayout.appledaily.hk/web_images/layout/icons/overlay_play.png" class="overlay_play"/>
+                    </a>
+	            </div>
+	            	            <div class="item">
+					<a class="switchvdo_btn v_20191234" href="https://hk.video.appledaily.com/actionnews/local/20180918/20502021/20191234">
+                        <img src="https://static.appledaily.hk/images/apple-photos/video/20180918/160pix/1537208302_37fc.jpg" title="【山竹襲港】直擊將軍澳「海嘯」重災區　居民自發清理廢墟" alt="【山竹襲港】直擊將軍澳「海嘯」重災區　居民自發清理廢墟" class="photo"/>
+                        <span>【山竹襲港】直擊將軍澳「海嘯」重災區　居民自發清理廢墟</span>
+                         <span class="small_view">58,242</span>                        <img src="https://staticlayout.appledaily.hk/web_images/layout/icons/overlay_play.png" class="overlay_play"/>
+                    </a>
+	            </div>
+	            	            <div class="item">
+					<a class="switchvdo_btn v_20191243" href="https://hk.video.appledaily.com/actionnews/local/20180918/20502037/20191243">
+                        <img src="https://static.appledaily.hk/images/apple-photos/video/20180918/160pix/1537209268_ceda.jpg" title="鯉魚門變廢墟　水退滿佈淤泥" alt="鯉魚門變廢墟　水退滿佈淤泥" class="photo"/>
+                        <span>鯉魚門變廢墟　水退滿佈淤泥</span>
+                         <span class="small_view">43,775</span>                        <img src="https://staticlayout.appledaily.hk/web_images/layout/icons/overlay_play.png" class="overlay_play"/>
+                    </a>
+	            </div>
+	            	            <div class="item">
+					<a class="switchvdo_btn v_20191245" href="https://hk.video.appledaily.com/actionnews/local/20180918/20502049/20191245">
+                        <img src="https://static.appledaily.hk/images/apple-photos/video/20180918/160pix/1537209238_bd87.jpg" title="善心狗場全毀　場主重創昏迷" alt="善心狗場全毀　場主重創昏迷" class="photo"/>
+                        <span>善心狗場全毀　場主重創昏迷</span>
+                         <span class="small_view">60,747</span>                        <img src="https://staticlayout.appledaily.hk/web_images/layout/icons/overlay_play.png" class="overlay_play"/>
+                    </a>
+	            </div>
+	              	                        		                        		                        		                        		                                   
+			</li>
+						<li class="vdo_layer" style="width:540px">
+				            <div class="item">
+					<a class="switchvdo_btn v_20191232" href="https://hk.video.appledaily.com/actionnews/local/20180918/20502065/20191232">
+                        <img src="https://static.appledaily.hk/images/apple-photos/video/20180918/160pix/1537208340_53b4.jpg" title="【山竹襲港】石澳「藍橋」吹到粉碎　想打卡冇得再去" alt="【山竹襲港】石澳「藍橋」吹到粉碎　想打卡冇得再去" class="photo"/>
+                        <span>【山竹襲港】石澳「藍橋」吹到粉碎　想打卡冇得再去</span>
+                         <span class="small_view">51,408</span>                        <img src="https://staticlayout.appledaily.hk/web_images/layout/icons/overlay_play.png" class="overlay_play"/>
+                    </a>
+	            </div>
+	            	            <div class="item">
+					<a class="switchvdo_btn v_20191242" href="https://hk.video.appledaily.com/actionnews/local/20180918/20502060/20191242">
+                        <img src="https://static.appledaily.hk/images/apple-photos/video/20180918/160pix/1537209253_5336.jpg" title="兩次十號波重創海味店　單親媽：揸Van搵食" alt="兩次十號波重創海味店　單親媽：揸Van搵食" class="photo"/>
+                        <span>兩次十號波重創海味店　單親媽：揸Van搵食</span>
+                         <span class="small_view">31,407</span>                        <img src="https://staticlayout.appledaily.hk/web_images/layout/icons/overlay_play.png" class="overlay_play"/>
+                    </a>
+	            </div>
+	            	            <div class="item">
+					<a class="switchvdo_btn v_20191238" href="https://hk.video.appledaily.com/actionnews/local/20180918/20502098/20191238">
+                        <img src="https://static.appledaily.hk/images/apple-photos/video/20180918/160pix/1537208440_7e3e.jpg" title="【山竹襲港】杏花邨車主被老點　泊地面都變直版任驗！" alt="【山竹襲港】杏花邨車主被老點　泊地面都變直版任驗！" class="photo"/>
+                        <span>【山竹襲港】杏花邨車主被老點　泊地面都變直版任驗！</span>
+                         <span class="small_view">83,302</span>                        <img src="https://staticlayout.appledaily.hk/web_images/layout/icons/overlay_play.png" class="overlay_play"/>
+                    </a>
+	            </div>
+	            	            <div class="item">
+					<a class="switchvdo_btn v_20191244" href="https://hk.video.appledaily.com/actionnews/local/20180918/20502116/20191244">
+                        <img src="https://static.appledaily.hk/images/apple-photos/video/20180918/160pix/1537209224_7e20.jpg" title="重返家園滿地黃泥　大澳婆婆：係黃金就好喇" alt="重返家園滿地黃泥　大澳婆婆：係黃金就好喇" class="photo"/>
+                        <span>重返家園滿地黃泥　大澳婆婆：係黃金就好喇</span>
+                         <span class="small_view">25,840</span>                        <img src="https://staticlayout.appledaily.hk/web_images/layout/icons/overlay_play.png" class="overlay_play"/>
+                    </a>
+	            </div>
+	            	            <div class="item">
+					<a class="switchvdo_btn v_20191204" href="https://hk.video.appledaily.com/actionnews/local/20180918/20501974/20191204">
+                        <img src="https://static.appledaily.hk/images/apple-photos/video/20180918/160pix/1537205683_2886.jpg" title="山竹襲粵最少4死　入內陸移動快雨勢持續" alt="山竹襲粵最少4死　入內陸移動快雨勢持續" class="photo"/>
+                        <span>山竹襲粵最少4死　入內陸移動快雨勢持續</span>
+                         <span class="small_view">27,245</span>                        <img src="https://staticlayout.appledaily.hk/web_images/layout/icons/overlay_play.png" class="overlay_play"/>
+                    </a>
+	            </div>
+	            	            <div class="item">
+					<a class="switchvdo_btn v_20191235" href="https://hk.video.appledaily.com/actionnews/local/20180918/20502013/20191235">
+                        <img src="https://static.appledaily.hk/images/apple-photos/video/20180918/160pix/1537208273_faed.jpg" title="【澳門直擊】無「黑的」兼有大巴搭　恢復速度快過天鴿" alt="【澳門直擊】無「黑的」兼有大巴搭　恢復速度快過天鴿" class="photo"/>
+                        <span>【澳門直擊】無「黑的」兼有大巴搭　恢復速度快過天鴿</span>
+                         <span class="small_view">24,741</span>                        <img src="https://staticlayout.appledaily.hk/web_images/layout/icons/overlay_play.png" class="overlay_play"/>
+                    </a>
+	            </div>
+	            	            <div class="item">
+					<a class="switchvdo_btn v_20191229" href="https://hk.video.appledaily.com/actionnews/local/20180918/20501901/20191229">
+                        <img src="https://static.appledaily.hk/images/apple-photos/video/20180918/160pix/1537208400_7811.jpg" title="【蘋果踢爆】委派不合水平壘球教練　港隊代表聯署讉責" alt="【蘋果踢爆】委派不合水平壘球教練　港隊代表聯署讉責" class="photo"/>
+                        <span>【蘋果踢爆】委派不合水平壘球教練　港隊代表聯署讉責</span>
+                         <span class="small_view">14,107</span>                        <img src="https://staticlayout.appledaily.hk/web_images/layout/icons/overlay_play.png" class="overlay_play"/>
+                    </a>
+	            </div>
+	            	            <div class="item">
+					<a class="switchvdo_btn v_20191239" href="https://hk.video.appledaily.com/actionnews/local/20180918/20502039/20191239">
+                        <img src="https://static.appledaily.hk/images/apple-photos/video/20180918/160pix/1537208290_8669.jpg" title="【佐敦之虎案】否認豪請兄弟吸毒　卧底警：我都係警察" alt="【佐敦之虎案】否認豪請兄弟吸毒　卧底警：我都係警察" class="photo"/>
+                        <span>【佐敦之虎案】否認豪請兄弟吸毒　卧底警：我都係警察</span>
+                         <span class="small_view">21,661</span>                        <img src="https://staticlayout.appledaily.hk/web_images/layout/icons/overlay_play.png" class="overlay_play"/>
+                    </a>
+	            </div>
+	            	            <div class="item">
+					<a class="switchvdo_btn v_20191230" href="https://hk.video.appledaily.com/actionnews/local/20180918/20501993/20191230">
+                        <img src="https://static.appledaily.hk/images/apple-photos/video/20180918/160pix/1537208404_0325.jpg" title="天文台長變藝術學生　李本瀅科學中看詩意" alt="天文台長變藝術學生　李本瀅科學中看詩意" class="photo"/>
+                        <span>天文台長變藝術學生　李本瀅科學中看詩意</span>
+                         <span class="small_view">9,595</span>                        <img src="https://staticlayout.appledaily.hk/web_images/layout/icons/overlay_play.png" class="overlay_play"/>
+                    </a>
+	            </div>
+	              	                        		                        		                        		                        		                                   
+			</li>
+						<li class="vdo_layer" style="width:540px">
+				            <div class="item">
+					<a class="switchvdo_btn v_20191231" href="https://hk.video.appledaily.com/actionnews/local/20180918/20501834/20191231">
+                        <img src="https://static.appledaily.hk/images/apple-photos/video/20180918/160pix/1537208430_48bf.jpg" title="被拘禁最耐死囚獲釋等上訴　每日活在死亡陰影下" alt="被拘禁最耐死囚獲釋等上訴　每日活在死亡陰影下" class="photo"/>
+                        <span>被拘禁最耐死囚獲釋等上訴　每日活在死亡陰影下</span>
+                         <span class="small_view">25,660</span>                        <img src="https://staticlayout.appledaily.hk/web_images/layout/icons/overlay_play.png" class="overlay_play"/>
+                    </a>
+	            </div>
+	            	            <div class="item">
+					<a class="switchvdo_btn v_20191228" href="https://hk.video.appledaily.com/actionnews/local/20180918/20501991/20191228">
+                        <img src="https://static.appledaily.hk/images/apple-photos/video/20180918/160pix/1537208352_0a5d.jpg" title="【山竹襲港】網民二創諷港人「末日都返工」　主角返工男：今日應全港停工" alt="【山竹襲港】網民二創諷港人「末日都返工」　主角返工男：今日應全港停工" class="photo"/>
+                        <span>【山竹襲港】網民二創諷港人「末日都返工」　主角返工男：今日應全港停工</span>
+                         <span class="small_view">20,970</span>                        <img src="https://staticlayout.appledaily.hk/web_images/layout/icons/overlay_play.png" class="overlay_play"/>
+                    </a>
+	            </div>
+	              	                        		                        		                        		                        		                                   
+			</li>
+			         			                			
+		</ul>
+				
+    <div class="clear"></div>
+</div>

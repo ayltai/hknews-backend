@@ -1,0 +1,151 @@
+swagger: '2.0'
+info:
+  description: Serves aggregated news from 10+ local news publishers in Hong Kong. Made with ❤
+  version: 1.0.0
+  title: HK News API
+
+  contact:
+    name: GitHub
+    url: https://github.com/ayltai/hknews-backend
+
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+
+tags:
+  - name: Read
+    description: Operations that read from the database
+
+paths:
+  /sources:
+    get:
+      tags:
+        - Read
+      summary: Gets all valid newspaper sources
+      description: Gets all valid newspaper sources
+      responses:
+        200:
+          description: All available news sources are returned
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/source'
+        404:
+          description: No valid newspaper sources found
+        500:
+          description: The operation might not be successful because something went wrong
+  /{sourceNames}/{categoryNames}/{day}:
+    get:
+      tags:
+        - Read
+      summary: Gets specific news records from the database
+      description: Gets news records of specific categories and sources from the database
+      parameters:
+        - in: path
+          name: sourceNames
+          required: true
+          type: array
+          items:
+            type: string
+            enum: ["蘋果日報", "東方日報", "星島日報", "星島即時", "經濟日報", "成報", "明報", "頭條日報", "頭條即時", "晴報", "信報", "香港電台", "南華早報", "英文虎報", "文匯報"]
+        - in: path
+          name: categoryNames
+          required: true
+          type: array
+          items:
+            type: string
+            enum: ["港聞", "國際", "兩岸", "經濟", "地產", "娛樂", "體育", "副刊", "教育", "即時港聞", "即時國際", "即時兩岸", "即時經濟", "即時地產", "即時娛樂", "即時體育", "即時副刊"]
+        - in: path
+          name: day
+          required: true
+          type: integer
+      produces:
+        - application/json
+      responses:
+        200:
+          description: News records were retrieved successfully
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/item'
+        400:
+          description: At least one of the parameters has invalid value
+
+definitions:
+  item:
+    type: object
+    required:
+      - url
+      - publishDate
+      - source
+      - category
+    properties:
+      title:
+        type: string
+      description:
+        type: string
+      url:
+        type: string
+      publishDate:
+        type: string
+      images:
+        type: array
+        items:
+          $ref: '#/definitions/image'
+      videos:
+        type: array
+        items:
+          $ref: '#/definitions/video'
+      source:
+        $ref: '#/definitions/source'
+      category:
+        $ref: '#/definitions/category'
+  image:
+    type: object
+    required:
+      - url
+    properties:
+      url:
+        type: string
+      description:
+        type: string
+  video:
+    type: object
+    required:
+      - videoUrl
+      - imageUrl
+    properties:
+      videoUrl:
+        type: string
+      imageUrl:
+        type: string
+  source:
+    type: object
+    required:
+      - name
+      - logoUrl
+      - categories
+    properties:
+      name:
+        type: string
+      imageUrl:
+        type: string
+      categories:
+        type: array
+        items:
+          $ref: '#/definitions/category'
+  category:
+    type: object
+    required:
+      - name
+      - url
+    properties:
+      name:
+        type: string
+      url:
+        type: string
+
+host: hknews.dev
+basePath: /
+schemes:
+  - https

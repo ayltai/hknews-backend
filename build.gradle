@@ -1,0 +1,210 @@
+buildscript {
+    repositories {
+        jcenter()
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'org.jacoco:org.jacoco.core:0.8.3'
+        classpath 'org.owasp:dependency-check-gradle:4.0.2'
+    }
+}
+
+plugins {
+    id 'org.springframework.boot' version '2.1.3.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.7.RELEASE'
+    id 'java'
+    id 'checkstyle'
+    id 'com.github.spotbugs' version '1.7.1'
+    id 'jacoco'
+    id 'org.owasp.dependencycheck' version '4.0.2'
+}
+
+String VERSION_REVISION = 'git rev-list --count HEAD'.execute().text.trim()
+String VERSION_HASH     = 'git rev-parse --short HEAD'.execute().text.trim()
+
+group   'com.github.ayltai'
+version '1.0.' + VERSION_REVISION + '-' + VERSION_HASH
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+configurations {
+    codacy
+
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+ext {
+    springVersion   = '2.1.3.RELEASE'
+    okhttpVersion   = '3.14.0'
+    retrofitVersion = '2.5.0'
+    lombokVersion   = '1.18.6'
+}
+
+repositories {
+    jcenter()
+    mavenCentral()
+    maven { url 'https://dl.bintray.com/mockito/maven' }
+    maven { url 'https://dl.bintray.com/typesafe/maven-releases' }
+}
+
+dependencies {
+    // Spring Boot
+    implementation ("org.springframework.boot:spring-boot-starter-web:$springVersion") {
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
+    }
+    implementation      "org.springframework.boot:spring-boot-starter-security:$springVersion"
+    implementation      "org.springframework.boot:spring-boot-starter-undertow:$springVersion"
+    implementation      "org.springframework.boot:spring-boot-starter-data-mongodb:$springVersion"
+    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor:$springVersion"
+
+    // HTTP networking
+    implementation "com.squareup.okhttp3:okhttp:$okhttpVersion"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okhttpVersion"
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-scalars:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-simplexml:$retrofitVersion"
+
+    // Utilities
+    implementation 'org.apache.commons:commons-lang3:3.8.1'
+
+    // Code generation tools
+    compileOnly             "org.projectlombok:lombok:$lombokVersion"
+    annotationProcessor     "org.projectlombok:lombok:$lombokVersion"
+    testCompileOnly         "org.projectlombok:lombok:$lombokVersion"
+    testAnnotationProcessor "org.projectlombok:lombok:$lombokVersion"
+
+    // JSON
+    implementation 'org.json:json:20180813'
+    implementation 'com.google.code.gson:gson:2.8.5'
+
+    // Testing
+    testImplementation 'junit:junit:4.12'
+    testImplementation 'org.mockito:mockito-core:2.25.7'
+    testImplementation "org.springframework.boot:spring-boot-starter-test:$springVersion"
+    testImplementation 'de.flapdoodle.embed:de.flapdoodle.embed.mongo:2.2.0'
+
+    // Code coverage
+    codacy 'com.codacy:codacy-coverage-reporter:5.0.310'
+}
+
+//region Checkstyle configurations
+
+checkstyle {
+    toolVersion    '8.18'
+    configFile     rootProject.file('./checkstyle.xml')
+    ignoreFailures true
+    showViolations true
+}
+
+tasks.withType(Checkstyle) {
+    source  'src/main/java'
+    include '**/*.java'
+    exclude '**/*Test.java'
+
+    reports {
+        xml.enabled      = project.hasProperty('ciBuild')
+        html.enabled     = !project.hasProperty('ciBuild')
+        xml.destination  file("$project.buildDir/reports/checkstyle/checkstyle-output.xml")
+        html.destination file("$project.buildDir/reports/checkstyle/checkstyle-output.html")
+    }
+}
+
+//endregion
+
+//region SpotBugs configurations
+
+spotbugs {
+    toolVersion    '3.1.12'
+    effort         'max'
+    reportLevel    'medium'
+    ignoreFailures true
+    excludeFilter  rootProject.file('./spotbugs-exclude.xml')
+}
+
+tasks.withType(com.github.spotbugs.SpotBugsTask) {
+    reports {
+        xml.enabled  = project.hasProperty('ciBuild')
+        html.enabled = !project.hasProperty('ciBuild')
+    }
+}
+
+//endregion
+
+//region JaCoCo configurations
+
+jacoco {
+    toolVersion '0.8.3'
+}
+
+jacocoTestReport {
+    dependsOn 'test'
+
+    reports {
+        xml.enabled  = true
+        html.enabled = true
+    }
+}
+
+tasks.withType(Test) {
+    jacoco.includeNoLocationClasses = true
+}
+
+//endregion
+
+check.dependsOn dependencyCheckAnalyze
+
+dependencyCheck {
+    suppressionFile = 'suppressions.xml'
+}
+
+//region Codacy configurations
+
+task uploadCoverageToCodacy(type : JavaExec, dependsOn : jacocoTestReport) {
+    main      = 'com.codacy.CodacyCoverageReporter'
+    classpath = configurations.codacy
+
+    args = [
+        'report',
+        '-l',
+        'Java',
+        '-r',
+        "${buildDir}/reports/jacoco/test/jacocoTestReport.xml"
+    ]
+}
+
+task (codacyDepsize) {
+    doLast {
+        def size = 0
+
+        configurations.codacy.collect {
+            it.length() / (1024 * 1024)
+        }.each {
+            size += it
+        }
+
+        println "Total dependencies size: ${Math.round(size * 100) / 100} MB"
+
+        configurations.codacy.sort {
+            -it.length()
+        }.each {
+            println "${it.name}: ${Math.round(it.length() / (1024) * 100) / 100} KB"
+        }
+    }
+}
+
+task (codacyLocs) {
+    doLast {
+        configurations.codacy.each {
+            String jarName = it
+
+            println jarName
+        }
+    }
+}
+
+//endregion

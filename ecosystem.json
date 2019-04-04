@@ -1,0 +1,12 @@
+{
+    "apps" : [{
+        "name"               : "hknews-backend",
+        "script"             : "java",
+        "interpreter"        : "none",
+        "args"               : "-server -Xverify:none -Xms240m -Xmx480m -Xss512k -XX:+UseConcMarkSweepGC -XX:+CMSParallelRemarkEnabled -XX:+ScavengeBeforeFullGC -XX:+CMSScavengeBeforeRemark -Dfile.encoding=UTF-8 -classpath ./build/libs/ com.github.ayltai.hknews.MainApplication",
+        "instances"          : 1,
+        "autorestart"        : true,
+        "watch"              : false,
+        "max_memory_restart" : "512M"
+    }]
+}
