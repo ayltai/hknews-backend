@@ -2,8 +2,6 @@ package com.github.ayltai.hknews.parser;
 
 import com.github.ayltai.hknews.data.model.Category;
 import com.github.ayltai.hknews.data.model.Item;
-import com.github.ayltai.hknews.data.repository.ItemRepository;
-import com.github.ayltai.hknews.data.repository.SourceRepository;
 import com.github.ayltai.hknews.net.ApiService;
 import com.github.ayltai.hknews.net.ApiServiceFactory;
 

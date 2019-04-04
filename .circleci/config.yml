@@ -48,7 +48,7 @@ jobs:
           name: Execute unit tests
           command: ./gradlew test
       - store_artifacts:
-          path: tests/test
+          path: build/reports/tests/test
           destination: /test/
       - *save_cache
       - run:
