@@ -11,13 +11,14 @@ buildscript {
 }
 
 plugins {
-    id 'org.springframework.boot' version '2.1.3.RELEASE'
+    id 'org.springframework.boot'        version '2.1.4.RELEASE'
     id 'io.spring.dependency-management' version '1.0.7.RELEASE'
     id 'java'
     id 'checkstyle'
-    id 'com.github.spotbugs' version '1.7.1'
+    id 'com.github.spotbugs'             version '1.7.1'
     id 'jacoco'
-    id 'org.owasp.dependencycheck' version '4.0.2'
+    id 'org.owasp.dependencycheck'       version '4.0.2'
+    id 'name.remal.check-updates'        version '1.0.121'
 }
 
 String VERSION_REVISION = 'git rev-list --count HEAD'.execute().text.trim()
@@ -37,8 +38,10 @@ configurations {
     }
 }
 
+//region Dependencies
+
 ext {
-    springVersion   = '2.1.3.RELEASE'
+    springVersion   = '2.1.4.RELEASE'
     okhttpVersion   = '3.14.0'
     retrofitVersion = '2.5.0'
     lombokVersion   = '1.18.6'
@@ -52,16 +55,16 @@ repositories {
 }
 
 dependencies {
-    // Spring Boot
     implementation ("org.springframework.boot:spring-boot-starter-web:$springVersion") {
-        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
+        exclude group : 'org.springframework.boot', module : 'spring-boot-starter-tomcat'
     }
     implementation      "org.springframework.boot:spring-boot-starter-security:$springVersion"
     implementation      "org.springframework.boot:spring-boot-starter-undertow:$springVersion"
     implementation      "org.springframework.boot:spring-boot-starter-data-mongodb:$springVersion"
+    implementation      "org.springframework.boot:spring-boot-starter-actuator:$springVersion"
+    testImplementation  "org.springframework.boot:spring-boot-starter-test:$springVersion"
     annotationProcessor "org.springframework.boot:spring-boot-configuration-processor:$springVersion"
 
-    // HTTP networking
     implementation "com.squareup.okhttp3:okhttp:$okhttpVersion"
     implementation "com.squareup.okhttp3:logging-interceptor:$okhttpVersion"
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
@@ -69,28 +72,16 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-scalars:$retrofitVersion"
     implementation "com.squareup.retrofit2:converter-simplexml:$retrofitVersion"
 
-    // Utilities
     implementation 'org.apache.commons:commons-lang3:3.8.1'
-
-    // Code generation tools
-    compileOnly             "org.projectlombok:lombok:$lombokVersion"
-    annotationProcessor     "org.projectlombok:lombok:$lombokVersion"
-    testCompileOnly         "org.projectlombok:lombok:$lombokVersion"
-    testAnnotationProcessor "org.projectlombok:lombok:$lombokVersion"
-
-    // JSON
     implementation 'org.json:json:20180813'
-    implementation 'com.google.code.gson:gson:2.8.5'
 
-    // Testing
-    testImplementation 'junit:junit:4.12'
-    testImplementation 'org.mockito:mockito-core:2.25.7'
-    testImplementation "org.springframework.boot:spring-boot-starter-test:$springVersion"
-    testImplementation 'de.flapdoodle.embed:de.flapdoodle.embed.mongo:2.2.0'
+    compileOnly         "org.projectlombok:lombok:$lombokVersion"
+    annotationProcessor "org.projectlombok:lombok:$lombokVersion"
 
-    // Code coverage
-    codacy 'com.codacy:codacy-coverage-reporter:5.0.310'
+    codacy 'com.codacy:codacy-coverage-reporter:6.0.0'
 }
+
+//endregion
 
 //region Checkstyle configurations
 
@@ -107,8 +98,8 @@ tasks.withType(Checkstyle) {
     exclude '**/*Test.java'
 
     reports {
-        xml.enabled      = project.hasProperty('ciBuild')
-        html.enabled     = !project.hasProperty('ciBuild')
+        xml.enabled      = true == System.getenv('CI')
+        html.enabled     = true == !System.getenv('CI')
         xml.destination  file("$project.buildDir/reports/checkstyle/checkstyle-output.xml")
         html.destination file("$project.buildDir/reports/checkstyle/checkstyle-output.html")
     }
@@ -128,8 +119,8 @@ spotbugs {
 
 tasks.withType(com.github.spotbugs.SpotBugsTask) {
     reports {
-        xml.enabled  = project.hasProperty('ciBuild')
-        html.enabled = !project.hasProperty('ciBuild')
+        xml.enabled  = true == System.getenv('CI')
+        html.enabled = true == !System.getenv('CI')
     }
 }
 
@@ -156,11 +147,15 @@ tasks.withType(Test) {
 
 //endregion
 
+//region OWASP dependency check configurations
+
 check.dependsOn dependencyCheckAnalyze
 
 dependencyCheck {
     suppressionFile = 'suppressions.xml'
 }
+
+//endregion
 
 //region Codacy configurations
 

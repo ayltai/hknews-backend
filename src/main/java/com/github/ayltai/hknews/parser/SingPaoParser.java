@@ -106,7 +106,7 @@ public final class SingPaoParser extends Parser {
             final String[] imageUrls         = StringUtils.substringsBetween(html, "target='_blank'><img src='", SingPaoParser.QUOTE);
             final String[] imageDescriptions = StringUtils.substringsBetween(html, "<font size='4'>", SingPaoParser.FONT);
 
-            if (imageUrls.length > 0) {
+            if (imageUrls != null && imageUrls.length > 0) {
                 for (int i = 0; i < imageUrls.length; i++) item.getImages().add(new Image(SingPaoParser.BASE_URI + imageUrls[i], imageDescriptions == null ? null : imageDescriptions.length > i ? imageDescriptions[i] : null));
             }
 
