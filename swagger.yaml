@@ -23,6 +23,11 @@ paths:
         - Read
       summary: Gets all valid newspaper sources
       description: Gets all valid newspaper sources
+      parameters:
+        - in: header
+          name: x-api-key
+          required: true
+          type: string
       responses:
         200:
           description: All available news sources are returned
@@ -34,13 +39,17 @@ paths:
           description: No valid newspaper sources found
         500:
           description: The operation might not be successful because something went wrong
-  /{sourceNames}/{categoryNames}/{day}:
+  /{sourceNames}/{categoryNames}/{days}:
     get:
       tags:
         - Read
       summary: Gets specific news records from the database
       description: Gets news records of specific categories and sources from the database
       parameters:
+        - in: header
+          name: x-api-key
+          required: true
+          type: string
         - in: path
           name: sourceNames
           required: true
@@ -56,7 +65,7 @@ paths:
             type: string
             enum: ["港聞", "國際", "兩岸", "經濟", "地產", "娛樂", "體育", "副刊", "教育", "即時港聞", "即時國際", "即時兩岸", "即時經濟", "即時地產", "即時娛樂", "即時體育", "即時副刊"]
         - in: path
-          name: day
+          name: days
           required: true
           type: integer
       produces:
