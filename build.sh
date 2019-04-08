@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-./gradlew assemble bootJar
+./gradlew clean assemble bootJar
