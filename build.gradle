@@ -41,10 +41,11 @@ configurations {
 //region Dependencies
 
 ext {
-    springVersion   = '2.1.4.RELEASE'
-    okhttpVersion   = '3.14.0'
-    retrofitVersion = '2.5.0'
-    lombokVersion   = '1.18.6'
+    springVersion        = '2.1.4.RELEASE'
+    okhttpVersion        = '3.14.0'
+    retrofitVersion      = '2.5.0'
+    lombokVersion        = '1.18.6'
+    embeddedMongoVersion = '2.2.0'
 }
 
 repositories {
@@ -55,6 +56,7 @@ repositories {
 }
 
 dependencies {
+    // Spring Boot
     implementation ("org.springframework.boot:spring-boot-starter-web:$springVersion") {
         exclude group : 'org.springframework.boot', module : 'spring-boot-starter-tomcat'
     }
@@ -62,9 +64,9 @@ dependencies {
     implementation      "org.springframework.boot:spring-boot-starter-undertow:$springVersion"
     implementation      "org.springframework.boot:spring-boot-starter-data-mongodb:$springVersion"
     implementation      "org.springframework.boot:spring-boot-starter-actuator:$springVersion"
-    testImplementation  "org.springframework.boot:spring-boot-starter-test:$springVersion"
     annotationProcessor "org.springframework.boot:spring-boot-configuration-processor:$springVersion"
 
+    // HTTP networking
     implementation "com.squareup.okhttp3:okhttp:$okhttpVersion"
     implementation "com.squareup.okhttp3:logging-interceptor:$okhttpVersion"
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
@@ -75,8 +77,13 @@ dependencies {
     implementation 'org.apache.commons:commons-lang3:3.8.1'
     implementation 'org.json:json:20180813'
 
+    // Code generation
     compileOnly         "org.projectlombok:lombok:$lombokVersion"
     annotationProcessor "org.projectlombok:lombok:$lombokVersion"
+
+    // Unit testing
+    testImplementation "org.springframework.boot:spring-boot-starter-test:$springVersion"
+    testImplementation "de.flapdoodle.embed:de.flapdoodle.embed.mongo:$embeddedMongoVersion"
 
     codacy 'com.codacy:codacy-coverage-reporter:6.0.0'
 }
