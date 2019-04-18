@@ -38,8 +38,7 @@ public final class AppleDailyParser extends Parser {
     private static final String OPEN_HEADER  = "<h3>";
     private static final String CLOSE_HEADER = "</h3>";
 
-    private static final int  TOKEN_COUNT = 4;
-    private static final long SECOND      = 1000;
+    private static final long SECOND = 1000;
 
     private static final ThreadLocal<DateFormat> DATE_FORMAT = ThreadLocal.withInitial(() -> new SimpleDateFormat("yyyyMMdd"));
 

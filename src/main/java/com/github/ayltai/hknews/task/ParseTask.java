@@ -8,6 +8,8 @@ import com.github.ayltai.hknews.data.repository.SourceRepository;
 import com.github.ayltai.hknews.net.ApiServiceFactory;
 import com.github.ayltai.hknews.parser.ParserFactory;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
 import org.springframework.scheduling.annotation.Async;
@@ -18,6 +20,8 @@ import java.io.IOException;
 
 @Component
 public class ParseTask {
+    private final static Logger LOGGER = LoggerFactory.getLogger(ParseTask.class);
+
     private final ApiServiceFactory apiServiceFactory;
     private final SourceRepository  sourceRepository;
     private final ItemRepository    itemRepository;
@@ -46,7 +50,7 @@ public class ParseTask {
                 .getItems(category)
                 .forEach(item -> this.parse(factory, source, item));
         } catch (final IOException e) {
-            //
+            ParseTask.LOGGER.error(e.getMessage(), e);
         }
     }
 
@@ -57,7 +61,7 @@ public class ParseTask {
                 .create(source.getName())
                 .getItem(item));
         } catch (final IOException e) {
-            //
+            ParseTask.LOGGER.error(e.getMessage(), e);
         }
     }
 }
