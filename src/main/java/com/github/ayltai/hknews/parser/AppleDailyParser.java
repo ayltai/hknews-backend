@@ -112,25 +112,11 @@ public final class AppleDailyParser extends Parser {
             .filter(Objects::nonNull)
             .collect(Collectors.toCollection((Supplier<Collection<Image>>)ArrayList::new)));
 
-        final String videoId = StringUtils.substringBetween(fullHtml, "var videoId = '", "';");
-        if (videoId != null) {
-            final String[] ids = item.getUrl().split(AppleDailyParser.SLASH);
-            final String   cat = ids[ids.length - AppleDailyParser.TOKEN_COUNT].replaceAll("news", "local").replaceAll("international", "chinainternational").replaceAll("financestate", "finance");
+        final String videoUrl = StringUtils.substringBetween(fullHtml, "var videoUrl = '", "';");
 
-            if (ids.length > AppleDailyParser.TOKEN_COUNT) {
-                final String json = StringUtils.substringBetween(this.apiServiceFactory.create().getHtml("https://hk.video.appledaily.com/video/videoplayer/" + ids[ids.length - 2] + AppleDailyParser.SLASH + cat + AppleDailyParser.SLASH + cat + AppleDailyParser.SLASH + ids[ids.length - 1] + AppleDailyParser.SLASH + videoId + "/0/0/0").execute().body(), "window.videoPlaylistOriginal = ", "];");
-                if (json != null) {
-                    final JSONArray array = new JSONArray(json + "]");
-                    for (int i = 0; i < array.length(); i++) {
-                        final JSONObject object = array.getJSONObject(i);
-                        if (videoId.equals(object.optString("video_id"))) {
-                            item.getVideos().add(new Video(object.optString("video"), object.optString("image_zoom")));
-
-                            break;
-                        }
-                    }
-                }
-            }
+        if (videoUrl != null) {
+            final String ngs = StringUtils.substringBetween(fullHtml, "var ngsobj = ", ";");
+            if (ngs != null) item.getVideos().add(new Video(videoUrl, new JSONObject(ngs).optString("ngs_thumbnail")));
         }
 
         return item;
