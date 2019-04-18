@@ -40,7 +40,7 @@ public abstract class RssParser extends Parser {
             .execute()
             .body();
 
-        if (feed.getItems() == null) return Collections.emptyList();
+        if (feed == null || feed.getItems() == null) return Collections.emptyList();
 
         return feed.getItems()
             .parallelStream()
