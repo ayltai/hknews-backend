@@ -19,7 +19,7 @@ plugins {
     id 'com.github.spotbugs'             version '1.7.1'
     id 'jacoco'
     id 'org.owasp.dependencycheck'       version '4.0.2'
-    id 'name.remal.check-updates'        version '1.0.124'
+    id 'name.remal.check-updates'        version '1.0.125'
 }
 
 String VERSION_REVISION = 'git rev-list --count HEAD'.execute().text.trim()

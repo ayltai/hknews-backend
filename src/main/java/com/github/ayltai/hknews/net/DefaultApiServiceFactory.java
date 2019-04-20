@@ -37,7 +37,7 @@ public final class DefaultApiServiceFactory implements ApiServiceFactory {
             .addConverterFactory(ScalarsConverterFactory.create())
             .addConverterFactory(SimpleXmlConverterFactory.create())
             .addConverterFactory(GsonConverterFactory.create())
-            .baseUrl("http://dummy.base.url")
+            .baseUrl("https://github.com")
             .client(new OkHttpClient.Builder()
                 .connectionPool(new ConnectionPool(this.config.getConnectionPoolSize(), this.config.getIdleTimeout(), TimeUnit.SECONDS))
                 .connectTimeout(this.config.getConnectTimeout(), TimeUnit.SECONDS)
