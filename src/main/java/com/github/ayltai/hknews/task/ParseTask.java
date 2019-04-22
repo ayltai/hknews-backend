@@ -50,7 +50,7 @@ public class ParseTask {
                 .getItems(category)
                 .forEach(item -> this.parse(factory, source, item));
         } catch (final IOException e) {
-            ParseTask.LOGGER.error(e.getMessage(), e);
+            ParseTask.LOGGER.error("Failed to retrieve URL: " + category.getUrl(), e);
         }
     }
 
@@ -61,7 +61,7 @@ public class ParseTask {
                 .create(source.getName())
                 .getItem(item));
         } catch (final IOException e) {
-            ParseTask.LOGGER.error(e.getMessage(), e);
+            ParseTask.LOGGER.error("Failed to parse URL: " + item.getUrl(), e);
         }
     }
 }

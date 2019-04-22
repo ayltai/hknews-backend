@@ -43,8 +43,14 @@ public abstract class RssParser extends Parser {
             .execute()
             .body();
 
-        if (feed == null || feed.getItems() == null) {
-            RssParser.LOGGER.warn("Failed to fetch any RSS feed from this URL: " + category.getUrl());
+        try {
+            if (feed == null || feed.getItems() == null) {
+                RssParser.LOGGER.warn("Failed to fetch any RSS feed from this URL: " + category.getUrl());
+
+                return Collections.emptyList();
+            }
+        } catch (final NullPointerException e) {
+            RssParser.LOGGER.warn("Failed to fetch any RSS feed from this URL: " + category.getUrl(), e);
 
             return Collections.emptyList();
         }
