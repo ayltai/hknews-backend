@@ -7,6 +7,7 @@ import com.github.ayltai.hknews.data.repository.SourceRepository;
 import com.github.ayltai.hknews.net.ApiServiceFactory;
 import com.github.ayltai.hknews.rss.Feed;
 
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.lang.NonNull;
 
@@ -23,6 +24,8 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 public abstract class RssParser extends Parser {
+    private static final Logger LOGGER = LoggerFactory.getLogger(RssParser.class.getSimpleName());
+
     private static final ThreadLocal<DateFormat> DATE_FORMAT = ThreadLocal.withInitial(() -> new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z", Locale.ENGLISH));
 
     RssParser(@NonNull @lombok.NonNull final ApiServiceFactory apiServiceFactory, @NonNull @lombok.NonNull final SourceRepository sourceRepository, @NonNull @lombok.NonNull final ItemRepository itemRepository) {
@@ -40,7 +43,11 @@ public abstract class RssParser extends Parser {
             .execute()
             .body();
 
-        if (feed == null || feed.getItems() == null) return Collections.emptyList();
+        if (feed == null || feed.getItems() == null) {
+            RssParser.LOGGER.warn("Failed to fetch any RSS feed from this URL: " + category.getUrl());
+
+            return Collections.emptyList();
+        }
 
         return feed.getItems()
             .parallelStream()
