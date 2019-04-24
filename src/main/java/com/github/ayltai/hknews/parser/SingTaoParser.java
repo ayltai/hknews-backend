@@ -74,7 +74,7 @@ public final class SingTaoParser extends Parser {
                     item.setTitle(StringUtils.substringBetween(section, "<div class=\"title\">", SingTaoParser.CLOSE));
                     item.setDescription(StringUtils.substringBetween(section, "<div class=\"des\">　　(星島日報報道)", SingTaoParser.CLOSE));
                     item.setUrl(SingTaoParser.BASE_URI + url);
-                    item.setPublishDate(SingTaoParser.DATE_FORMAT.get().parse(date));
+                    item.setPublishDate(Parser.toSafeDate(SingTaoParser.DATE_FORMAT.get().parse(date)));
                     item.setSource(this.getSource());
                     item.setCategory(category);
 

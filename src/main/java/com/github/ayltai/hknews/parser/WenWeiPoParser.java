@@ -76,7 +76,7 @@ public final class WenWeiPoParser extends Parser {
                 calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(times[0]));
                 calendar.set(Calendar.MINUTE, Integer.parseInt(times[1]));
 
-                item.setPublishDate(calendar.getTime());
+                item.setPublishDate(Parser.toSafeDate(calendar.getTime()));
 
                 return item;
             })

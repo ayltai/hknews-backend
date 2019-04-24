@@ -75,7 +75,7 @@ public final class SingPaoParser extends Parser {
                     item.setTitle(StringUtils.substringBetween(section, "class='list_title'>", "</a>"));
                     item.setDescription(StringUtils.substringBetween(section, "<br><br>\n", SingPaoParser.FONT));
                     item.setUrl(SingPaoParser.BASE_URI + url);
-                    item.setPublishDate(SingPaoParser.DATE_FORMAT.get().parse(date));
+                    item.setPublishDate(Parser.toSafeDate(SingPaoParser.DATE_FORMAT.get().parse(date)));
                     item.setSource(this.getSource());
                     item.setCategory(category);
 

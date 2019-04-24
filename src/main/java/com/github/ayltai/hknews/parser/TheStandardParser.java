@@ -84,7 +84,7 @@ public final class TheStandardParser extends Parser {
                     item.setTitle(StringUtils.substringBetween(StringUtils.substringBetween(section, "<h1>", "</h1>"), "\">", "</a>"));
                     item.setDescription(StringUtils.substringBetween(section, TheStandardParser.OPEN_PARAGRAPH, TheStandardParser.CLOSE_PARAGRAPH));
                     item.setUrl(TheStandardParser.BASE_URL + url);
-                    item.setPublishDate((date.length() > TheStandardParser.FORMAT_SHORT.length() ? TheStandardParser.DATE_FORMAT_LONG : TheStandardParser.DATE_FORMAT_SHORT).get().parse(date));
+                    item.setPublishDate(Parser.toSafeDate((date.length() > TheStandardParser.FORMAT_SHORT.length() ? TheStandardParser.DATE_FORMAT_LONG : TheStandardParser.DATE_FORMAT_SHORT).get().parse(date)));
                     item.setSource(this.getSource());
                     item.setCategory(category);
 

@@ -77,7 +77,7 @@ public final class AppleDailyParser extends Parser {
 
                 item.setTitle(StringUtils.substringBetween(section, AppleDailyParser.TITLE, AppleDailyParser.QUOTE));
                 item.setUrl(url.substring(0, url.lastIndexOf(AppleDailyParser.SLASH)).replaceAll("video", "news").replaceAll("actionnews/local", "local/daily/article").replaceAll("actionnews/international", "international/daily/article").replaceAll("actionnews/finance", "finance/daily/article").replaceAll("actionnews/entertainment", "entertainment/daily/article").replaceAll("actionnews/sports", "sports/daily/article"));
-                item.setPublishDate(new Date(Long.parseLong(time) * AppleDailyParser.SECOND));
+                item.setPublishDate(Parser.toSafeDate(new Date(Long.parseLong(time) * AppleDailyParser.SECOND)));
                 item.setSource(this.getSource());
                 item.setCategory(category);
 

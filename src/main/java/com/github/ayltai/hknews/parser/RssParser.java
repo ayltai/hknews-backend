@@ -18,6 +18,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.function.Supplier;
@@ -37,45 +38,45 @@ public abstract class RssParser extends Parser {
     public final Collection<Item> getItems(@NonNull final Category category) throws IOException {
         if (category.getUrl() == null) return Collections.emptyList();
 
-        final Feed feed = this.apiServiceFactory
-            .create()
-            .getFeed(category.getUrl())
-            .execute()
-            .body();
-
         try {
+            final Feed feed = this.apiServiceFactory
+                .create()
+                .getFeed(category.getUrl())
+                .execute()
+                .body();
+
             if (feed == null || feed.getItems() == null) {
                 RssParser.LOGGER.warn("Failed to fetch any RSS feed from this URL: " + category.getUrl());
+            } else {
+                return feed.getItems()
+                    .parallelStream()
+                    .filter(rssItem -> rssItem.getLink() != null)
+                    .map(rssItem -> {
+                        try {
+                            final Item item = new Item();
 
-                return Collections.emptyList();
+                            item.setDescription(rssItem.getDescription().trim());
+                            item.setUrl(rssItem.getTitle().trim());
+                            item.setPublishDate(Parser.toSafeDate(RssParser.DATE_FORMAT.get().parse(rssItem.getPubDate().trim())));
+                            item.setSource(this.getSource());
+                            item.setCategory(category);
+
+                            return item;
+                        } catch (final ParseException e) {
+                            LoggerFactory.getLogger(this.getClass()).warn(e.getMessage(), e);
+                        }
+
+                        return null;
+                    })
+                    .filter(Objects::nonNull)
+                    .collect(Collectors.toCollection((Supplier<Collection<Item>>)ArrayList::new));
             }
         } catch (final NullPointerException e) {
             RssParser.LOGGER.warn("Failed to fetch any RSS feed from this URL: " + category.getUrl(), e);
-
-            return Collections.emptyList();
+        } catch (final RuntimeException e) {
+            RssParser.LOGGER.warn("Parse error for URL: " + category.getUrl(), e);
         }
 
-        return feed.getItems()
-            .parallelStream()
-            .filter(rssItem -> rssItem.getLink() != null)
-            .map(rssItem -> {
-                try {
-                    final Item item = new Item();
-
-                    item.setDescription(rssItem.getDescription().trim());
-                    item.setUrl(rssItem.getTitle().trim());
-                    item.setPublishDate(RssParser.DATE_FORMAT.get().parse(rssItem.getPubDate().trim()));
-                    item.setSource(this.getSource());
-                    item.setCategory(category);
-
-                    return item;
-                } catch (final ParseException e) {
-                    LoggerFactory.getLogger(this.getClass()).warn(e.getMessage(), e);
-                }
-
-                return null;
-            })
-            .filter(Objects::nonNull)
-            .collect(Collectors.toCollection((Supplier<Collection<Item>>)ArrayList::new));
+        return Collections.emptyList();
     }
 }

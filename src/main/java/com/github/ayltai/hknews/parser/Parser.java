@@ -11,6 +11,7 @@ import org.springframework.lang.NonNull;
 
 import java.io.IOException;
 import java.util.Collection;
+import java.util.Date;
 
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -37,4 +38,10 @@ public abstract class Parser {
 
     @NonNull
     public abstract Item getItem(@NonNull @lombok.NonNull Item item) throws IOException;
+
+    protected static Date toSafeDate(@NonNull @lombok.NonNull final Date date) {
+        final Date now = new Date();
+
+        return date.after(now) ? now : date;
+    }
 }

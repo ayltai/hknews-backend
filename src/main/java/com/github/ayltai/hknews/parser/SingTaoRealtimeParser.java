@@ -72,7 +72,7 @@ public final class SingTaoRealtimeParser extends Parser {
                     final Item item = new Item();
 
                     item.setUrl(url.replaceAll(Pattern.quote("instant/../instant"), "instant"));
-                    item.setPublishDate(SingTaoRealtimeParser.DATE_FORMAT.get().parse(date));
+                    item.setPublishDate(Parser.toSafeDate(SingTaoRealtimeParser.DATE_FORMAT.get().parse(date)));
                     item.setSource(this.getSource());
                     item.setCategory(category);
 

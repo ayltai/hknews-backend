@@ -75,7 +75,7 @@ public final class HeadlineRealtimeParser extends Parser {
                     item.setTitle(StringUtils.substringBetween(title, "\">", HeadlineRealtimeParser.LINK));
                     item.setDescription(StringUtils.substringBetween(section, "<p class=\"text\">", "</p>"));
                     item.setUrl(title == null ? HeadlineRealtimeParser.BASE_URI : HeadlineRealtimeParser.BASE_URI + StringUtils.substringBetween(title, "<a href=\"", "\" "));
-                    item.setPublishDate(HeadlineRealtimeParser.DATE_FORMAT.get().parse(date));
+                    item.setPublishDate(Parser.toSafeDate(HeadlineRealtimeParser.DATE_FORMAT.get().parse(date)));
                     item.setSource(this.getSource());
                     item.setCategory(category);
 

@@ -51,6 +51,8 @@ public class ParseTask {
                 .forEach(item -> this.parse(factory, source, item));
         } catch (final IOException e) {
             ParseTask.LOGGER.error("Failed to retrieve URL: " + category.getUrl(), e);
+        } catch (final Exception e) {
+            ParseTask.LOGGER.error("An unexpected error has occurred for URL: " + category.getUrl(), e);
         }
     }
 
@@ -62,6 +64,8 @@ public class ParseTask {
                 .getItem(item));
         } catch (final IOException e) {
             ParseTask.LOGGER.error("Failed to parse URL: " + item.getUrl(), e);
+        } catch (final Exception e) {
+            ParseTask.LOGGER.error("An unexpected error has occurred for URL: " + item.getUrl(), e);
         }
     }
 }
