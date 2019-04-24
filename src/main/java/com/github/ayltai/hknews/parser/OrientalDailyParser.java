@@ -49,7 +49,7 @@ public final class OrientalDailyParser extends RssParser {
 
     @NonNull
     @Override
-    public Item getItem(@NonNull final Item item) throws IOException {
+    public Item getItem(@NonNull @lombok.NonNull final Item item) throws IOException {
         if (item.getUrl() == null) throw new NullPointerException("Item URL cannot be null");
 
         final String html = StringUtils.substringBetween(this.apiServiceFactory.create().getHtml(item.getUrl()).execute().body(), "<div id=\"contentCTN-top\"", "<div id=\"articleNav\">");
@@ -83,7 +83,7 @@ public final class OrientalDailyParser extends RssParser {
         return item;
     }
 
-    private static Video extractVideo(@NonNull final String url, @NonNull final String date, @NonNull final String videoContainer) {
+    private static Video extractVideo(@NonNull @lombok.NonNull final String url, @NonNull @lombok.NonNull final String date, @NonNull @lombok.NonNull final String videoContainer) {
         final String link = StringUtils.substringBetween(url, date + OrientalDailyParser.SLASH, ".html");
         if (link == null) return null;
 

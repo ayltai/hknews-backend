@@ -44,7 +44,7 @@ public final class MingPaoParser extends RssParser {
 
     @NonNull
     @Override
-    public Item getItem(@NonNull final Item item) throws IOException {
+    public Item getItem(@NonNull @lombok.NonNull final Item item) throws IOException {
         if (item.getUrl() == null) throw new IllegalArgumentException("Item URL cannot be null");
 
         final String html = StringUtils.substringBetween(this.apiServiceFactory.create().getHtml(item.getUrl()).execute().body(), "<hgroup>", "<div id=\"ssm2\" class=\"ssm\">");

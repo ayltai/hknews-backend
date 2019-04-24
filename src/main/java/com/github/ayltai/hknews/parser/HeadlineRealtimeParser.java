@@ -57,7 +57,7 @@ public final class HeadlineRealtimeParser extends Parser {
 
     @NonNull
     @Override
-    public Collection<Item> getItems(@NonNull final Category category) throws IOException {
+    public Collection<Item> getItems(@NonNull @lombok.NonNull final Category category) throws IOException {
         if (category.getUrl() == null) return Collections.emptyList();
 
         final String[] sections = StringUtils.substringsBetween(this.apiServiceFactory.create().getHtml(category.getUrl()).execute().body(), "<div class=\"topic\">", "<p class=\"text-left\">");
@@ -93,7 +93,7 @@ public final class HeadlineRealtimeParser extends Parser {
 
     @NonNull
     @Override
-    public Item getItem(@NonNull final Item item) throws IOException {
+    public Item getItem(@NonNull @lombok.NonNull final Item item) throws IOException {
         if (item.getUrl() == null) throw new IllegalArgumentException("Item URL cannot be null");
 
         final String html = this.apiServiceFactory.create().getHtml(item.getUrl()).execute().body();

@@ -323,31 +323,31 @@
         "categories" : [
             {
                 "name" : "港聞",
-                "url"  : "http://skypost.ulifestyle.com.hk/rss/sras001"
+                "url"  : "https://skypost.ulifestyle.com.hk/sras001"
             },
             {
                 "name" : "國際",
-                "url"  : "http://skypost.ulifestyle.com.hk/rss/sras004"
+                "url"  : "https://skypost.ulifestyle.com.hk/sras004"
             },
             {
                 "name" : "經濟",
-                "url"  : "http://skypost.ulifestyle.com.hk/rss/sras003"
+                "url"  : "https://skypost.ulifestyle.com.hk/sras003"
             },
             {
                 "name" : "娛樂",
-                "url"  : "http://skypost.ulifestyle.com.hk/rss/sras002"
+                "url"  : "https://skypost.ulifestyle.com.hk/sras002"
             },
             {
                 "name" : "體育",
-                "url"  : "http://skypost.ulifestyle.com.hk/rss/sras005"
+                "url"  : "https://skypost.ulifestyle.com.hk/sras005"
             },
             {
                 "name" : "副刊",
-                "url"  : "http://skypost.ulifestyle.com.hk/rss/sras006"
+                "url"  : "https://skypost.ulifestyle.com.hk/sras006"
             },
             {
                 "name" : "教育",
-                "url"  : "http://skypost.ulifestyle.com.hk/rss/sras007"
+                "url"  : "https://skypost.ulifestyle.com.hk/sras007"
             }
         ]
     },

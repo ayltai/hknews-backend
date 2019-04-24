@@ -60,7 +60,7 @@ public final class AppleDailyParser extends Parser {
 
     @NonNull
     @Override
-    public Collection<Item> getItems(@NonNull final Category category) throws IOException {
+    public Collection<Item> getItems(@NonNull @lombok.NonNull final Category category) throws IOException {
         if (category.getUrl() == null) return Collections.emptyList();
 
         final String[] sections = StringUtils.substringsBetween(StringUtils.substringBetween(this.apiServiceFactory.create().getHtml(category.getUrl().replaceAll(Pattern.quote("{}"), AppleDailyParser.DATE_FORMAT.get().format(new Date()))).execute().body(), "<div class=\"itemContainer\"", "<div class=\"clear\"></div>"), "<div class=\"item\">", AppleDailyParser.DIV);
@@ -90,7 +90,7 @@ public final class AppleDailyParser extends Parser {
 
     @NonNull
     @Override
-    public Item getItem(@NonNull final Item item) throws IOException {
+    public Item getItem(@NonNull @lombok.NonNull final Item item) throws IOException {
         if (item.getUrl() == null) throw new IllegalArgumentException("Item URL cannot be null");
 
         final String fullHtml = this.apiServiceFactory.create().getHtml(item.getUrl()).execute().body();

@@ -55,7 +55,7 @@ public final class ParserFactory {
 
     @SuppressWarnings("CyclomaticComplexity")
     @NonNull
-    public Parser create(@NonNull final String sourceName) {
+    public Parser create(@NonNull @lombok.NonNull final String sourceName) {
         switch (sourceName) {
             case ParserFactory.SOURCE_APPLE_DAILY:
                 return new AppleDailyParser(this.apiServiceFactory, this.sourceRepository, this.itemRepository);

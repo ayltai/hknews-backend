@@ -34,7 +34,7 @@ public abstract class RssParser extends Parser {
 
     @NonNull
     @Override
-    public final Collection<Item> getItems(@NonNull final Category category) throws IOException {
+    public final Collection<Item> getItems(@NonNull @lombok.NonNull final Category category) throws IOException {
         if (category.getUrl() == null) return Collections.emptyList();
 
         try {

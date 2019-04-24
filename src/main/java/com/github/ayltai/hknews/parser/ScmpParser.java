@@ -44,7 +44,7 @@ public final class ScmpParser extends RssParser {
 
     @NonNull
     @Override
-    public Item getItem(@NonNull final Item item) throws IOException {
+    public Item getItem(@NonNull @lombok.NonNull final Item item) throws IOException {
         if (item.getUrl() == null) throw new IllegalArgumentException("Item URL cannot be null");
 
         final String html = this.apiServiceFactory.create().getHtml(item.getUrl()).execute().body();

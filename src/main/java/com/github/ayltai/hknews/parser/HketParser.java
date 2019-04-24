@@ -44,7 +44,7 @@ public final class HketParser extends RssParser {
 
     @NonNull
     @Override
-    public Item getItem(@NonNull final Item item) throws IOException {
+    public Item getItem(@NonNull @lombok.NonNull final Item item) throws IOException {
         if (item.getUrl() == null) throw new IllegalArgumentException("Item URL cannot be null");
 
         final String html = StringUtils.substringBetween(this.apiServiceFactory.create().getHtml(item.getUrl()).execute().body(), "<div class=\"article-detail\">", "<div class=\"readAll-btn-container\">");
@@ -69,7 +69,7 @@ public final class HketParser extends RssParser {
         return item;
     }
 
-    private static Image extractImage(@NonNull final String imageContainer) {
+    private static Image extractImage(@NonNull @lombok.NonNull final String imageContainer) {
         final String imageUrl = StringUtils.substringBetween(imageContainer, "data-src=\"", HketParser.QUOTE);
         if (imageUrl == null) return null;
 

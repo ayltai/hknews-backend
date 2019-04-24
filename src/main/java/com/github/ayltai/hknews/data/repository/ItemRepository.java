@@ -14,5 +14,5 @@ public interface ItemRepository extends MongoRepository<Item, Integer> {
     @NonNull
     List<Item> findBySourceInAndCategoryNameInAndPublishDateAfter(@NonNull @lombok.NonNull Collection<String> sourceNames, @NonNull @lombok.NonNull Collection<String> categoryNames, @NonNull @lombok.NonNull Date publishDate, @NonNull @lombok.NonNull Sort sort);
 
-    long deleteByPublishDateBefore(@NonNull Date publishDate);
+    long deleteByPublishDateBefore(@NonNull @lombok.NonNull Date publishDate);
 }
