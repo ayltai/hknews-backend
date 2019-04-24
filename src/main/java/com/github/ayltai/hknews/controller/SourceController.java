@@ -1,9 +1,10 @@
 package com.github.ayltai.hknews.controller;
 
-import com.github.ayltai.hknews.data.model.Source;
-import com.github.ayltai.hknews.data.repository.SourceRepository;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,11 +13,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
-import java.util.List;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import com.github.ayltai.hknews.data.model.Source;
+import com.github.ayltai.hknews.data.repository.SourceRepository;
 
 @RestController
 @RequestMapping("/sources")

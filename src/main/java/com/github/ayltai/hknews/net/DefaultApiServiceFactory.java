@@ -1,6 +1,6 @@
 package com.github.ayltai.hknews.net;
 
-import com.github.ayltai.hknews.AppConfig;
+import java.util.concurrent.TimeUnit;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
-import java.util.concurrent.TimeUnit;
+import com.github.ayltai.hknews.AppConfig;
 
 import okhttp3.ConnectionPool;
 import okhttp3.OkHttpClient;

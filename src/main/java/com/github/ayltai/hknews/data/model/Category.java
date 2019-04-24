@@ -1,9 +1,9 @@
 package com.github.ayltai.hknews.data.model;
 
-import org.springframework.lang.NonNull;
-
 import java.util.Arrays;
 import java.util.Collection;
+
+import org.springframework.lang.NonNull;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;

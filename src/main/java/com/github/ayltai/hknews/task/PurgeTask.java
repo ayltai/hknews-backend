@@ -1,7 +1,6 @@
 package com.github.ayltai.hknews.task;
 
-import com.github.ayltai.hknews.AppConfig;
-import com.github.ayltai.hknews.data.repository.ItemRepository;
+import java.util.Calendar;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
@@ -9,7 +8,8 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import java.util.Calendar;
+import com.github.ayltai.hknews.AppConfig;
+import com.github.ayltai.hknews.data.repository.ItemRepository;
 
 @Component
 public class PurgeTask {

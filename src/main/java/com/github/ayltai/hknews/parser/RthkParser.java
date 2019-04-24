@@ -1,5 +1,13 @@
 package com.github.ayltai.hknews.parser;
 
+import java.io.IOException;
+
+import org.apache.commons.lang3.StringUtils;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.lang.NonNull;
+
 import com.github.ayltai.hknews.data.model.Image;
 import com.github.ayltai.hknews.data.model.Item;
 import com.github.ayltai.hknews.data.model.Source;
@@ -7,13 +15,6 @@ import com.github.ayltai.hknews.data.model.Video;
 import com.github.ayltai.hknews.data.repository.ItemRepository;
 import com.github.ayltai.hknews.data.repository.SourceRepository;
 import com.github.ayltai.hknews.net.ApiServiceFactory;
-
-import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.lang.NonNull;
-
-import java.io.IOException;
 
 public final class RthkParser extends RssParser {
     private static final Logger LOGGER = LoggerFactory.getLogger(RthkParser.class);

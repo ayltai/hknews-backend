@@ -1,8 +1,8 @@
 package com.github.ayltai.hknews.net;
 
-import com.github.ayltai.hknews.rss.Feed;
-
 import org.springframework.lang.NonNull;
+
+import com.github.ayltai.hknews.rss.Feed;
 
 import retrofit2.Call;
 import retrofit2.http.Field;

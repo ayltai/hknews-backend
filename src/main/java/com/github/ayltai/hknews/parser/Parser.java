@@ -1,17 +1,17 @@
 package com.github.ayltai.hknews.parser;
 
+import java.io.IOException;
+import java.util.Collection;
+import java.util.Date;
+
+import org.springframework.lang.NonNull;
+
 import com.github.ayltai.hknews.data.model.Category;
 import com.github.ayltai.hknews.data.model.Item;
 import com.github.ayltai.hknews.data.model.Source;
 import com.github.ayltai.hknews.data.repository.ItemRepository;
 import com.github.ayltai.hknews.data.repository.SourceRepository;
 import com.github.ayltai.hknews.net.ApiServiceFactory;
-
-import org.springframework.lang.NonNull;
-
-import java.io.IOException;
-import java.util.Collection;
-import java.util.Date;
 
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;

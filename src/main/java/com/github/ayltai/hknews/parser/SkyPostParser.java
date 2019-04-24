@@ -1,15 +1,5 @@
 package com.github.ayltai.hknews.parser;
 
-import com.github.ayltai.hknews.data.model.Image;
-import com.github.ayltai.hknews.data.model.Item;
-import com.github.ayltai.hknews.data.model.Source;
-import com.github.ayltai.hknews.data.repository.ItemRepository;
-import com.github.ayltai.hknews.data.repository.SourceRepository;
-import com.github.ayltai.hknews.net.ApiServiceFactory;
-
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.lang.NonNull;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -18,7 +8,19 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public final class SkyPostParser extends RssParser {
+import org.apache.commons.lang3.StringUtils;
+
+import org.springframework.lang.NonNull;
+
+import com.github.ayltai.hknews.data.model.Category;
+import com.github.ayltai.hknews.data.model.Image;
+import com.github.ayltai.hknews.data.model.Item;
+import com.github.ayltai.hknews.data.model.Source;
+import com.github.ayltai.hknews.data.repository.ItemRepository;
+import com.github.ayltai.hknews.data.repository.SourceRepository;
+import com.github.ayltai.hknews.net.ApiServiceFactory;
+
+public final class SkyPostParser extends Parser {
     //region Constants
 
     private static final String CLOSE_HEADER = "</h3>";

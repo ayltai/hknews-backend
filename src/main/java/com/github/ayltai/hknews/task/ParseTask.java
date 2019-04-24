@@ -1,12 +1,6 @@
 package com.github.ayltai.hknews.task;
 
-import com.github.ayltai.hknews.data.model.Category;
-import com.github.ayltai.hknews.data.model.Item;
-import com.github.ayltai.hknews.data.model.Source;
-import com.github.ayltai.hknews.data.repository.ItemRepository;
-import com.github.ayltai.hknews.data.repository.SourceRepository;
-import com.github.ayltai.hknews.net.ApiServiceFactory;
-import com.github.ayltai.hknews.parser.ParserFactory;
+import java.io.IOException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,7 +10,13 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import java.io.IOException;
+import com.github.ayltai.hknews.data.model.Category;
+import com.github.ayltai.hknews.data.model.Item;
+import com.github.ayltai.hknews.data.model.Source;
+import com.github.ayltai.hknews.data.repository.ItemRepository;
+import com.github.ayltai.hknews.data.repository.SourceRepository;
+import com.github.ayltai.hknews.net.ApiServiceFactory;
+import com.github.ayltai.hknews.parser.ParserFactory;
 
 @Component
 public class ParseTask {

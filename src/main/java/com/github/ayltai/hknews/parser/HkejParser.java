@@ -1,17 +1,18 @@
 package com.github.ayltai.hknews.parser;
 
+import java.io.IOException;
+import java.util.stream.Stream;
+
+import org.apache.commons.lang3.StringUtils;
+
+import org.springframework.lang.NonNull;
+
 import com.github.ayltai.hknews.data.model.Image;
 import com.github.ayltai.hknews.data.model.Item;
 import com.github.ayltai.hknews.data.model.Source;
 import com.github.ayltai.hknews.data.repository.ItemRepository;
 import com.github.ayltai.hknews.data.repository.SourceRepository;
 import com.github.ayltai.hknews.net.ApiServiceFactory;
-
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.lang.NonNull;
-
-import java.io.IOException;
-import java.util.stream.Stream;
 
 public final class HkejParser extends RssParser {
     //region Constants

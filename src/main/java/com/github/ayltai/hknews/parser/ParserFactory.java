@@ -1,12 +1,12 @@
 package com.github.ayltai.hknews.parser;
 
-import com.github.ayltai.hknews.data.repository.ItemRepository;
-import com.github.ayltai.hknews.data.repository.SourceRepository;
-import com.github.ayltai.hknews.net.ApiServiceFactory;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
+
+import com.github.ayltai.hknews.data.repository.ItemRepository;
+import com.github.ayltai.hknews.data.repository.SourceRepository;
+import com.github.ayltai.hknews.net.ApiServiceFactory;
 
 @Component
 public final class ParserFactory {

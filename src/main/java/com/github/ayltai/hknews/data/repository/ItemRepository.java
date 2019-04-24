@@ -1,14 +1,14 @@
 package com.github.ayltai.hknews.data.repository;
 
-import com.github.ayltai.hknews.data.model.Item;
+import java.util.Collection;
+import java.util.Date;
+import java.util.List;
 
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.lang.NonNull;
 
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
+import com.github.ayltai.hknews.data.model.Item;
 
 public interface ItemRepository extends MongoRepository<Item, Integer> {
     @NonNull

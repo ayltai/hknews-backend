@@ -1,9 +1,9 @@
 package com.github.ayltai.hknews.security;
 
+import java.util.Collections;
+
 import org.springframework.lang.Nullable;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
-
-import java.util.Collections;
 
 final class ApiKeyAuthenticationToken extends AbstractAuthenticationToken {
     private final String apiKey;

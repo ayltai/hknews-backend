@@ -1,16 +1,5 @@
 package com.github.ayltai.hknews.parser;
 
-import com.github.ayltai.hknews.data.model.Category;
-import com.github.ayltai.hknews.data.model.Item;
-import com.github.ayltai.hknews.data.repository.ItemRepository;
-import com.github.ayltai.hknews.data.repository.SourceRepository;
-import com.github.ayltai.hknews.net.ApiServiceFactory;
-import com.github.ayltai.hknews.rss.Feed;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.lang.NonNull;
-
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -18,11 +7,21 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.lang.NonNull;
+
+import com.github.ayltai.hknews.data.model.Category;
+import com.github.ayltai.hknews.data.model.Item;
+import com.github.ayltai.hknews.data.repository.ItemRepository;
+import com.github.ayltai.hknews.data.repository.SourceRepository;
+import com.github.ayltai.hknews.net.ApiServiceFactory;
+import com.github.ayltai.hknews.rss.Feed;
 
 public abstract class RssParser extends Parser {
     private static final Logger LOGGER = LoggerFactory.getLogger(RssParser.class.getSimpleName());
@@ -56,7 +55,7 @@ public abstract class RssParser extends Parser {
                             final Item item = new Item();
 
                             item.setDescription(rssItem.getDescription().trim());
-                            item.setUrl(rssItem.getTitle().trim());
+                            item.setUrl(rssItem.getLink().trim());
                             item.setPublishDate(Parser.toSafeDate(RssParser.DATE_FORMAT.get().parse(rssItem.getPubDate().trim())));
                             item.setSource(this.getSource());
                             item.setCategory(category);
