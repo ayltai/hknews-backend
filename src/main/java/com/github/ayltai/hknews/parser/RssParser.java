@@ -54,6 +54,7 @@ public abstract class RssParser extends Parser {
                         try {
                             final Item item = new Item();
 
+                            item.setTitle(rssItem.getTitle());
                             item.setDescription(rssItem.getDescription().trim());
                             item.setUrl(rssItem.getLink().trim());
                             item.setPublishDate(Parser.toSafeDate(RssParser.DATE_FORMAT.get().parse(rssItem.getPubDate().trim())));
