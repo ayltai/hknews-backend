@@ -7,7 +7,6 @@ buildscript {
     dependencies {
         classpath 'org.jacoco:org.jacoco.core:0.8.3'
         classpath 'org.owasp:dependency-check-gradle:4.0.2'
-        classpath 'name.remal:gradle-plugins:1.0.124'
     }
 }
 
@@ -19,7 +18,7 @@ plugins {
     id 'com.github.spotbugs'             version '1.7.1'
     id 'jacoco'
     id 'org.owasp.dependencycheck'       version '4.0.2'
-    id 'name.remal.check-updates'        version '1.0.126'
+    id 'com.github.ben-manes.versions'   version '0.21.0'
 }
 
 String VERSION_REVISION = 'git rev-list --count HEAD'.execute().text.trim()
@@ -94,7 +93,7 @@ dependencies {
 //region Checkstyle configurations
 
 checkstyle {
-    toolVersion    '8.18'
+    toolVersion    '8.20'
     configFile     rootProject.file('./checkstyle.xml')
     ignoreFailures true
     showViolations true
