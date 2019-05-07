@@ -26,11 +26,10 @@ import com.github.ayltai.hknews.net.ApiServiceFactory;
 public final class ScmpParser extends RssParser {
     //region Constants
 
-    private static final String JSON_PREFIX   = "{\"type\":\"json\"";
+    private static final String JSON_PREFIX   = "}]})\":{\"type\":\"json\"";
     private static final String JSON_TYPE     = "type";
     private static final String JSON_CHILDREN = "children";
     private static final String JSON_ATTRIBS  = "attribs";
-    private static final String DIV           = "</div>";
     private static final String QUOTE         = "\"";
 
     //endregion
@@ -57,13 +56,13 @@ public final class ScmpParser extends RssParser {
         final String html = this.apiServiceFactory.create().getHtml(item.getUrl()).execute().body();
 
         if (html != null) {
-            final String image = StringUtils.substringBetween(html, "images.0\":", ",\"isSlideshow\"");
-            if (image != null) item.getImages().add(new Image(StringUtils.substringBetween("\"url\":\"", ScmpParser.QUOTE), StringUtils.substringBetween("{\"title\":\"", ScmpParser.QUOTE)));
+            final String image = StringUtils.substringBetween(html, "images.0\":{\"title\"", ",\"isSlideshow\"");
+            if (image != null) item.getImages().add(new Image(StringUtils.substringBetween(image, "\"url\":\"", ScmpParser.QUOTE), StringUtils.substringBetween("{\"title\"" + image, "{\"title\":\"", ScmpParser.QUOTE)));
 
             final String mainContent = StringUtils.substringBetween(html, ScmpParser.JSON_PREFIX, ",\"sections\"");
             if (mainContent == null) return item;
 
-            final JSONArray elements = new JSONObject(ScmpParser.JSON_PREFIX + mainContent).getJSONArray("json");
+            final JSONArray elements = new JSONObject("{\"type\":\"json\"" + mainContent).getJSONArray("json");
 
             ScmpParser.extractDescriptions(elements, item);
             ScmpParser.extractImages(elements, item);
@@ -96,13 +95,18 @@ public final class ScmpParser extends RssParser {
     private static void extractImages(@NonNull @lombok.NonNull final JSONArray elements, @NonNull @lombok.NonNull final Item item) throws JSONException {
         for (int i = 0; i < elements.length(); i++) {
             final JSONObject json = elements.getJSONObject(i);
-            if ("p".equals(json.getString(ScmpParser.JSON_TYPE))) {
+            if ("p".equals(json.getString(ScmpParser.JSON_TYPE)) || "a".equals(json.getString(ScmpParser.JSON_TYPE))) {
                 final JSONArray array = json.getJSONArray(ScmpParser.JSON_CHILDREN);
                 for (int j = 0; j < array.length(); j++) {
                     final JSONObject node = array.getJSONObject(j);
                     if ("img".equals(node.optString(ScmpParser.JSON_TYPE))) {
                         final JSONObject attribs = node.getJSONObject(ScmpParser.JSON_ATTRIBS);
                         item.getImages().add(new Image(attribs.optString("src"), attribs.optString("title")));
+                    } else if ("a".equals(node.getString(ScmpParser.JSON_TYPE))) {
+                        final JSONArray image = new JSONArray();
+                        image.put(node);
+
+                        ScmpParser.extractImages(image, item);
                     }
                 }
             }
@@ -115,8 +119,16 @@ public final class ScmpParser extends RssParser {
             if ("div".equals(json.getString(ScmpParser.JSON_TYPE))) {
                 final JSONArray array = json.getJSONArray(ScmpParser.JSON_CHILDREN);
                 for (int j = 0; j < array.length(); j++) {
-                    final String videoId = array.getJSONObject(j).optString("video_id");
-                    if (videoId != null) item.getVideos().add(new Video("https://cf.cdn.vid.ly/" + videoId + "/hd_mp4.mp4", array.getJSONObject(j).getJSONObject(ScmpParser.JSON_ATTRIBS).optString("data-poster")));
+                    String videoId = array.getJSONObject(j).optString("video_id");
+                    if (videoId.isEmpty()) {
+                        final JSONObject attribs = array.getJSONObject(j).optJSONObject(ScmpParser.JSON_ATTRIBS);
+                        if (attribs != null) {
+                            final String src = attribs.optString("src");
+                            if (!src.isEmpty()) videoId = StringUtils.substringAfter(src, "?id=");
+                        }
+                    }
+
+                    if (!videoId.isEmpty()) item.getVideos().add(new Video("https://cf.cdn.vid.ly/" + videoId + "/hd_mp4.mp4", "https://vid.ly/" + videoId + "/poster_hd"));
                 }
             }
         }

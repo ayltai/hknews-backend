@@ -38,7 +38,7 @@ public final class SingTaoParserTest extends ParserTest {
                 final Collection<Item> items = new SingTaoParser(factory, this.sourceRepository, this.itemRepository).getItems(new Category("http://std.stheadline.com/daily/section-list.php?cat=12", "港聞"));
 
                 Assert.assertEquals("Incorrect item count", 13, items.size());
-                Assert.assertEquals("Incorrect item description", "<h1>美擬加碼徵25%關稅 中方：必然反制</h1>", items.iterator().next().getTitle());
+                Assert.assertEquals("Incorrect item description", "美擬加碼徵25%關稅 中方：必然反制", items.iterator().next().getTitle());
             }
         }
     }
