@@ -10,6 +10,9 @@ import java.util.stream.Stream;
 
 import org.apache.commons.lang3.StringUtils;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.lang.NonNull;
 
 import com.github.ayltai.hknews.data.model.Image;
@@ -23,8 +26,12 @@ import com.github.ayltai.hknews.net.ApiServiceFactory;
 public final class ScmpParser extends RssParser {
     //region Constants
 
-    private static final String DIV   = "</div>";
-    private static final String QUOTE = "\"";
+    private static final String JSON_PREFIX   = "{\"type\":\"json\"";
+    private static final String JSON_TYPE     = "type";
+    private static final String JSON_CHILDREN = "children";
+    private static final String JSON_ATTRIBS  = "attribs";
+    private static final String DIV           = "</div>";
+    private static final String QUOTE         = "\"";
 
     //endregion
 
@@ -50,40 +57,68 @@ public final class ScmpParser extends RssParser {
         final String html = this.apiServiceFactory.create().getHtml(item.getUrl()).execute().body();
 
         if (html != null) {
-            final String mainContent = StringUtils.substringBetween(html, "<div class=\"panel-pane pane-entity-field pane-node-body", "</div>\n</div>");
+            final String image = StringUtils.substringBetween(html, "images.0\":", ",\"isSlideshow\"");
+            if (image != null) item.getImages().add(new Image(StringUtils.substringBetween("\"url\":\"", ScmpParser.QUOTE), StringUtils.substringBetween("{\"title\":\"", ScmpParser.QUOTE)));
+
+            final String mainContent = StringUtils.substringBetween(html, ScmpParser.JSON_PREFIX, ",\"sections\"");
             if (mainContent == null) return item;
 
-            final String videoContainer = StringUtils.substringBetween(mainContent, "<iframe ", "</iframe>");
-            if (videoContainer != null) {
-                final String videoUrl = StringUtils.substringBetween(videoContainer, "id=", ScmpParser.QUOTE);
-                if (videoUrl != null) item.getVideos().add(new Video("https://cf.cdn.vid.ly/" + videoUrl + "/mp4.mp4", "https://vid.ly/" + videoUrl + "/poster_hd"));
-            }
+            final JSONArray elements = new JSONObject(ScmpParser.JSON_PREFIX + mainContent).getJSONArray("json");
 
-            final String[] imageContainers = StringUtils.substringsBetween(StringUtils.substringBetween(html, "<div class=\"swiper-container scmp-gallery-swiper\">", ScmpParser.DIV), "<img ", "/>");
-            if (imageContainers != null) item.getImages().addAll(Stream.of(imageContainers)
-                .map(imageContainer -> {
-                    final String imageUrl = StringUtils.substringBetween(imageContainer, "data-enlarge=\"", ScmpParser.QUOTE);
-                    if (imageUrl == null) return null;
-
-                    return new Image(imageUrl, StringUtils.substringBetween(imageContainer, "data-caption=\"", ScmpParser.QUOTE));
-                })
-                .filter(Objects::nonNull)
-                .collect(Collectors.toCollection((Supplier<Collection<Image>>)ArrayList::new)));
-
-            final String[] descriptions = StringUtils.substringsBetween(mainContent, "<p>", "</p>");
-            if (descriptions != null) item.setDescription(Stream.of(descriptions)
-                .reduce("", (description, content) -> {
-                    final String imageUrl = StringUtils.substringBetween(content, "data-original=\"", ScmpParser.QUOTE);
-                    if (imageUrl == null) {
-                        return description + content + "<br><br>";
-                    }
-
-                    item.getImages().add(new Image(imageUrl, StringUtils.substringBetween(content, "<img title=\"", ScmpParser.QUOTE)));
-
-                    return description;
-                }));
+            ScmpParser.extractDescriptions(elements, item);
+            ScmpParser.extractImages(elements, item);
+            ScmpParser.extractVideos(elements, item);
         }
 
         return item;
+    }
+
+    private static void extractDescriptions(@NonNull @lombok.NonNull final JSONArray elements, @NonNull @lombok.NonNull final Item item) throws JSONException {
+        for (int i = 0; i < elements.length(); i++) {
+            final JSONObject json = elements.getJSONObject(i);
+            if ("p".equals(json.getString(ScmpParser.JSON_TYPE)) || "span".equals(json.getString(ScmpParser.JSON_TYPE))) {
+                final JSONArray array = json.getJSONArray(ScmpParser.JSON_CHILDREN);
+                for (int j = 0; j < array.length(); j++) {
+                    final JSONObject node = array.getJSONObject(j);
+                    if ("text".equals(node.optString(ScmpParser.JSON_TYPE))) {
+                        item.setDescription((item.getDescription() == null ? "" : item.getDescription()) + node.optString("data") + "<br><br>");
+                    } else {
+                        final JSONArray child = new JSONArray();
+                        child.put(node);
+
+                        ScmpParser.extractDescriptions(child, item);
+                    }
+                }
+            }
+        }
+    }
+
+    private static void extractImages(@NonNull @lombok.NonNull final JSONArray elements, @NonNull @lombok.NonNull final Item item) throws JSONException {
+        for (int i = 0; i < elements.length(); i++) {
+            final JSONObject json = elements.getJSONObject(i);
+            if ("p".equals(json.getString(ScmpParser.JSON_TYPE))) {
+                final JSONArray array = json.getJSONArray(ScmpParser.JSON_CHILDREN);
+                for (int j = 0; j < array.length(); j++) {
+                    final JSONObject node = array.getJSONObject(j);
+                    if ("img".equals(node.optString(ScmpParser.JSON_TYPE))) {
+                        final JSONObject attribs = node.getJSONObject(ScmpParser.JSON_ATTRIBS);
+                        item.getImages().add(new Image(attribs.optString("src"), attribs.optString("title")));
+                    }
+                }
+            }
+        }
+    }
+
+    private static void extractVideos(@NonNull @lombok.NonNull final JSONArray elements, @NonNull @lombok.NonNull final Item item) throws JSONException {
+        for (int i = 0; i < elements.length(); i++) {
+            final JSONObject json = elements.getJSONObject(i);
+            if ("div".equals(json.getString(ScmpParser.JSON_TYPE))) {
+                final JSONArray array = json.getJSONArray(ScmpParser.JSON_CHILDREN);
+                for (int j = 0; j < array.length(); j++) {
+                    final String videoId = array.getJSONObject(j).optString("video_id");
+                    if (videoId != null) item.getVideos().add(new Video("https://cf.cdn.vid.ly/" + videoId + "/hd_mp4.mp4", array.getJSONObject(j).getJSONObject(ScmpParser.JSON_ATTRIBS).optString("data-poster")));
+                }
+            }
+        }
     }
 }

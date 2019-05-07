@@ -100,6 +100,8 @@ public final class AppleDailyParser extends Parser {
         if (descriptions != null) item.setDescription(Stream.of(descriptions)
             .reduce("", (description, content) -> description + content.trim().replaceAll("\n", "").replaceAll("\t", "").replaceAll("<h2>", AppleDailyParser.OPEN_HEADER).replaceAll("</h2>", AppleDailyParser.CLOSE_HEADER)));
 
+        item.setDescription(item.getDescription().replace("<img src=\"https://staticlayout.appledaily.hk/web_images/layout/art_end.gif\" />", ""));
+
         final String[] imageContainers = StringUtils.substringsBetween(html, "rel=\"fancybox-button\"", "/>");
         if (imageContainers != null) item.getImages().addAll(Stream.of(imageContainers)
             .map(imageContainer -> {

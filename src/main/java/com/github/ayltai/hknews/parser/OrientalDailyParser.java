@@ -2,6 +2,7 @@ package com.github.ayltai.hknews.parser;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Objects;
 import java.util.function.Supplier;
@@ -55,9 +56,12 @@ public final class OrientalDailyParser extends RssParser {
         final String html = StringUtils.substringBetween(this.apiServiceFactory.create().getHtml(item.getUrl()).execute().body(), "<div id=\"contentCTN-top\"", "<div id=\"articleNav\">");
 
         if (html != null) {
-            final String[] descriptions = StringUtils.substringsBetween(html, "<p>", "</p>");
-            if (descriptions != null) item.setDescription(Stream.of(descriptions)
-                .reduce("", (description, content) -> description + content + "<br><br>"));
+            String[] descriptions = StringUtils.substringsBetween(html, "<p>", "</p>");
+            if (descriptions != null) {
+                descriptions = Arrays.copyOf(descriptions, descriptions.length - 1);
+                item.setDescription(Stream.of(descriptions)
+                    .reduce("", (description, content) -> description + content + "<br><br>"));
+            }
 
             final String[] imageContainers = StringUtils.substringsBetween(html, "<div class=\"photo", OrientalDailyParser.CLOSE);
             if (imageContainers != null) item.getImages().addAll(Stream.of(imageContainers)

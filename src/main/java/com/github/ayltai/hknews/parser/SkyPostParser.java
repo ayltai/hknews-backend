@@ -31,7 +31,6 @@ public final class SkyPostParser extends Parser {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SkyPostParser.class.getSimpleName());
 
-    private static final String CLOSE_HEADER = "</h3>";
     private static final String BREAK        = "<br>";
     private static final String OPEN_TITLE   = "<h4>";
     private static final String CLOSE_TITLE  = "</h4>";
