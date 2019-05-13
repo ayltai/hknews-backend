@@ -38,8 +38,8 @@ Serves aggregated news from 10+ local news publishers in Hong Kong. Made with ‚ù
 ## API Documentation
 [View interactive API documentation](https://app.swaggerhub.com/apis-docs/ayltai/hknews-backend/1.0.0)
 
-## Newspaper Frontend
-[Android](https://github.com/ayltai/newspaper-android)
+## HK News Frontend
+[Android](https://github.com/ayltai/hknews-android)
 
 ## Installation
 1. Install [JDK 8](https://openjdk.java.net/install) or above

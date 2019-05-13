@@ -19,12 +19,12 @@ final class ApiKeyAuthenticationFilter extends BasicAuthenticationFilter {
 
     @Override
     protected void doFilterInternal(@NonNull @lombok.NonNull final HttpServletRequest request, @NonNull @lombok.NonNull final HttpServletResponse response, @NonNull @lombok.NonNull final FilterChain chain) throws IOException, ServletException {
-        final String ip = request.getRemoteAddr();
+        final String apiKey = request.getParameter("apiKey");
 
         SecurityContextHolder.clearContext();
         SecurityContextHolder.getContext()
             .setAuthentication(this.getAuthenticationManager()
-                .authenticate(new ApiKeyAuthenticationToken(ip.equals(System.getenv("trusted_ip")) || ip.equals("127.0.0.1") || ip.equals("localhost") ? System.getenv("api_key") : request.getHeader("x-api-key"))));
+                .authenticate(new ApiKeyAuthenticationToken(apiKey == null ? request.getHeader("x-api-key") : apiKey)));
 
         chain.doFilter(request, response);
     }
