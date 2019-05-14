@@ -28,10 +28,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .anyRequest()
             .requiresSecure()
             .and()
-            .authorizeRequests()
-            .antMatchers("/actuator/**")
-            .permitAll()
-            .and()
             .addFilterAt(new ApiKeyAuthenticationFilter(new ApiKeyAuthenticationManager()), BasicAuthenticationFilter.class)
             .authorizeRequests()
             .anyRequest()
@@ -43,6 +39,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(@NonNull @lombok.NonNull final WebSecurity web) throws Exception {
         web.ignoring()
-            .antMatchers("/images/**");
+            .antMatchers("/images/**", "/actuator/**");
     }
 }
