@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +22,7 @@ import com.github.ayltai.hknews.data.repository.SourceRepository;
 
 @RestController
 @RequestMapping("/sources")
-public final class SourceController {
+public class SourceController {
     private static final Logger LOGGER = LoggerFactory.getLogger(SourceController.class);
 
     private final SourceRepository sourceRepository;
@@ -31,6 +32,10 @@ public final class SourceController {
     }
 
     @NonNull
+    @Cacheable(
+        cacheNames = "sources",
+        sync       = true
+    )
     @GetMapping(produces = "application/json")
     public Iterable<Source> getSources() {
         if (this.sourceRepository.count() == 0) {

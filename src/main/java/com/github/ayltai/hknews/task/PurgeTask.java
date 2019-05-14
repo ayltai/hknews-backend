@@ -3,6 +3,7 @@ package com.github.ayltai.hknews.task;
 import java.util.Calendar;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.lang.NonNull;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -23,6 +24,10 @@ public class PurgeTask {
     }
 
     @Async
+    @CacheEvict(
+        cacheNames = "items",
+        allEntries = true
+    )
     @Scheduled(fixedRate = 24 * 60 * 60 * 1000)
     public void purge() {
         final Calendar calendar = Calendar.getInstance();

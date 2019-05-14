@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Sort;
 import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,7 +18,7 @@ import com.github.ayltai.hknews.data.repository.ItemRepository;
 
 @RestController
 @RequestMapping("/items")
-public final class ItemController {
+public class ItemController {
     private final ItemRepository itemRepository;
 
     public ItemController(@NonNull @lombok.NonNull final ItemRepository itemRepository) {
@@ -25,6 +26,10 @@ public final class ItemController {
     }
 
     @NonNull
+    @Cacheable(
+        cacheNames = "items",
+        sync       = true
+    )
     @GetMapping(
         path     = "/{sourceNames}/{categoryNames}/{days}",
         produces = "application/json"

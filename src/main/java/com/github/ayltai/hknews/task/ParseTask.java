@@ -5,6 +5,7 @@ import java.io.IOException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.lang.NonNull;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -20,7 +21,7 @@ import com.github.ayltai.hknews.parser.ParserFactory;
 
 @Component
 public class ParseTask {
-    private final static Logger LOGGER = LoggerFactory.getLogger(ParseTask.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ParseTask.class);
 
     private final ApiServiceFactory apiServiceFactory;
     private final SourceRepository  sourceRepository;
@@ -33,7 +34,11 @@ public class ParseTask {
         this.itemRepository    = itemRepository;
     }
 
-    @Scheduled(fixedRate = 20 * 60 * 1000)
+    @CacheEvict(
+        cacheNames = "items",
+        allEntries = true
+    )
+    @Scheduled(fixedRate = 15 * 60 * 1000)
     public void parse() {
         final ParserFactory factory = ParserFactory.getInstance(this.apiServiceFactory, this.sourceRepository, this.itemRepository);
 
