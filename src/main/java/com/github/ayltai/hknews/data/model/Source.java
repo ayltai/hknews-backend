@@ -32,7 +32,6 @@ public final class Source implements Comparable<Source> {
     @Id
     @EqualsAndHashCode.Include
     @Getter
-    //@Indexed(unique = true)
     private String name;
 
     @Getter

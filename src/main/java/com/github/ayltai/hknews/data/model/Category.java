@@ -3,6 +3,7 @@ package com.github.ayltai.hknews.data.model;
 import java.util.Arrays;
 import java.util.Collection;
 
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.lang.NonNull;
 
 import lombok.AllArgsConstructor;
@@ -23,6 +24,7 @@ public final class Category {
     private String url;
 
     @Getter
+    @Indexed
     private String name;
 
     @NonNull

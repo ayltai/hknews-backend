@@ -1,21 +1,9 @@
-buildscript {
-    repositories {
-        jcenter()
-        mavenCentral()
-    }
-
-    dependencies {
-        classpath 'org.jacoco:org.jacoco.core:0.8.4'
-        classpath 'org.owasp:dependency-check-gradle:4.0.2'
-    }
-}
-
 plugins {
-    id 'org.springframework.boot'        version '2.1.4.RELEASE'
+    id 'org.springframework.boot'        version '2.1.5.RELEASE'
     id 'io.spring.dependency-management' version '1.0.7.RELEASE'
     id 'java'
     id 'checkstyle'
-    id 'com.github.spotbugs'             version '1.7.1'
+    id 'com.github.spotbugs'             version '2.0.0'
     id 'jacoco'
     id 'org.owasp.dependencycheck'       version '4.0.2'
     id 'com.github.ben-manes.versions'   version '0.21.0'
@@ -41,8 +29,8 @@ configurations {
 //region Dependencies
 
 ext {
-    springVersion        = '2.1.4.RELEASE'
-    okhttpVersion        = '3.14.1'
+    springVersion        = '2.1.5.RELEASE'
+    okhttpVersion        = '3.14.2'
     retrofitVersion      = '2.5.0'
     lombokVersion        = '1.18.8'
     embeddedMongoVersion = '2.2.0'
@@ -75,6 +63,10 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-scalars:$retrofitVersion"
     implementation "com.squareup.retrofit2:converter-simplexml:$retrofitVersion"
 
+    // Analytics
+    implementation 'com.brsanthu:google-analytics-java:2.0.0'
+
+    // Utilities
     implementation 'org.apache.commons:commons-lang3:3.9'
     implementation 'org.json:json:20180813'
 
@@ -94,7 +86,7 @@ dependencies {
 //region Checkstyle configurations
 
 checkstyle {
-    toolVersion    '8.20'
+    toolVersion    '8.210'
     configFile     rootProject.file('./checkstyle.xml')
     ignoreFailures true
     showViolations true
@@ -137,7 +129,7 @@ tasks.withType(com.github.spotbugs.SpotBugsTask) {
 //region JaCoCo configurations
 
 jacoco {
-    toolVersion '0.8.3'
+    toolVersion '0.8.4'
 }
 
 jacocoTestReport {

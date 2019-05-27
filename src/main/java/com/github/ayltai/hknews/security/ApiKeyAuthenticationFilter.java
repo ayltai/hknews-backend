@@ -12,6 +12,8 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
+import com.github.ayltai.hknews.analytics.AnalyticsFactory;
+
 final class ApiKeyAuthenticationFilter extends BasicAuthenticationFilter {
     ApiKeyAuthenticationFilter(@NonNull @lombok.NonNull final AuthenticationManager authenticationManager) {
         super(authenticationManager);
@@ -19,12 +21,21 @@ final class ApiKeyAuthenticationFilter extends BasicAuthenticationFilter {
 
     @Override
     protected void doFilterInternal(@NonNull @lombok.NonNull final HttpServletRequest request, @NonNull @lombok.NonNull final HttpServletResponse response, @NonNull @lombok.NonNull final FilterChain chain) throws IOException, ServletException {
+        final long startTime = System.currentTimeMillis();
+
         final String apiKey = request.getParameter("apiKey");
 
         SecurityContextHolder.clearContext();
         SecurityContextHolder.getContext()
             .setAuthentication(this.getAuthenticationManager()
                 .authenticate(new ApiKeyAuthenticationToken(apiKey == null ? request.getHeader("x-api-key") : apiKey)));
+
+        AnalyticsFactory.create(request.getRemoteAddr())
+            .timing()
+            .userTimingCategory("Performance")
+            .userTimingLabel("Authentication Filter")
+            .userTimingTime(Long.valueOf(System.currentTimeMillis() - startTime).intValue())
+            .send();
 
         chain.doFilter(request, response);
     }

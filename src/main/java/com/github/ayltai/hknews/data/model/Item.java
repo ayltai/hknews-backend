@@ -41,18 +41,20 @@ public final class Item {
     @Setter
     private String url;
 
-    @Indexed(direction = IndexDirection.DESCENDING)
     @Getter
     @Setter
+    @Indexed(direction = IndexDirection.DESCENDING)
     private Date publishDate;
 
     @Getter
     @Setter
+    @Indexed
     @DBRef
     private Source source;
 
     @Getter
     @Setter
+    @Indexed
     private Category category;
 
     @NonNull
