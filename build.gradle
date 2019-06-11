@@ -5,7 +5,7 @@ plugins {
     id 'checkstyle'
     id 'com.github.spotbugs'             version '2.0.0'
     id 'jacoco'
-    id 'org.owasp.dependencycheck'       version '4.0.2'
+    id 'org.owasp.dependencycheck'       version '5.0.0'
     id 'com.github.ben-manes.versions'   version '0.21.0'
 }
 
@@ -31,7 +31,7 @@ configurations {
 ext {
     springVersion        = '2.1.5.RELEASE'
     okhttpVersion        = '3.14.2'
-    retrofitVersion      = '2.5.0'
+    retrofitVersion      = '2.6.0'
     lombokVersion        = '1.18.8'
     embeddedMongoVersion = '2.2.0'
 }
