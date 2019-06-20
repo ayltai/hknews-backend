@@ -29,7 +29,7 @@ configurations {
 //region Dependencies
 
 ext {
-    springVersion        = '2.1.5.RELEASE'
+    springVersion        = '2.1.6.RELEASE'
     okhttpVersion        = '3.14.2'
     retrofitVersion      = '2.6.0'
     lombokVersion        = '1.18.8'
@@ -52,7 +52,7 @@ dependencies {
     implementation      "org.springframework.boot:spring-boot-starter-undertow:$springVersion"
     implementation      "org.springframework.boot:spring-boot-starter-data-mongodb:$springVersion"
     implementation      "org.springframework.boot:spring-boot-starter-actuator:$springVersion"
-    implementation      'io.micrometer:micrometer-registry-prometheus:1.1.4'
+    implementation      'io.micrometer:micrometer-registry-prometheus:1.1.5'
     annotationProcessor "org.springframework.boot:spring-boot-configuration-processor:$springVersion"
 
     // HTTP networking
