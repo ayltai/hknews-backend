@@ -2,8 +2,6 @@ package com.github.ayltai.hknews.net;
 
 import java.util.concurrent.TimeUnit;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
@@ -14,7 +12,6 @@ import okhttp3.ConnectionPool;
 import okhttp3.OkHttpClient;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
-import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
@@ -22,8 +19,6 @@ import retrofit2.converter.simplexml.SimpleXmlConverterFactory;
 
 @Component
 public final class DefaultApiServiceFactory implements ApiServiceFactory {
-    private static final Logger LOGGER = LoggerFactory.getLogger(DefaultApiServiceFactory.class);
-
     private final AppConfig config;
 
     @Autowired
@@ -43,8 +38,6 @@ public final class DefaultApiServiceFactory implements ApiServiceFactory {
                 .connectTimeout(this.config.getConnectTimeout(), TimeUnit.SECONDS)
                 .readTimeout(this.config.getReadTimeout(), TimeUnit.SECONDS)
                 .writeTimeout(this.config.getWriteTimeout(), TimeUnit.SECONDS)
-                .addInterceptor(new HttpLoggingInterceptor(DefaultApiServiceFactory.LOGGER::trace)
-                    .setLevel(HttpLoggingInterceptor.Level.BODY))
                 .addInterceptor(chain -> chain.proceed(chain.request()
                     .newBuilder()
                     .header("User-Agent", this.config.getUserAgent())

@@ -1,6 +1,6 @@
 plugins {
-    id 'org.springframework.boot'        version '2.1.5.RELEASE'
-    id 'io.spring.dependency-management' version '1.0.7.RELEASE'
+    id 'org.springframework.boot'        version '2.1.6.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.8.RELEASE'
     id 'java'
     id 'checkstyle'
     id 'com.github.spotbugs'             version '2.0.0'
@@ -57,14 +57,10 @@ dependencies {
 
     // HTTP networking
     implementation "com.squareup.okhttp3:okhttp:$okhttpVersion"
-    implementation "com.squareup.okhttp3:logging-interceptor:$okhttpVersion"
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
     implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
     implementation "com.squareup.retrofit2:converter-scalars:$retrofitVersion"
     implementation "com.squareup.retrofit2:converter-simplexml:$retrofitVersion"
-
-    // Analytics
-    implementation 'com.brsanthu:google-analytics-java:2.0.0'
 
     // Utilities
     implementation 'org.apache.commons:commons-lang3:3.9'
@@ -86,7 +82,7 @@ dependencies {
 //region Checkstyle configurations
 
 checkstyle {
-    toolVersion    '8.210'
+    toolVersion    '8.22'
     configFile     rootProject.file('./checkstyle.xml')
     ignoreFailures true
     showViolations true
