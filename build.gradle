@@ -74,7 +74,7 @@ dependencies {
     testImplementation "org.springframework.boot:spring-boot-starter-test:$springVersion"
     testImplementation "de.flapdoodle.embed:de.flapdoodle.embed.mongo:$embeddedMongoVersion"
 
-    codacy 'com.codacy:codacy-coverage-reporter:6.0.0'
+    codacy 'com.codacy:codacy-coverage-reporter:6.0.0-nativebinary.8953fd6'
 }
 
 //endregion
