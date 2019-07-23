@@ -3,7 +3,7 @@
         "name"               : "hknews-backend",
         "script"             : "java",
         "interpreter"        : "none",
-        "args"               : "-server -Xverify:none -Xms320m -Xmx960m -Xss512k -XX:+UseConcMarkSweepGC -XX:+CMSParallelRemarkEnabled -XX:+ScavengeBeforeFullGC -XX:+CMSScavengeBeforeRemark -Dfile.encoding=UTF-8 -agentpath:/opt/cdbg/cdbg_java_agent.so -Dcom.google.cdbg.module=hknews -Dcom.google.cdbg.version=1.0.0 -Dcom.google.cdbg.auth.serviceaccount.enable=true -Dcom.google.cdbg.auth.serviceaccount.jsonfile=/root/keystore/hknews-dev-374d3166a21c.json -agentpath:/opt/cprof/profiler_java_agent.so=-cprof_project_id=hknews-dev,-cprof_service=hknews -jar ./build/libs/hknews-1.0.0.jar",
+        "args"               : "-server -Xverify:none -Xms320m -Xmx960m -Xss512k -XX:+UseConcMarkSweepGC -XX:+CMSParallelRemarkEnabled -XX:+ScavengeBeforeFullGC -XX:+CMSScavengeBeforeRemark -Dfile.encoding=UTF-8 ./build/libs/hknews-1.0.0.jar",
         "instances"          : 1,
         "autorestart"        : true,
         "watch"              : false,

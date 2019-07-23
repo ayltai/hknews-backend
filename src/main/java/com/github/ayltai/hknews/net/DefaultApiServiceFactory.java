@@ -51,7 +51,7 @@ public final class DefaultApiServiceFactory implements ApiServiceFactory {
                         if (body == null) return response;
 
                         return response.newBuilder()
-                            .body(ResponseBody.create(body.contentType(), new String(body.bytes(), "Big5")))
+                            .body(ResponseBody.create(new String(body.bytes(), "Big5"), body.contentType()))
                             .build();
                     }
 

@@ -46,14 +46,14 @@ jobs:
       - *restore_cache
       - run:
           name: Execute unit tests
-          command: ./gradlew -PciBuild=true test
+          command: ./gradlew test
       - store_artifacts:
           path: build/reports/tests/test
           destination: /test/
       - *save_cache
       - run:
           name: Generate coverage report
-          command: ./gradlew -PciBuild=true jacocoTestReport
+          command: ./gradlew jacocoTestReport
       - store_artifacts:
           path: build/reports/jacoco/test
           destination: /coverage/

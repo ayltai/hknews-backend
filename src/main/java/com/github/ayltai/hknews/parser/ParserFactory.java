@@ -16,9 +16,7 @@ public final class ParserFactory {
     public static final String SOURCE_HEADLINE          = "頭條日報";
     public static final String SOURCE_HEADLINE_REALTIME = "頭條即時";
     public static final String SOURCE_HKEJ              = "信報";
-    public static final String SOURCE_HKET              = "經濟日報";
     public static final String SOURCE_MING_PAO          = "明報";
-    public static final String SOURCE_ORIENTAL_DAILY    = "東方日報";
     public static final String SOURCE_RTHK              = "香港電台";
     public static final String SOURCE_SCMP              = "南華早報";
     public static final String SOURCE_SING_PAO          = "成報";
@@ -26,7 +24,6 @@ public final class ParserFactory {
     public static final String SOURCE_SING_TAO_REALTIME = "星島即時";
     public static final String SOURCE_SKYPOST           = "晴報";
     public static final String SOURCE_THE_STANDARD      = "英文虎報";
-    public static final String SOURCE_WEN_WEI_PO        = "文匯報";
 
     //endregion
 
@@ -69,14 +66,8 @@ public final class ParserFactory {
             case ParserFactory.SOURCE_HKEJ:
                 return new HkejParser(this.apiServiceFactory, this.sourceRepository, this.itemRepository);
 
-            case ParserFactory.SOURCE_HKET:
-                return new HketParser(this.apiServiceFactory, this.sourceRepository, this.itemRepository);
-
             case ParserFactory.SOURCE_MING_PAO:
                 return new MingPaoParser(this.apiServiceFactory, this.sourceRepository, this.itemRepository);
-
-            case ParserFactory.SOURCE_ORIENTAL_DAILY:
-                return new OrientalDailyParser(this.apiServiceFactory, this.sourceRepository, this.itemRepository);
 
             case ParserFactory.SOURCE_RTHK:
                 return new RthkParser(this.apiServiceFactory, this.sourceRepository, this.itemRepository);
@@ -98,9 +89,6 @@ public final class ParserFactory {
 
             case ParserFactory.SOURCE_THE_STANDARD:
                 return new TheStandardParser(this.apiServiceFactory, this.sourceRepository, this.itemRepository);
-
-            case ParserFactory.SOURCE_WEN_WEI_PO:
-                return new WenWeiPoParser(this.apiServiceFactory, this.sourceRepository, this.itemRepository);
 
             default:
                 throw new IllegalArgumentException("Unrecognized source name " + sourceName);

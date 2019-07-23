@@ -17,23 +17,20 @@ Serves aggregated news from 10+ local news publishers in Hong Kong. Made with �
 
 ## News Publishers
 * [Apple Daily (蘋果日報)](http://hk.apple.nextmedia.com)
-* [Oriental Daily (東方日報)](http://orientaldaily.on.cc)
-* [Sing Tao (星島日報)](http://std.stheadline.com)<sup>1</sup>
-* [Hong Kong Economic Times (經濟日報)](http://www.hket.com)<sup>2</sup>
+* [~~Oriental Daily (東方日報)~~](http://orientaldaily.on.cc)<sup>*</sup>
+* [Sing Tao (星島日報)](http://std.stheadline.com)
+* [~~Hong Kong Economic Times (經濟日報)~~](http://www.hket.com)<sup>*</sup>
 * [Sing Pao (成報)](https://www.singpao.com.hk)
 * [Ming Pao (明報)](http://www.mingpao.com)
-* [Headline (頭條日報)](http://hd.stheadline.com)<sup>1</sup>
+* [Headline (頭條日報)](http://hd.stheadline.com)
 * [Sky Post (晴報)](http://skypost.ulifestyle.com.hk)
 * [Hong Kong Economic Journal (信報)](http://www.hkej.com)
 * [RTHK (香港電台)](http://news.rthk.hk)
-* [South China Morning Post (南華早報)](http://www.scmp.com/frontpage/hk)<sup>3</sup>
+* [South China Morning Post (南華早報)](http://www.scmp.com/frontpage/hk)
 * [The Standard (英文虎報)](http://www.thestandard.com.hk)
-* [Wen Wei Po (文匯報)](http://news.wenweipo.com)
+* [~~Wen Wei Po (文匯報)~~](http://news.wenweipo.com)<sup>*</sup>
 
-###### Notes
-1. Scrapping might be blocked by their servers
-2. Full news details may be available to members only
-3. Topics section cannot be parsed correctly
+<sup>* Contents from these news publishers are removed from the API response until a meaning-reversal NLP engine has been developed.</sup>
 
 ## API Documentation
 [View interactive API documentation](https://app.swaggerhub.com/apis-docs/ayltai/hknews-backend/1.0.0)

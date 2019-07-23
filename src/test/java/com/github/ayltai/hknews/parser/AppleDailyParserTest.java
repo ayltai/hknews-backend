@@ -8,7 +8,6 @@ import com.github.ayltai.hknews.net.ApiServiceFactory;
 import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mockito;
-import org.springframework.lang.NonNull;
 
 import java.io.BufferedReader;
 import java.io.IOException;

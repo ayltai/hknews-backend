@@ -15,7 +15,7 @@ import com.github.ayltai.hknews.data.repository.ItemRepository;
 @Component
 public class PurgeTask {
     private final ItemRepository itemRepository;
-    private final AppConfig config;
+    private final AppConfig      config;
 
     @Autowired
     public PurgeTask(@NonNull @lombok.NonNull final ItemRepository itemRepository, @NonNull @lombok.NonNull final AppConfig config) {
