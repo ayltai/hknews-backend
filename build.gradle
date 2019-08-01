@@ -31,7 +31,7 @@ configurations {
 ext {
     springVersion        = '2.1.6.RELEASE'
     okhttpVersion        = '4.0.1'
-    retrofitVersion      = '2.6.0'
+    retrofitVersion      = '2.6.1'
     lombokVersion        = '1.18.8'
     embeddedMongoVersion = '2.2.0'
 }
