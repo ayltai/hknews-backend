@@ -29,7 +29,7 @@ configurations {
 //region Dependencies
 
 ext {
-    springVersion        = '2.1.6.RELEASE'
+    springVersion        = '2.1.7.RELEASE'
     okhttpVersion        = '4.0.1'
     retrofitVersion      = '2.6.1'
     lombokVersion        = '1.18.8'
