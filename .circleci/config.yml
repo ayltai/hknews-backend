@@ -102,5 +102,17 @@ workflows:
     jobs:
       - assemble
       - test
+          requires:
+            - assemble
       - check
+          requires:
+            - assemble
       - distribute
+          requires:
+            - assemble
+            - test
+            - check
+          filters:
+            branches:
+              only:
+                - master
