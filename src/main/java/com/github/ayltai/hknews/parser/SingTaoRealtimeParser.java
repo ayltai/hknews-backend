@@ -5,8 +5,10 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 import java.util.function.Supplier;
 import java.util.regex.Pattern;
@@ -55,13 +57,24 @@ public final class SingTaoRealtimeParser extends Parser {
 
     @NonNull
     @Override
-    public Collection<Item> getItems(@NonNull @lombok.NonNull final Category category) throws IOException {
-        if (category.getUrl() == null) return Collections.emptyList();
+    public Collection<Item> getItems(@NonNull @lombok.NonNull final Category category) {
+        if (category.getUrls().isEmpty()) return Collections.emptyList();
 
-        final String[] sections = StringUtils.substringsBetween(this.apiServiceFactory.create().getHtml(category.getUrl()).execute().body(), "<div class=\"news-wrap", "</a>\n</div>");
-        if (sections == null) return Collections.emptyList();
+        return category.getUrls()
+            .stream()
+            .map(url -> {
+                try {
+                    return StringUtils.substringsBetween(this.apiServiceFactory.create().getHtml(url).execute().body(), "<div class=\"news-wrap", "</a>\n</div>");
+                } catch (final IOException e) {
+                    SingTaoRealtimeParser.LOGGER.error(e.getMessage(), e);
 
-        return Stream.of(sections)
+                    return null;
+                }
+            })
+            .filter(Objects::nonNull)
+            .map(Arrays::asList)
+            .collect((Supplier<List<String>>)ArrayList::new, List::addAll, List::addAll)
+            .stream()
             .map(section -> {
                 final String url = StringUtils.substringBetween(section, "<a href=\"", SingTaoRealtimeParser.QUOTE);
                 if (url == null) return null;

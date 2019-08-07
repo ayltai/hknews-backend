@@ -34,7 +34,7 @@ public abstract class Parser {
     public abstract Source getSource();
 
     @NonNull
-    public abstract Collection<Item> getItems(@NonNull @lombok.NonNull Category category) throws IOException;
+    public abstract Collection<Item> getItems(@NonNull @lombok.NonNull Category category);
 
     @NonNull
     public abstract Item getItem(@NonNull @lombok.NonNull Item item) throws IOException;

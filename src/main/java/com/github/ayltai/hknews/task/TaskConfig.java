@@ -6,8 +6,8 @@ import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 @Configuration
-@EnableScheduling
 @EnableAsync
+@EnableScheduling
 @Profile("!test")
-public class AutoConfig {
+public class TaskConfig {
 }

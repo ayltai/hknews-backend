@@ -28,7 +28,9 @@ public class PurgeTask {
         cacheNames = "items",
         allEntries = true
     )
-    @Scheduled(fixedRate = 24 * 60 * 60 * 1000)
+    @Scheduled(
+        initialDelay = 60 * 1000,
+        fixedRate    = 60 * 60 * 1000)
     public void purge() {
         final Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.DATE, -this.config.getRetentionDays());

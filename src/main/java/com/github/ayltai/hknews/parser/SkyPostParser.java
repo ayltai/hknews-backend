@@ -5,8 +5,10 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
@@ -27,9 +29,9 @@ import com.github.ayltai.hknews.data.repository.SourceRepository;
 import com.github.ayltai.hknews.net.ApiServiceFactory;
 
 public final class SkyPostParser extends Parser {
-    //region Constants
-
     private static final Logger LOGGER = LoggerFactory.getLogger(SkyPostParser.class.getSimpleName());
+
+    //region Constants
 
     private static final String BREAK        = "<br>";
     private static final String OPEN_TITLE   = "<h4>";
@@ -61,13 +63,24 @@ public final class SkyPostParser extends Parser {
 
     @NonNull
     @Override
-    public Collection<Item> getItems(@NonNull @lombok.NonNull final Category category) throws IOException {
-        if (category.getUrl() == null) return Collections.emptyList();
+    public Collection<Item> getItems(@NonNull @lombok.NonNull final Category category) {
+        if (category.getUrls().isEmpty()) return Collections.emptyList();
 
-        final String[] sections = StringUtils.substringsBetween(StringUtils.substringBetween(this.apiServiceFactory.create().getHtml(category.getUrl()).execute().body(), "<section class=\"article-listing", "</section>"), "<h5 class='card-title'>", "<button class=\"share-container\"");
-        if (sections == null) return Collections.emptyList();
+        return category.getUrls()
+            .stream()
+            .map(url -> {
+                try {
+                    return StringUtils.substringsBetween(StringUtils.substringBetween(this.apiServiceFactory.create().getHtml(url).execute().body(), "<section class=\"article-listing", "</section>"), "<h5 class='card-title'>", "<button class=\"share-container\"");
+                } catch (final IOException e) {
+                    SkyPostParser.LOGGER.error(e.getMessage(), e);
 
-        return Stream.of(sections)
+                    return null;
+                }
+            })
+            .filter(Objects::nonNull)
+            .map(Arrays::asList)
+            .collect((Supplier<List<String>>)ArrayList::new, List::addAll, List::addAll)
+            .stream()
             .map(section -> {
                 final String url = StringUtils.substringBetween(section , "<a href='", "'>");
                 if (url == null) return null;

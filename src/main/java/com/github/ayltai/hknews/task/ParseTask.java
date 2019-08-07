@@ -38,7 +38,9 @@ public class ParseTask {
         cacheNames = "items",
         allEntries = true
     )
-    @Scheduled(fixedRate = 15 * 60 * 1000)
+    @Scheduled(
+        initialDelay = 60 * 1000,
+        fixedRate    = 15 * 60 * 1000)
     public void parse() {
         final ParserFactory factory = ParserFactory.getInstance(this.apiServiceFactory, this.sourceRepository, this.itemRepository);
 
@@ -54,10 +56,8 @@ public class ParseTask {
             factory.create(source.getName())
                 .getItems(category)
                 .forEach(item -> this.parse(factory, source, item));
-        } catch (final IOException e) {
-            ParseTask.LOGGER.error("Failed to retrieve URL: " + category.getUrl(), e);
         } catch (final Exception e) {
-            ParseTask.LOGGER.error("An unexpected error has occurred for URL: " + category.getUrl(), e);
+            ParseTask.LOGGER.error("An unexpected error has occurred for category: " + category.getName(), e);
         }
     }
 

@@ -4,9 +4,11 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 import java.util.function.Supplier;
 import java.util.regex.Pattern;
@@ -16,6 +18,8 @@ import java.util.stream.Stream;
 import org.apache.commons.lang3.StringUtils;
 
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.lang.NonNull;
 
 import com.github.ayltai.hknews.data.model.Category;
@@ -28,6 +32,8 @@ import com.github.ayltai.hknews.data.repository.SourceRepository;
 import com.github.ayltai.hknews.net.ApiServiceFactory;
 
 public final class AppleDailyParser extends Parser {
+    private static final Logger LOGGER = LoggerFactory.getLogger(AppleDailyParser.class);
+
     //region Constants
 
     private static final String SLASH        = "/";
@@ -60,13 +66,24 @@ public final class AppleDailyParser extends Parser {
 
     @NonNull
     @Override
-    public Collection<Item> getItems(@NonNull @lombok.NonNull final Category category) throws IOException {
-        if (category.getUrl() == null) return Collections.emptyList();
+    public Collection<Item> getItems(@NonNull @lombok.NonNull final Category category) {
+        if (category.getUrls().isEmpty()) return Collections.emptyList();
 
-        final String[] sections = StringUtils.substringsBetween(StringUtils.substringBetween(this.apiServiceFactory.create().getHtml(category.getUrl().replaceAll(Pattern.quote("{}"), AppleDailyParser.DATE_FORMAT.get().format(new Date()))).execute().body(), "<div class=\"itemContainer\"", "<div class=\"clear\"></div>"), "<div class=\"item\">", AppleDailyParser.DIV);
-        if (sections == null) return Collections.emptyList();
+        return category.getUrls()
+            .stream()
+            .map(url -> {
+                try {
+                    return StringUtils.substringsBetween(StringUtils.substringBetween(this.apiServiceFactory.create().getHtml(url.replaceAll(Pattern.quote("{}"), AppleDailyParser.DATE_FORMAT.get().format(new Date()))).execute().body(), "<div class=\"itemContainer\"", "<div class=\"clear\"></div>"), "<div class=\"item\">", AppleDailyParser.DIV);
+                } catch (final IOException e) {
+                    AppleDailyParser.LOGGER.error(this.getClass().getSimpleName(), e.getMessage(), e);
 
-        return Stream.of(sections)
+                    return null;
+                }
+            })
+            .filter(Objects::nonNull)
+            .map(Arrays::asList)
+            .collect((Supplier<List<String>>)ArrayList::new, List::addAll, List::addAll)
+            .stream()
             .map(section -> {
                 final String url  = StringUtils.substringBetween(section, AppleDailyParser.HREF, AppleDailyParser.QUOTE);
                 final String time = StringUtils.substringBetween(section, "pix/", "_");
@@ -85,7 +102,6 @@ public final class AppleDailyParser extends Parser {
             })
             .filter(Objects::nonNull)
             .collect(Collectors.toCollection((Supplier<Collection<Item>>)ArrayList::new));
-
     }
 
     @NonNull

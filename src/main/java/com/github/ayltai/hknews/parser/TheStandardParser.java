@@ -5,8 +5,10 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.function.Supplier;
@@ -63,15 +65,26 @@ public final class TheStandardParser extends Parser {
 
     @NonNull
     @Override
-    public Collection<Item> getItems(@NonNull @lombok.NonNull final Category category) throws IOException {
-        if (category.getUrl() == null) return Collections.emptyList();
+    public Collection<Item> getItems(@NonNull @lombok.NonNull final Category category) {
+        if (category.getUrls().isEmpty()) return Collections.emptyList();
 
-        final String[] tokens   = category.getUrl().split(Pattern.quote("?"));
-        final String[] sections = StringUtils.substringsBetween(this.apiServiceFactory.create().postHtml(tokens[0], Integer.parseInt(tokens[1].split("=")[1]), 1).execute().body(), "<li class='caption'>", "</li>");
+        return category.getUrls()
+            .stream()
+            .map(url -> {
+                final String[] tokens = url.split(Pattern.quote("?"));
 
-        if (sections == null) return Collections.emptyList();
+                try {
+                    return StringUtils.substringsBetween(this.apiServiceFactory.create().postHtml(tokens[0], Integer.parseInt(tokens[1].split("=")[1]), 1).execute().body(), "<li class='caption'>", "</li>");
+                } catch (final IOException e) {
+                    TheStandardParser.LOGGER.error(e.getMessage(), e);
 
-        return Stream.of(sections)
+                    return null;
+                }
+            })
+            .filter(Objects::nonNull)
+            .map(Arrays::asList)
+            .collect((Supplier<List<String>>)ArrayList::new, List::addAll, List::addAll)
+            .stream()
             .map(section -> {
                 final String url = StringUtils.substringBetween(section, TheStandardParser.OPEN_HREF, TheStandardParser.CLOSE_QUOTE);
                 if (url == null) return null;
