@@ -61,7 +61,6 @@ Serves aggregated news from 10+ local news publishers in Hong Kong. Made with ‚ù
 ## Acknowledgements
 This software is made with the support of open source projects:
 * [Spring Boot](https://spring.io/projects/spring-boot): Makes it easy to create stand-alone, production-grade Spring-based applications.
-* [Spring Security](https://spring.io/projects/spring-security): A powerful and highly customizable authentication and access-control framework.
 * [Spring Data](https://spring.io/projects/spring-data): Provides a familiar and consistent Spring-based programming model for data access.
 * [Spring Data MongoDB](https://spring.io/projects/spring-data-mongodb): Provides a familiar and consistent Spring-based programming model for MongoDB datastore.
 * [Undertow](http://undertow.io): The default web server in [Wildfly Application Server](https://github.com/wildfly/wildfly).
