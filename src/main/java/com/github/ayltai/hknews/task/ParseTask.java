@@ -39,7 +39,7 @@ public class ParseTask {
         allEntries = true
     )
     @Scheduled(
-        initialDelay = 60 * 1000,
+        initialDelay = 30 * 1000,
         fixedRate    = 15 * 60 * 1000)
     public void parse() {
         final ParserFactory factory = ParserFactory.getInstance(this.apiServiceFactory, this.sourceRepository, this.itemRepository);
