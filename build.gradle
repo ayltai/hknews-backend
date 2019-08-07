@@ -6,7 +6,7 @@ plugins {
     id 'com.github.spotbugs'             version '2.0.0'
     id 'jacoco'
     id 'org.owasp.dependencycheck'       version '5.2.0'
-    id 'com.github.ben-manes.versions'   version '0.21.0'
+    id 'com.github.ben-manes.versions'   version '0.22.0'
 }
 
 String VERSION_REVISION = 'git rev-list --count HEAD'.execute().text.trim()
