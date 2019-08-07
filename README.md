@@ -49,7 +49,7 @@ Serves aggregated news from 10+ local news publishers in Hong Kong. Made with ‚ù
    ```
 5. Start the server
    ```bash
-   java -server -Xverify:none -Xms320m -Xmx960m -Xss512k -XX:+UseConcMarkSweepGC -XX:+CMSParallelRemarkEnabled -XX:+ScavengeBeforeFullGC -XX:+CMSScavengeBeforeRemark -Dfile.encoding=UTF-8 -jar ./build/libs/hknews-1.0.0.jar
+   java -server -noverify -Xms320m -Xmx960m -Xss512k -XX:+UseConcMarkSweepGC -XX:+CMSParallelRemarkEnabled -XX:+ScavengeBeforeFullGC -XX:+CMSScavengeBeforeRemark -Dfile.encoding=UTF-8 -Dserver.ssl.enabled=false -jar ./build/libs/hknews-backend-1.0.0.jar
    ```
 6. Test specific API
    ```bash

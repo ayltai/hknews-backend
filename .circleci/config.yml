@@ -101,13 +101,13 @@ workflows:
   workflow:
     jobs:
       - assemble
-      - test
+      - test:
           requires:
             - assemble
-      - check
+      - check:
           requires:
             - assemble
-      - distribute
+      - distribute:
           requires:
             - assemble
             - test
