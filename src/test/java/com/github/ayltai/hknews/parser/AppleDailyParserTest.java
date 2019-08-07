@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.stream.Collectors;
 
 import retrofit2.Call;
@@ -35,7 +36,7 @@ public final class AppleDailyParserTest extends ParserTest {
                 Mockito.doReturn(call).when(service).getHtml("https://hk.appledaily.com/video/videolist/20180918/local/home/0");
                 Mockito.doReturn(response).when(call).execute();
 
-                final Collection<Item> items = new AppleDailyParser(factory, this.sourceRepository, this.itemRepository).getItems(new Category("https://hk.appledaily.com/video/videolist/20180918/local/home/0", "即時港聞"));
+                final Collection<Item> items = new AppleDailyParser(factory, this.sourceRepository, this.itemRepository).getItems(new Category(Collections.singletonList("https://hk.appledaily.com/video/videolist/20180918/local/home/0"), "即時港聞"));
 
                 Assert.assertEquals("Incorrect item count", 20, items.size());
                 Assert.assertEquals("Incorrect item title", "【山竹襲港】唔肯宣佈停工　奶媽死撐叫蟻民互諒互讓", items.iterator().next().getTitle());

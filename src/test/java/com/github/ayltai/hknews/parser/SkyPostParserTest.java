@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.stream.Collectors;
 
 import retrofit2.Call;
@@ -35,7 +36,7 @@ public final class SkyPostParserTest extends ParserTest {
                 Mockito.doReturn(call).when(service).getHtml("https://skypost.ulifestyle.com.hk/sras001");
                 Mockito.doReturn(response).when(call).execute();
 
-                final Collection<Item> items = new SkyPostParser(factory, this.sourceRepository, this.itemRepository).getItems(new Category("https://skypost.ulifestyle.com.hk/sras001", "港聞"));
+                final Collection<Item> items = new SkyPostParser(factory, this.sourceRepository, this.itemRepository).getItems(new Category(Collections.singletonList("https://skypost.ulifestyle.com.hk/sras001"), "港聞"));
 
                 Assert.assertEquals("Incorrect item count", 22, items.size());
                 Assert.assertEquals("Incorrect item title", "垃圾徵費欠細節 各界憂執行混亂", items.iterator().next().getTitle());

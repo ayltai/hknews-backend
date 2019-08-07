@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.stream.Collectors;
 
 import retrofit2.Call;
@@ -35,7 +36,7 @@ public final class TheStandardParserTest extends ParserTest {
                 Mockito.doReturn(call).when(service).postHtml("http://www.thestandard.com.hk/ajax_sections_list.php", 4, 1);
                 Mockito.doReturn(response).when(call).execute();
 
-                final Collection<Item> items = new TheStandardParser(factory, this.sourceRepository, this.itemRepository).getItems(new Category("http://www.thestandard.com.hk/ajax_sections_list.php?sid=4", "即時港聞"));
+                final Collection<Item> items = new TheStandardParser(factory, this.sourceRepository, this.itemRepository).getItems(new Category(Collections.singletonList("http://www.thestandard.com.hk/ajax_sections_list.php?sid=4"), "即時港聞"));
 
                 Assert.assertEquals("Incorrect image count", 20, items.size());
                 Assert.assertEquals("Incorrect item description", "National Party gets more time to file objections ", items.toArray(new Item[0])[1].getTitle());

@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.stream.Collectors;
 
 import retrofit2.Call;
@@ -35,7 +36,7 @@ public final class HeadlineRealtimeParserTest extends ParserTest {
                 Mockito.doReturn(call).when(service).getHtml("http://hd.stheadline.com/news/realtime/hk/");
                 Mockito.doReturn(response).when(call).execute();
 
-                final Collection<Item> items = new HeadlineRealtimeParser(factory, this.sourceRepository, this.itemRepository).getItems(new Category("http://hd.stheadline.com/news/realtime/hk/", "即時港聞"));
+                final Collection<Item> items = new HeadlineRealtimeParser(factory, this.sourceRepository, this.itemRepository).getItems(new Category(Collections.singletonList("http://hd.stheadline.com/news/realtime/hk/"), "即時港聞"));
 
                 Assert.assertEquals("Incorrect item count", 10, items.size());
                 Assert.assertEquals("Incorrect item title", "【許金山案】法官完成引導 陪審團開始退庭商議", items.iterator().next().getTitle());

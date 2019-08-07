@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.stream.Collectors;
 
 import retrofit2.Call;
@@ -35,7 +36,7 @@ public final class SingPaoParserTest extends ParserTest {
                 Mockito.doReturn(call).when(service).getHtml("https://www.singpao.com.hk/index.php?fi=news1");
                 Mockito.doReturn(response).when(call).execute();
 
-                final Collection<Item> items = new SingPaoParser(factory, this.sourceRepository, this.itemRepository).getItems(new Category("https://www.singpao.com.hk/index.php?fi=news1", "港聞"));
+                final Collection<Item> items = new SingPaoParser(factory, this.sourceRepository, this.itemRepository).getItems(new Category(Collections.singletonList("https://www.singpao.com.hk/index.php?fi=news1"), "港聞"));
 
                 Assert.assertEquals(20, items.size());
                 Assert.assertEquals("輕鐵屯門泳池站月台沉降 驚見石屎躉「離地」60毫米", items.iterator().next().getTitle());

@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.stream.Collectors;
 
 import retrofit2.Call;
@@ -35,7 +36,7 @@ public final class SingTaoRealtimeParserTest extends ParserTest {
                 Mockito.doReturn(call).when(service).getHtml("http://std.stheadline.com/instant/articles/listview/%E9%A6%99%E6%B8%AF/");
                 Mockito.doReturn(response).when(call).execute();
 
-                final Collection<Item> items = new SingTaoRealtimeParser(factory, this.sourceRepository, this.itemRepository).getItems(new Category("http://std.stheadline.com/instant/articles/listview/%E9%A6%99%E6%B8%AF/", "即時港聞"));
+                final Collection<Item> items = new SingTaoRealtimeParser(factory, this.sourceRepository, this.itemRepository).getItems(new Category(Collections.singletonList("http://std.stheadline.com/instant/articles/listview/%E9%A6%99%E6%B8%AF/"), "即時港聞"));
 
                 Assert.assertEquals("Incorrect image count", 33, items.size());
                 Assert.assertEquals("Incorrect item description", "【奪命車禍】好爸爸與親友「做節」後返家途中炒車亡 遺下愛妻兩稚女", items.iterator().next().getTitle());
