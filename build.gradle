@@ -9,14 +9,11 @@ plugins {
     id 'com.github.ben-manes.versions'   version '0.22.0'
 }
 
-String VERSION_REVISION = 'git rev-list --count HEAD'.execute().text.trim()
-String VERSION_HASH     = 'git rev-parse --short HEAD'.execute().text.trim()
+group   = 'com.github.ayltai'
+version = '1.0.0'
 
-group   'com.github.ayltai'
-version '1.0.' + VERSION_REVISION + '-' + VERSION_HASH
-
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+sourceCompatibility = 11
+targetCompatibility = 11
 
 configurations {
     codacy
@@ -46,7 +43,9 @@ repositories {
 dependencies {
     // Spring Boot
     implementation ("org.springframework.boot:spring-boot-starter-web:$springVersion") {
+        exclude group : 'org.springframework.boot', module : 'spring-boot-starter-json'
         exclude group : 'org.springframework.boot', module : 'spring-boot-starter-tomcat'
+        exclude group : 'org.hibernate.validator',  module : 'hibernate-validator'
     }
     implementation      "org.springframework.boot:spring-boot-starter-security:$springVersion"
     implementation      "org.springframework.boot:spring-boot-starter-undertow:$springVersion"
