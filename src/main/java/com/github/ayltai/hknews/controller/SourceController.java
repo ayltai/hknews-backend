@@ -20,6 +20,8 @@ import com.google.gson.reflect.TypeToken;
 import com.github.ayltai.hknews.data.model.Source;
 import com.github.ayltai.hknews.data.repository.SourceRepository;
 
+import io.micrometer.core.annotation.Timed;
+
 @RestController
 @RequestMapping("/sources")
 public class SourceController {
@@ -32,6 +34,7 @@ public class SourceController {
     }
 
     @NonNull
+    @Timed("api_get_sources")
     @Cacheable(
         cacheNames = "sources",
         sync       = true

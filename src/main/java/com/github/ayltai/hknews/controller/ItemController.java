@@ -16,6 +16,8 @@ import com.github.ayltai.hknews.data.model.Item;
 import com.github.ayltai.hknews.data.model.Source;
 import com.github.ayltai.hknews.data.repository.ItemRepository;
 
+import io.micrometer.core.annotation.Timed;
+
 @RestController
 @RequestMapping("/items")
 public class ItemController {
@@ -26,6 +28,7 @@ public class ItemController {
     }
 
     @NonNull
+    @Timed("api_get_items")
     @Cacheable(
         cacheNames = "items",
         sync       = true

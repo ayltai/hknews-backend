@@ -19,6 +19,8 @@ import com.github.ayltai.hknews.data.repository.SourceRepository;
 import com.github.ayltai.hknews.net.ApiServiceFactory;
 import com.github.ayltai.hknews.parser.ParserFactory;
 
+import io.micrometer.core.annotation.Timed;
+
 @Component
 public class ParseTask {
     private static final Logger LOGGER = LoggerFactory.getLogger(ParseTask.class);
@@ -50,6 +52,7 @@ public class ParseTask {
                 .forEach(category -> this.parse(factory, source, category)));
     }
 
+    @Timed("task_parse_category")
     @Async
     protected void parse(@NonNull @lombok.NonNull final ParserFactory factory, @NonNull @lombok.NonNull final Source source, @NonNull @lombok.NonNull final Category category) {
         try {
@@ -61,6 +64,7 @@ public class ParseTask {
         }
     }
 
+    @Timed("task_parse_item")
     @Async
     protected void parse(@NonNull @lombok.NonNull final ParserFactory factory, @NonNull @lombok.NonNull final Source source, @NonNull @lombok.NonNull final Item item) {
         try {

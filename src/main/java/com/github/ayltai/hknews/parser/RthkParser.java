@@ -16,6 +16,8 @@ import com.github.ayltai.hknews.data.repository.ItemRepository;
 import com.github.ayltai.hknews.data.repository.SourceRepository;
 import com.github.ayltai.hknews.net.ApiServiceFactory;
 
+import io.micrometer.core.annotation.Timed;
+
 public final class RthkParser extends RssParser {
     private static final Logger LOGGER = LoggerFactory.getLogger(RthkParser.class);
 
@@ -34,6 +36,10 @@ public final class RthkParser extends RssParser {
     }
 
     @NonNull
+    @Timed(
+        value     = "parser_get_item",
+        extraTags = { "rthk" }
+    )
     @Override
     public Item getItem(@NonNull @lombok.NonNull final Item item) throws IOException {
         if (item.getUrl() == null) throw new IllegalArgumentException("Item URL cannot be null");

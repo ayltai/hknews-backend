@@ -65,6 +65,7 @@ dependencies {
     implementation 'org.json:json:20190722'
 
     // Code generation
+    implementation      'org.aspectj:aspectjweaver:1.9.4'
     compileOnly         "org.projectlombok:lombok:$lombokVersion"
     annotationProcessor "org.projectlombok:lombok:$lombokVersion"
 

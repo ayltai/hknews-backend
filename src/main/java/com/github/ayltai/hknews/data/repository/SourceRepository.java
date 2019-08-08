@@ -6,7 +6,10 @@ import org.springframework.lang.Nullable;
 
 import com.github.ayltai.hknews.data.model.Source;
 
+import io.micrometer.core.annotation.Timed;
+
 public interface SourceRepository extends MongoRepository<Source, Integer> {
     @Nullable
+    @Timed("repo_source_find_by_name")
     Source findByName(@NonNull @lombok.NonNull String name);
 }
