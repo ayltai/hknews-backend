@@ -29,8 +29,6 @@ import com.github.ayltai.hknews.data.repository.ItemRepository;
 import com.github.ayltai.hknews.data.repository.SourceRepository;
 import com.github.ayltai.hknews.net.ApiServiceFactory;
 
-import io.micrometer.core.annotation.Timed;
-
 public final class SingTaoRealtimeParser extends Parser {
     private static final Logger LOGGER = LoggerFactory.getLogger(SingTaoRealtimeParser.class);
 
@@ -107,10 +105,6 @@ public final class SingTaoRealtimeParser extends Parser {
     }
 
     @NonNull
-    @Timed(
-        value     = "parser_get_item",
-        extraTags = { "singtao_realtime" }
-    )
     @Override
     public Item getItem(@NonNull @lombok.NonNull final Item item) throws IOException {
         if (item.getUrl() == null) throw new IllegalArgumentException("Item URL cannot be null");

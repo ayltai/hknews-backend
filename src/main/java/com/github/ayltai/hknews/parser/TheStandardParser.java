@@ -30,8 +30,6 @@ import com.github.ayltai.hknews.data.repository.ItemRepository;
 import com.github.ayltai.hknews.data.repository.SourceRepository;
 import com.github.ayltai.hknews.net.ApiServiceFactory;
 
-import io.micrometer.core.annotation.Timed;
-
 public final class TheStandardParser extends Parser {
     private static final Logger LOGGER = LoggerFactory.getLogger(TheStandardParser.class);
 
@@ -116,10 +114,6 @@ public final class TheStandardParser extends Parser {
     }
 
     @NonNull
-    @Timed(
-        value     = "parser_get_item",
-        extraTags = { "thestandard" }
-    )
     @Override
     public Item getItem(@NonNull @lombok.NonNull final Item item) throws IOException {
         if (item.getUrl() == null) throw new IllegalArgumentException("Item URL cannot be null");

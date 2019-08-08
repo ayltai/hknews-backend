@@ -21,8 +21,6 @@ import com.github.ayltai.hknews.data.repository.ItemRepository;
 import com.github.ayltai.hknews.data.repository.SourceRepository;
 import com.github.ayltai.hknews.net.ApiServiceFactory;
 
-import io.micrometer.core.annotation.Timed;
-
 public final class OrientalDailyParser extends RssParser {
     //region Constants
 
@@ -51,10 +49,6 @@ public final class OrientalDailyParser extends RssParser {
     }
 
     @NonNull
-    @Timed(
-        value     = "parser_get_item",
-        extraTags = { "orientaldaily" }
-    )
     @Override
     public Item getItem(@NonNull @lombok.NonNull final Item item) throws IOException {
         if (item.getUrl() == null) throw new NullPointerException("Item URL cannot be null");
