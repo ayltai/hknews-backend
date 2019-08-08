@@ -62,7 +62,7 @@ dependencies {
 
     // Utilities
     implementation 'org.apache.commons:commons-lang3:3.9'
-    implementation 'org.json:json:20180813'
+    implementation 'org.json:json:20190722'
 
     // Code generation
     compileOnly         "org.projectlombok:lombok:$lombokVersion"
