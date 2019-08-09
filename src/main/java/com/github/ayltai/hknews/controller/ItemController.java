@@ -28,7 +28,10 @@ public class ItemController {
     }
 
     @NonNull
-    @Timed("api_get_items")
+    @Timed(
+        value     = "api_get_items",
+        histogram = true
+    )
     @Cacheable(
         cacheNames = "items",
         sync       = true

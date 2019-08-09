@@ -34,7 +34,10 @@ public class SourceController {
     }
 
     @NonNull
-    @Timed("api_get_sources")
+    @Timed(
+        value     = "api_get_sources",
+        histogram = true
+    )
     @Cacheable(
         cacheNames = "sources",
         sync       = true

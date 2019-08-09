@@ -14,9 +14,15 @@ import io.micrometer.core.annotation.Timed;
 
 public interface ItemRepository extends MongoRepository<Item, Integer> {
     @NonNull
-    @Timed("repo_item_find_by_source_in_and_category_name_in_and_publish_date_after")
+    @Timed(
+        value     = "repo_item_find_by_source_in_and_category_name_in_and_publish_date_after",
+        histogram = true
+    )
     List<Item> findBySourceInAndCategoryNameInAndPublishDateAfter(@NonNull @lombok.NonNull Collection<String> sourceNames, @NonNull @lombok.NonNull Collection<String> categoryNames, @NonNull @lombok.NonNull Date publishDate, @NonNull @lombok.NonNull Sort sort);
 
-    @Timed("repo_item_delete_by_publish_date_before")
+    @Timed(
+        value     = "repo_item_delete_by_publish_date_before",
+        histogram = true
+    )
     long deleteByPublishDateBefore(@NonNull @lombok.NonNull Date publishDate);
 }
