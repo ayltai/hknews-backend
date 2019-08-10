@@ -25,7 +25,7 @@ public final class HeadlineParserTest extends ParserTest {
 
         Mockito.doReturn(service).when(factory).create();
 
-        try (InputStreamReader inputStreamReader = new InputStreamReader(this.getClass().getClassLoader().getResourceAsStream("headline.html"), StandardCharsets.UTF_8)) {
+        try (InputStreamReader inputStreamReader = new InputStreamReader(this.getClass().getClassLoader().getResourceAsStream("testdata/headline.html"), StandardCharsets.UTF_8)) {
             try (BufferedReader bufferedReader = new BufferedReader(inputStreamReader)) {
                 final Call             call     = Mockito.mock(Call.class);
                 final Response<String> response = Response.success(bufferedReader.lines().collect(Collectors.joining("\n")));
