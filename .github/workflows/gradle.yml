@@ -1,4 +1,4 @@
-name: Java CI
+name: GitHub Actions
 on: [push]
 jobs:
   assemble:

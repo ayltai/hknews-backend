@@ -1,6 +1,7 @@
 # HK News Backend
 
-[![Build](https://img.shields.io/circleci/project/github/ayltai/hknews-backend/master.svg?style=flat)](https://circleci.com/gh/ayltai/hknews-backend)
+[![GitHub Actions](https://github.com/actions/setup-java/workflows/Main%20workflow/badge.svg)](https://github.com/ayltai/hknews-backend/actions)
+[![CircleCI](https://img.shields.io/circleci/project/github/ayltai/hknews-backend/master.svg?style=flat)](https://circleci.com/gh/ayltai/hknews-backend)
 [![Code Quality](https://img.shields.io/codacy/grade/2c5a8d9d71ca4da794494c08bffdd73a.svg?style=flat)](https://app.codacy.com/app/AlanTai/hknews-backend/dashboard)
 [![Code Coverage](https://img.shields.io/codacy/coverage/2c5a8d9d71ca4da794494c08bffdd73a.svg?style=flat)](https://app.codacy.com/app/AlanTai/hknews-backend/dashboard)
 [![Code Coverage](https://img.shields.io/codecov/c/github/ayltai/hknews-backend.svg?style=flat)](https://codecov.io/gh/ayltai/hknews-backend)
@@ -76,6 +77,6 @@ This software is made with the support of open source projects:
 * [SpotBugs](https://spotbugs.github.io): A tool for static analysis to look for bugs in Java code
 * [JaCoCo](https://www.jacoco.org/jacoco): Java code coverage library
 * [OWASP Dependency Check](https://www.owasp.org/index.php/OWASP_Dependency_Check): Identifies project dependencies and checks if there are any known, publicly disclosed, vulnerabilities.
-
+* [GitHub Actions](https://github.com/features/actions): Continuous integration and delivery
 ... and closed source services:
 * [CircleCI](https://circleci.com): Continuous integration and delivery
