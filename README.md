@@ -78,5 +78,6 @@ This software is made with the support of open source projects:
 * [JaCoCo](https://www.jacoco.org/jacoco): Java code coverage library
 * [OWASP Dependency Check](https://www.owasp.org/index.php/OWASP_Dependency_Check): Identifies project dependencies and checks if there are any known, publicly disclosed, vulnerabilities.
 * [GitHub Actions](https://github.com/features/actions): Continuous integration and delivery
+
 ... and closed source services:
 * [CircleCI](https://circleci.com): Continuous integration and delivery
