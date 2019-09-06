@@ -35,7 +35,10 @@ Serves aggregated news from 10+ local news publishers in Hong Kong. Made with ‚ù
 [View interactive API documentation](https://app.swaggerhub.com/apis-docs/ayltai/hknews-backend/1.0.0)
 
 ## HK News Frontend
-[Android](https://github.com/ayltai/hknews-android)
+[hknews-android](https://github.com/ayltai/hknews-android)
+
+## HK News Infrastructure
+[hknews-infrastructure](https://github.com/ayltai/hknews-infrastructure)
 
 ## Installation
 1. Install [JDK 11](https://openjdk.java.net/install)<sup>*</sup>
