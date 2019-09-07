@@ -24,10 +24,16 @@ paths:
       summary: Gets all valid newspaper sources
       description: Gets all valid newspaper sources
       parameters:
-        - in: header
-          name: x-api-key
-          required: true
-          type: string
+        - in: query
+          name: page
+          default: 1
+          required: false
+          type: integer
+        - in: query
+          name: size
+          default: 20
+          required: false
+          type: integer
       responses:
         200:
           description: All available news sources are returned
@@ -39,6 +45,7 @@ paths:
           description: No valid newspaper sources found
         500:
           description: The operation might not be successful because something went wrong
+
   /{sourceNames}/{categoryNames}/{days}:
     get:
       tags:
@@ -46,10 +53,6 @@ paths:
       summary: Gets specific news records from the database
       description: Gets news records of specific categories and sources from the database
       parameters:
-        - in: header
-          name: x-api-key
-          required: true
-          type: string
         - in: path
           name: sourceNames
           required: true
@@ -109,15 +112,17 @@ definitions:
         $ref: '#/definitions/source'
       category:
         $ref: '#/definitions/category'
+
   image:
     type: object
     required:
-      - url
+      - imageUrl
     properties:
-      url:
+      imageUrl:
         type: string
       description:
         type: string
+
   video:
     type: object
     required:
@@ -128,6 +133,7 @@ definitions:
         type: string
       imageUrl:
         type: string
+
   source:
     type: object
     required:
@@ -143,16 +149,19 @@ definitions:
         type: array
         items:
           $ref: '#/definitions/category'
+
   category:
     type: object
     required:
       - name
-      - url
+      - urls
     properties:
       name:
         type: string
-      url:
-        type: string
+      urls:
+        type: array
+        items:
+          type: string
 
 host: hknews.dev
 basePath: /

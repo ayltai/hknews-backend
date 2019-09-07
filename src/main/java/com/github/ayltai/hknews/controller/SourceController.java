@@ -9,9 +9,11 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Pageable;
 import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.google.gson.Gson;
@@ -20,10 +22,15 @@ import com.google.gson.reflect.TypeToken;
 import com.github.ayltai.hknews.data.model.Source;
 import com.github.ayltai.hknews.data.repository.SourceRepository;
 
-import io.micrometer.core.annotation.Timed;
-
 @RestController
-@RequestMapping("/sources")
+@RequestMapping(
+    path   = "/sources",
+    method = {
+        RequestMethod.GET,
+        RequestMethod.HEAD,
+        RequestMethod.OPTIONS
+    }
+)
 public class SourceController {
     private static final Logger LOGGER = LoggerFactory.getLogger(SourceController.class);
 
@@ -34,16 +41,12 @@ public class SourceController {
     }
 
     @NonNull
-    @Timed(
-        value     = "api_get_sources",
-        histogram = true
-    )
     @Cacheable(
         cacheNames = "sources",
         sync       = true
     )
     @GetMapping(produces = "application/json")
-    public Iterable<Source> getSources() {
+    public Iterable<Source> getSources(final Pageable pageable) {
         if (this.sourceRepository.count() == 0) {
             final InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("sources.json");
             if (inputStream != null) {
@@ -55,6 +58,6 @@ public class SourceController {
             }
         }
 
-        return this.sourceRepository.findAll();
+        return this.sourceRepository.findAll(pageable);
     }
 }
