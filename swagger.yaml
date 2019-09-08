@@ -38,9 +38,7 @@ paths:
         200:
           description: All available news sources are returned
           schema:
-            type: array
-            items:
-              $ref: '#/definitions/source'
+            $ref: '#/definitions/sources'
         404:
           description: No valid newspaper sources found
         500:
@@ -53,6 +51,16 @@ paths:
       summary: Gets specific news records from the database
       description: Gets news records of specific categories and sources from the database
       parameters:
+        - in: query
+          name: page
+          default: 1
+          required: false
+          type: integer
+        - in: query
+          name: size
+          default: 20
+          required: false
+          type: integer
         - in: path
           name: sourceNames
           required: true
@@ -77,13 +85,128 @@ paths:
         200:
           description: News records were retrieved successfully
           schema:
-            type: array
-            items:
-              $ref: '#/definitions/item'
+            $ref: '#/definitions/items'
         400:
           description: At least one of the parameters has invalid value
 
 definitions:
+  pageable:
+    type: object
+    required:
+      - sort
+      - offset
+      - pageSize
+      - pageNumber
+      - unpaged
+      - paged
+    properties:
+      sort:
+        $ref: '#/definitions/sort'
+      offset:
+        type: integer
+      pageSize:
+        type: integer
+      pageNumber:
+        type: integer
+      unpaged:
+        type: boolean
+      paged:
+        type: boolean
+
+  sort:
+    type: object
+    required:
+      - sorted
+      - unsorted
+      - empty
+    properties:
+      sorted:
+        type: boolean
+      unsorted:
+        type: boolean
+      empty:
+        type: boolean
+
+  sources:
+    type: object
+    required:
+      - content
+      - pageable
+      - sort
+      - number
+      - size
+      - totalPages
+      - totalElements
+      - numberOfElements
+      - first
+      - last
+      - empty
+    properties:
+      content:
+        type: array
+        items:
+          $ref: '#/definitions/source'
+      pageable:
+        $ref: '#/definitions/pageable'
+      sort:
+        $ref: '#/definitions/sort'
+      number:
+        type: integer
+      size:
+        type: integer
+      totalPages:
+        type: integer
+      totalElements:
+        type: integer
+      numberOfElements:
+        type: integer
+      first:
+        type: boolean
+      last:
+        type: boolean
+      empty:
+        type: boolean
+
+  items:
+    type: object
+    required:
+      - content
+      - pageable
+      - sort
+      - number
+      - size
+      - totalPages
+      - totalElements
+      - numberOfElements
+      - first
+      - last
+      - empty
+    properties:
+      content:
+        type: array
+        items:
+          $ref: '#/definitions/item'
+      pageable:
+        $ref: '#/definitions/pageable'
+      sort:
+        $ref: '#/definitions/sort'
+      number:
+        type: integer
+      size:
+        type: integer
+      totalPages:
+        type: integer
+      totalElements:
+        type: integer
+      numberOfElements:
+        type: integer
+      first:
+        type: boolean
+      last:
+        type: boolean
+      empty:
+        type: boolean
+
   item:
     type: object
     required:

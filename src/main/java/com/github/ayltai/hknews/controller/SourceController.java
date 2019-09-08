@@ -3,6 +3,7 @@ package com.github.ayltai.hknews.controller;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,7 +37,12 @@ public class SourceController {
         sync       = true
     )
     @GetMapping(produces = "application/json")
-    public Page<Source> getSources(final Pageable pageable) {
+    public Page<Source> getSources(
+        @PageableDefault(
+            page = 0,
+            size = 20
+        )
+        final Pageable pageable) {
         return this.sourceService.getAllSources(pageable);
     }
 }
