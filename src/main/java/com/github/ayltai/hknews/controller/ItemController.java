@@ -7,6 +7,8 @@ import java.util.List;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.data.web.SortDefault;
 import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -45,7 +47,21 @@ public class ItemController {
         path     = "/{sourceNames}/{categoryNames}/{days}",
         produces = "application/json"
     )
-    public Iterable<Item> getItems(@NonNull @lombok.NonNull @PathVariable final List<String> sourceNames, @NonNull @lombok.NonNull @PathVariable final List<String> categoryNames, @PathVariable final int days, final Pageable pageable) {
+    public Iterable<Item> getItems(
+        @NonNull @lombok.NonNull @PathVariable final List<String> sourceNames,
+        @NonNull @lombok.NonNull @PathVariable final List<String> categoryNames,
+        @PathVariable final int days,
+        @PageableDefault(
+            page = 0,
+            size = 2000
+        )
+        @SortDefault.SortDefaults({
+            @SortDefault(
+                sort      = Item.FIELD_PUBLISH_DATE,
+                direction = Sort.Direction.DESC
+            )
+        })
+        final Pageable pageable) {
         final List<String> names = new ArrayList<>();
         for (final String sourceName : sourceNames) names.addAll(Source.fromDisplayName(sourceName));
 
