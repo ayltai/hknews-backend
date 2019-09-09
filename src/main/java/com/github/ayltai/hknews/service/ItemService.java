@@ -27,10 +27,7 @@ public final class ItemService {
 
     @Nullable
     public Item getItem(@NonNull @lombok.NonNull final String url) {
-        final Item item = new Item();
-        item.setUrl(url);
-
-        return this.itemRepository.findOne(Example.of(item)).orElse(null);
+        return this.itemRepository.findByUrl(url);
     }
 
     @NonNull
