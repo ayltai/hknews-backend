@@ -8,26 +8,26 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.data.web.SortDefault;
+import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.github.ayltai.hknews.data.model.Item;
 import com.github.ayltai.hknews.service.ItemService;
 
 @RestController
-@RequestMapping(
-    path   = "/items",
-    method = {
-        RequestMethod.GET,
-        RequestMethod.HEAD,
-        RequestMethod.OPTIONS
-    }
-)
+@RequestMapping(method = {
+    RequestMethod.GET,
+    RequestMethod.HEAD,
+    RequestMethod.OPTIONS
+})
 @CrossOrigin
 public class ItemController {
     private final ItemService itemService;
@@ -37,17 +37,31 @@ public class ItemController {
     }
 
     @NonNull
+    @GetMapping(
+        path     = "/item",
+        produces = "application/json"
+    )
+    public ResponseEntity<Item> getItem(@Nullable @RequestParam("url") final String url) {
+        if (url == null) return ResponseEntity.badRequest().build();
+
+        final Item item = this.itemService.getItem(url);
+        if (item == null) return ResponseEntity.notFound().build();
+
+        return ResponseEntity.ok(item);
+    }
+
+    @NonNull
     @Cacheable(
         cacheNames = "items",
         sync       = true
     )
     @GetMapping(
-        path     = "/{sourceNames}/{categoryNames}/{days}",
+        path     = "/items/{sourceNames}/{categoryNames}/{days}",
         produces = "application/json"
     )
-    public Page<Item> getItems(
-        @NonNull @lombok.NonNull @PathVariable final List<String> sourceNames,
-        @NonNull @lombok.NonNull @PathVariable final List<String> categoryNames,
+    public ResponseEntity<Page<Item>> getItems(
+        @Nullable @PathVariable final List<String> sourceNames,
+        @Nullable @PathVariable final List<String> categoryNames,
         @PathVariable final int days,
         @PageableDefault(
             page = 0,
@@ -60,6 +74,8 @@ public class ItemController {
             )
         })
         final Pageable pageable) {
-        return this.itemService.getItems(sourceNames, categoryNames, days, pageable);
+        if (sourceNames == null || sourceNames.isEmpty() || categoryNames == null || categoryNames.isEmpty()) return ResponseEntity.badRequest().build();
+
+        return ResponseEntity.ok(this.itemService.getItems(sourceNames, categoryNames, days, pageable));
     }
 }

@@ -26,7 +26,7 @@ paths:
       parameters:
         - in: query
           name: page
-          default: 1
+          default: 0
           required: false
           type: integer
         - in: query
@@ -44,7 +44,7 @@ paths:
         500:
           description: The operation might not be successful because something went wrong
 
-  /{sourceNames}/{categoryNames}/{days}:
+  /items/{sourceNames}/{categoryNames}/{days}:
     get:
       tags:
         - Read
@@ -53,12 +53,12 @@ paths:
       parameters:
         - in: query
           name: page
-          default: 1
+          default: 0
           required: false
           type: integer
         - in: query
           name: size
-          default: 20
+          default: 2000
           required: false
           type: integer
         - in: path
@@ -88,6 +88,29 @@ paths:
             $ref: '#/definitions/items'
         400:
           description: At least one of the parameters has invalid value
+
+  /item:
+    get:
+      tags:
+        - Read
+      summary: Gets a specific news record from the database
+      description: Gets a news record with the specified unique URL from the database
+      parameters:
+        - in: query
+          name: url
+          required: true
+          type: string
+      produces:
+        - application/json
+      responses:
+        200:
+          description: The requested news record was retrieved successfully
+          schema:
+            $ref: '#/definitions/item'
+        400:
+          description: The URL parameters was not specified
+        404:
+          description: There was no news record found with the specified URL in the database
 
 definitions:
   pageable:
