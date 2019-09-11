@@ -29,7 +29,7 @@ ext {
     springVersion        = '2.1.8.RELEASE'
     okhttpVersion        = '4.1.1'
     retrofitVersion      = '2.6.1'
-    lombokVersion        = '1.18.8'
+    lombokVersion        = '1.18.10'
     embeddedMongoVersion = '2.2.0'
 }
 
