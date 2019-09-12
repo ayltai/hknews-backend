@@ -6,7 +6,7 @@ plugins {
     id 'com.github.spotbugs'             version '2.0.0'
     id 'jacoco'
     id 'org.owasp.dependencycheck'       version '5.2.1'
-    id 'com.github.ben-manes.versions'   version '0.24.0'
+    id 'com.github.ben-manes.versions'   version '0.25.0'
 }
 
 group   = 'com.github.ayltai'
@@ -27,9 +27,9 @@ configurations {
 
 ext {
     springVersion        = '2.1.8.RELEASE'
-    okhttpVersion        = '4.1.1'
+    okhttpVersion        = '4.2.0'
     retrofitVersion      = '2.6.1'
-    lombokVersion        = '1.18.8'
+    lombokVersion        = '1.18.10'
     embeddedMongoVersion = '2.2.0'
 }
 
@@ -73,7 +73,7 @@ dependencies {
     testImplementation "org.springframework.boot:spring-boot-starter-test:$springVersion"
     testImplementation "de.flapdoodle.embed:de.flapdoodle.embed.mongo:$embeddedMongoVersion"
 
-    codacy 'com.codacy:codacy-coverage-reporter:6.0.4'
+    codacy 'com.codacy:codacy-coverage-reporter:6.0.6'
 }
 
 //endregion
