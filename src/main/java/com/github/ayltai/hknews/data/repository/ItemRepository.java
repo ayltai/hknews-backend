@@ -18,7 +18,7 @@ public interface ItemRepository extends MongoRepository<Item, Integer> {
     @NonNull
     Page<Item> findBySourceInAndCategoryNameInAndPublishDateAfter(@NonNull @lombok.NonNull Collection<String> sourceNames, @NonNull @lombok.NonNull Collection<String> categoryNames, @NonNull @lombok.NonNull Date publishDate, Pageable pageable);
 
-    @Query("{ { sources.name : { $in : ?0 } }, { categories.name : { $in : ?1 } }, { publishDate : { $gt : ?2 } }, { $or : [ { title : { $regex : '(?i)?3' } }, { description : { $regex : '(?i)?3' } } ] } }")
+    @Query("{ $and : [ { \"sources.name\" : { $in : ?0 } }, { \"categories.name\" : { $in : ?1 } }, { publishDate : { $gt : ?2 } }, { $or : [ { title : { $regex : '(?i)?3' } }, { description : { $regex : '(?i)?3' } } ] } ] }")
     @NonNull
     Page<Item> findBySourceInAndCategoryNameInAndPublishDateAfter(@NonNull @lombok.NonNull Collection<String> sourceNames, @NonNull @lombok.NonNull Collection<String> categoryNames, @NonNull @lombok.NonNull Date publishDate, @NonNull @lombok.NonNull String keywords, Pageable pageable);
 
