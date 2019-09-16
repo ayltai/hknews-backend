@@ -3,7 +3,6 @@ package com.github.ayltai.hknews.service;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Optional;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.domain.Page;
@@ -30,7 +29,7 @@ public final class ItemService {
     }
 
     @NonNull
-    public Page<Item> getItems(@NonNull @lombok.NonNull final List<String> sourceNames, @NonNull @lombok.NonNull final List<String> categoryNames, final int days, @Nullable final String keywords, final Pageable pageable) {
+    public Page<Item> getItems(@NonNull @lombok.NonNull final List<String> sourceNames, @NonNull @lombok.NonNull final List<String> categoryNames, final int days, final Pageable pageable) {
         final List<String> names = new ArrayList<>();
         for (final String sourceName : sourceNames) names.addAll(Source.fromDisplayName(sourceName));
 
@@ -41,8 +40,6 @@ public final class ItemService {
         calendar.set(Calendar.MILLISECOND, 0);
         calendar.add(Calendar.DATE, -days);
 
-        return keywords == null
-            ? this.itemRepository.findBySourceInAndCategoryNameInAndPublishDateAfter(names, categoryNames, calendar.getTime(), pageable)
-            : this.itemRepository.findBySourceInAndCategoryNameInAndPublishDateAfter(names, categoryNames, calendar.getTime(), keywords, pageable);
+        return this.itemRepository.findBySourceInAndCategoryNameInAndPublishDateAfter(names, categoryNames, calendar.getTime(), pageable);
     }
 }

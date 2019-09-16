@@ -5,18 +5,13 @@ import java.util.Date;
 import java.util.List;
 
 import org.bson.types.ObjectId;
-import org.simpleframework.xml.convert.Convert;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.Transient;
-import org.springframework.data.convert.ReadingConverter;
 import org.springframework.data.mongodb.core.index.IndexDirection;
 import org.springframework.data.mongodb.core.index.Indexed;
-import org.springframework.data.mongodb.core.index.TextIndexed;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.mongodb.lang.NonNull;
 
 import lombok.EqualsAndHashCode;
@@ -45,12 +40,10 @@ public final class Item {
 
     @Getter
     @Setter
-    @TextIndexed
     private String title;
 
     @Getter
     @Setter
-    @TextIndexed
     private String description;
 
     @EqualsAndHashCode.Include

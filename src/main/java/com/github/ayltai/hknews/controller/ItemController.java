@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.github.ayltai.hknews.data.model.Item;
@@ -66,7 +65,6 @@ public class ItemController {
         @PathVariable @Nullable final List<String> sourceNames,
         @PathVariable @Nullable final List<String> categoryNames,
         @PathVariable final int days,
-        @RequestParam @Nullable final String keywords,
         @PageableDefault(
             page = 0,
             size = 2000
@@ -81,7 +79,7 @@ public class ItemController {
         if (sourceNames == null || sourceNames.isEmpty() || categoryNames == null || categoryNames.isEmpty()) return ResponseEntity.badRequest().build();
 
         return ResponseEntity.ok(this.itemService
-            .getItems(sourceNames, categoryNames, days, keywords, pageable)
+            .getItems(sourceNames, categoryNames, days, pageable)
             .map(item -> {
                 item.setRecordId(item.get_id().toHexString());
 
