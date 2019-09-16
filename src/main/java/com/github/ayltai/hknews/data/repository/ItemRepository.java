@@ -25,5 +25,8 @@ public interface ItemRepository extends MongoRepository<Item, Integer> {
     @Nullable
     Item findBy_id(@NonNull @lombok.NonNull ObjectId _id);
 
+    @Nullable
+    Item findByUrl(@NonNull @lombok.NonNull String url);
+
     long deleteByPublishDateBefore(@NonNull @lombok.NonNull Date publishDate);
 }

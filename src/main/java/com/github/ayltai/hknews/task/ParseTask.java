@@ -64,7 +64,7 @@ public class ParseTask {
     @Async
     protected void parse(@NonNull @lombok.NonNull final ParserFactory factory, @NonNull @lombok.NonNull final Source source, @NonNull @lombok.NonNull final Item item) {
         try {
-            this.itemRepository.save(factory
+            if (this.itemRepository.findByUrl(item.getUrl()) == null) this.itemRepository.save(factory
                 .create(source.getName())
                 .getItem(item));
         } catch (final IOException e) {
