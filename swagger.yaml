@@ -52,11 +52,6 @@ paths:
       description: Gets news records of specific categories and sources from the database
       parameters:
         - in: query
-          name: keywords
-          description: Filters the returning results by keywords
-          required: false
-          type: string
-        - in: query
           name: page
           default: 0
           required: false
