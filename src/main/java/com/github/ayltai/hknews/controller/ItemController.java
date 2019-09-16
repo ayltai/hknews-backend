@@ -2,6 +2,7 @@ package com.github.ayltai.hknews.controller;
 
 import java.util.List;
 
+import org.bson.types.ObjectId;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -38,13 +39,13 @@ public class ItemController {
 
     @NonNull
     @GetMapping(
-        path     = "/item",
+        path     = "/item/{id}",
         produces = "application/json"
     )
-    public ResponseEntity<Item> getItem(@Nullable @RequestParam("url") final String url) {
-        if (url == null) return ResponseEntity.badRequest().build();
+    public ResponseEntity<Item> getItem(@PathVariable @Nullable final ObjectId id) {
+        if (id == null) return ResponseEntity.badRequest().build();
 
-        final Item item = this.itemService.getItem(url);
+        final Item item = this.itemService.getItem(id);
         if (item == null) return ResponseEntity.notFound().build();
 
         return ResponseEntity.ok(item);
@@ -60,9 +61,10 @@ public class ItemController {
         produces = "application/json"
     )
     public ResponseEntity<Page<Item>> getItems(
-        @Nullable @PathVariable final List<String> sourceNames,
-        @Nullable @PathVariable final List<String> categoryNames,
+        @PathVariable @Nullable final List<String> sourceNames,
+        @PathVariable @Nullable final List<String> categoryNames,
         @PathVariable final int days,
+        @RequestParam @Nullable final String keywords,
         @PageableDefault(
             page = 0,
             size = 2000
@@ -76,6 +78,6 @@ public class ItemController {
         final Pageable pageable) {
         if (sourceNames == null || sourceNames.isEmpty() || categoryNames == null || categoryNames.isEmpty()) return ResponseEntity.badRequest().build();
 
-        return ResponseEntity.ok(this.itemService.getItems(sourceNames, categoryNames, days, pageable));
+        return ResponseEntity.ok(this.itemService.getItems(sourceNames, categoryNames, days, keywords, pageable));
     }
 }

@@ -52,6 +52,11 @@ paths:
       description: Gets news records of specific categories and sources from the database
       parameters:
         - in: query
+          name: keywords
+          description: Filters the returning results by keywords
+          required: false
+          type: string
+        - in: query
           name: page
           default: 0
           required: false
@@ -89,15 +94,15 @@ paths:
         400:
           description: At least one of the parameters has invalid value
 
-  /item:
+  /item/{id}:
     get:
       tags:
         - Read
       summary: Gets a specific news record from the database
       description: Gets a news record with the specified unique URL from the database
       parameters:
-        - in: query
-          name: url
+        - in: path
+          name: id
           required: true
           type: string
       produces:
