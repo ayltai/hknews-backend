@@ -42,10 +42,10 @@ public class ItemController {
         path     = "/item/{id}",
         produces = "application/json"
     )
-    public ResponseEntity<Item> getItem(@PathVariable @Nullable final ObjectId id) {
+    public ResponseEntity<Item> getItem(@PathVariable @Nullable final String id) {
         if (id == null) return ResponseEntity.badRequest().build();
 
-        final Item item = this.itemService.getItem(id);
+        final Item item = this.itemService.getItem(new ObjectId(id));
         if (item == null) return ResponseEntity.notFound().build();
 
         return ResponseEntity.ok(item);
@@ -78,6 +78,12 @@ public class ItemController {
         final Pageable pageable) {
         if (sourceNames == null || sourceNames.isEmpty() || categoryNames == null || categoryNames.isEmpty()) return ResponseEntity.badRequest().build();
 
-        return ResponseEntity.ok(this.itemService.getItems(sourceNames, categoryNames, days, keywords, pageable));
+        return ResponseEntity.ok(this.itemService
+            .getItems(sourceNames, categoryNames, days, keywords, pageable)
+            .map(item -> {
+                item.setId(item.get_id().toHexString());
+
+                return item;
+            }));
     }
 }
