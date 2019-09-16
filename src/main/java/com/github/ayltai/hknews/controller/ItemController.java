@@ -48,7 +48,7 @@ public class ItemController {
         final Item item = this.itemService.getItem(new ObjectId(id));
         if (item == null) return ResponseEntity.notFound().build();
 
-        item.setId(item.get_id().toHexString());
+        item.setRecordId(item.get_id().toHexString());
 
         return ResponseEntity.ok(item);
     }
@@ -83,7 +83,7 @@ public class ItemController {
         return ResponseEntity.ok(this.itemService
             .getItems(sourceNames, categoryNames, days, keywords, pageable)
             .map(item -> {
-                item.setId(item.get_id().toHexString());
+                item.setRecordId(item.get_id().toHexString());
 
                 return item;
             }));

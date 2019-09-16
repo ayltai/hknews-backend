@@ -15,6 +15,7 @@ import org.springframework.data.mongodb.core.index.TextIndexed;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.mongodb.lang.NonNull;
 
@@ -35,10 +36,11 @@ public final class Item {
 
     @Getter
     @Setter
-    private String id;
+    private String recordId;
 
     @Getter
     @Id
+    @JsonIgnore
     private ObjectId _id;
 
     @Getter
