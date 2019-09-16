@@ -34,7 +34,6 @@ public final class Item {
     //region Variables
 
     @Setter
-    @Transient
     private String id;
 
     @Getter
