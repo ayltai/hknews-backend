@@ -33,6 +33,7 @@ public final class Item {
 
     //region Variables
 
+    @Getter
     @Setter
     private String id;
 

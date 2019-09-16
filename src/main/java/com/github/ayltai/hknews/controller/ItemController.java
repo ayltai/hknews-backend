@@ -48,6 +48,8 @@ public class ItemController {
         final Item item = this.itemService.getItem(new ObjectId(id));
         if (item == null) return ResponseEntity.notFound().build();
 
+        item.setId(item.get_id().toHexString());
+
         return ResponseEntity.ok(item);
     }
 
