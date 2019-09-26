@@ -91,7 +91,25 @@ jobs:
       - checkout
       - *restore_cache
       - run:
-          name: Generate artifact
+          name: Install jq
+          command: sudo apt-get install jq
+      - run:
+          name: Create build directory
+          command: mkdir build
+      - run:
+          name: Download frontend artifact
+          command: wget $(curl https://circleci.com/api/v1.1/project/github/ayltai/hknews-web/latest/artifacts?circle-token=${CIRCLECI_TOKEN} | jq -r '.[0].url')
+          working_directory: build
+      - run:
+          name: Decompress frontend artifact
+          command: unzip web.zip
+          working_directory: build
+      - run:
+          name: Delete compressed frontend artifact
+          command: rm web.zip
+          working_directory: build
+      - run:
+          name: Generate backend artifact
           command: ./gradlew bootJar
       - *save_cache
       - store_artifacts:
