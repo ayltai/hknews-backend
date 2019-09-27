@@ -3,10 +3,10 @@
         "name"               : "hknews-backend",
         "script"             : "java",
         "interpreter"        : "none",
-        "args"               : "-server -Xverify:none -Xms320m -Xmx960m -Xss512k -XX:+CMSParallelRemarkEnabled -XX:+ScavengeBeforeFullGC -XX:+CMSScavengeBeforeRemark -Dfile.encoding=UTF-8 -Dserver.ssl.key-store-password=${ssl_key} -Dserver.ssl.trust-store-password=${ssl_key} -jar ./build/libs/hknews-backend-1.0.0.jar",
+        "args"               : "-server -Xverify:none -Xms240m -Xmx640m -Xss512k -XX:+CMSParallelRemarkEnabled -XX:+ScavengeBeforeFullGC -XX:+CMSScavengeBeforeRemark -Dfile.encoding=UTF-8 -Dserver.ssl.key-store-password=${ssl_key} -Dserver.ssl.trust-store-password=${ssl_key} -jar ./build/libs/hknews-backend-1.0.0.jar",
         "instances"          : 1,
         "autorestart"        : true,
         "watch"              : false,
-        "max_memory_restart" : "1G"
+        "max_memory_restart" : "720M"
     }]
 }
