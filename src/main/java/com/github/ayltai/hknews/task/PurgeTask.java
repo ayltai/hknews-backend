@@ -29,7 +29,7 @@ public class PurgeTask {
         allEntries = true
     )
     @Scheduled(
-        initialDelay = 60 * 1000,
+        initialDelay = 120 * 1000,
         fixedRate    = 60 * 60 * 1000)
     public void purge() {
         final Calendar calendar = Calendar.getInstance();
