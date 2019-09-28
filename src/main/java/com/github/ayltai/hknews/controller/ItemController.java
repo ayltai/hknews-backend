@@ -28,7 +28,6 @@ import com.github.ayltai.hknews.service.ItemService;
     RequestMethod.HEAD,
     RequestMethod.OPTIONS
 })
-@CrossOrigin
 public class ItemController {
     private final ItemService itemService;
 

@@ -23,7 +23,6 @@ import com.github.ayltai.hknews.data.model.Source;
         RequestMethod.OPTIONS
     }
 )
-@CrossOrigin
 public class SourceController {
     private final SourceService sourceService;
 
