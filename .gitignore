@@ -32,6 +32,7 @@ gradle-app.setting
 
 # Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
 !gradle-wrapper.jar
+!jmx_prometheus_javaagent-0.12.0.jar
 
 # Cache of project
 .gradletasknamecache
