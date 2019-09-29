@@ -1,4 +1,0 @@
----
-startDelaySeconds: 35
-rules:
-  - pattern: '.*'
