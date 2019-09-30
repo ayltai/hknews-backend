@@ -5,6 +5,7 @@ plugins {
     id 'checkstyle'
     id 'com.github.spotbugs'             version '2.0.0'
     id 'jacoco'
+    id 'org.owasp.dependencycheck'       version '5.2.2'
     id 'com.github.ben-manes.versions'   version '0.25.0'
 }
 
@@ -138,6 +139,16 @@ jacocoTestReport {
 tasks.withType(Test) {
     jacoco.includeNoLocationClasses = true
     jacoco.excludes                 = [ 'jdk.internal.*' ]
+}
+
+//endregion
+
+//region OWASP dependency check configurations
+
+check.dependsOn dependencyCheckAnalyze
+
+dependencyCheck {
+    suppressionFile = 'suppressions.xml'
 }
 
 //endregion
