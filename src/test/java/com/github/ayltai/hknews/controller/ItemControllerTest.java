@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.mongo.embedded.EmbeddedMongoAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.Page;
@@ -20,7 +21,9 @@ import com.github.ayltai.hknews.UnitTest;
 import com.github.ayltai.hknews.data.model.Item;
 import com.github.ayltai.hknews.service.ItemService;
 
-@WebMvcTest(ItemController.class)
+@WebMvcTest(
+    controllers              = ItemController.class,
+    excludeAutoConfiguration = EmbeddedMongoAutoConfiguration.class)
 public final class ItemControllerTest extends UnitTest {
     @Autowired
     private MockMvc mockMvc;

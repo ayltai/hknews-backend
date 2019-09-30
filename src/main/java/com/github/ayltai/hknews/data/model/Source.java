@@ -13,6 +13,7 @@ import org.springframework.lang.NonNull;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 
 @ToString
@@ -32,6 +33,7 @@ public final class Source implements Comparable<Source> {
     @Id
     @EqualsAndHashCode.Include
     @Getter
+    @Setter
     private String name;
 
     @Getter
