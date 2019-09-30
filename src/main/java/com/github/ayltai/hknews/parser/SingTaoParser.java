@@ -28,6 +28,8 @@ import com.github.ayltai.hknews.data.repository.ItemRepository;
 import com.github.ayltai.hknews.data.repository.SourceRepository;
 import com.github.ayltai.hknews.net.ApiServiceFactory;
 
+import lombok.Getter;
+
 public final class SingTaoParser extends Parser {
     private static final Logger LOGGER = LoggerFactory.getLogger(SingTaoParser.class);
 
@@ -41,18 +43,13 @@ public final class SingTaoParser extends Parser {
 
     //endregion
 
+    @Getter
     private final Source source;
 
     SingTaoParser(@NonNull @lombok.NonNull final ApiServiceFactory apiServiceFactory, @NonNull @lombok.NonNull final SourceRepository sourceRepository, @NonNull @lombok.NonNull final ItemRepository itemRepository) {
         super(apiServiceFactory, sourceRepository, itemRepository);
 
         this.source = sourceRepository.findByName(ParserFactory.SOURCE_SING_TAO);
-    }
-
-    @NonNull
-    @Override
-    public Source getSource() {
-        return this.source;
     }
 
     @NonNull

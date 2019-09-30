@@ -29,6 +29,8 @@ import com.github.ayltai.hknews.data.repository.ItemRepository;
 import com.github.ayltai.hknews.data.repository.SourceRepository;
 import com.github.ayltai.hknews.net.ApiServiceFactory;
 
+import lombok.Getter;
+
 public final class SingTaoRealtimeParser extends Parser {
     private static final Logger LOGGER = LoggerFactory.getLogger(SingTaoRealtimeParser.class);
 
@@ -41,18 +43,13 @@ public final class SingTaoRealtimeParser extends Parser {
 
     //endregion
 
+    @Getter
     private final Source source;
 
     SingTaoRealtimeParser(@NonNull @lombok.NonNull final ApiServiceFactory apiServiceFactory, @NonNull @lombok.NonNull final SourceRepository sourceRepository, @NonNull @lombok.NonNull final ItemRepository itemRepository) {
         super(apiServiceFactory, sourceRepository, itemRepository);
 
         this.source = sourceRepository.findByName(ParserFactory.SOURCE_SING_TAO_REALTIME);
-    }
-
-    @NonNull
-    @Override
-    public Source getSource() {
-        return this.source;
     }
 
     @NonNull

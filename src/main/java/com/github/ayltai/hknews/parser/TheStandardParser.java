@@ -30,6 +30,8 @@ import com.github.ayltai.hknews.data.repository.ItemRepository;
 import com.github.ayltai.hknews.data.repository.SourceRepository;
 import com.github.ayltai.hknews.net.ApiServiceFactory;
 
+import lombok.Getter;
+
 public final class TheStandardParser extends Parser {
     private static final Logger LOGGER = LoggerFactory.getLogger(TheStandardParser.class);
 
@@ -49,18 +51,13 @@ public final class TheStandardParser extends Parser {
 
     //endregion
 
+    @Getter
     private final Source source;
 
     TheStandardParser(@NonNull @lombok.NonNull final ApiServiceFactory apiServiceFactory, @NonNull @lombok.NonNull final SourceRepository sourceRepository, @NonNull @lombok.NonNull final ItemRepository itemRepository) {
         super(apiServiceFactory, sourceRepository, itemRepository);
 
         this.source = sourceRepository.findByName(ParserFactory.SOURCE_THE_STANDARD);
-    }
-
-    @NonNull
-    @Override
-    public Source getSource() {
-        return this.source;
     }
 
     @NonNull
