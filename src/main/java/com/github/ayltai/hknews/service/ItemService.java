@@ -16,7 +16,7 @@ import com.github.ayltai.hknews.data.model.Source;
 import com.github.ayltai.hknews.data.repository.ItemRepository;
 
 @Service
-public final class ItemService {
+public class ItemService {
     private final ItemRepository itemRepository;
 
     public ItemService(@NonNull @lombok.NonNull final ItemRepository itemRepository) {

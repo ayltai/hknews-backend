@@ -34,6 +34,7 @@ public final class Item {
     private String recordId;
 
     @Getter
+    @Setter
     @Id
     @JsonIgnore
     private ObjectId _id;

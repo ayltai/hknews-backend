@@ -19,7 +19,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 @Service
-public final class SourceService {
+public class SourceService {
     private static final Logger LOGGER = LoggerFactory.getLogger(SourceService.class);
 
     private final SourceRepository sourceRepository;
