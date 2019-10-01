@@ -62,10 +62,8 @@ public class ParseTask {
 
     @Async
     protected void parse(@NonNull @lombok.NonNull final ParserFactory factory, @NonNull @lombok.NonNull final Source source, @NonNull @lombok.NonNull final Item item) {
-        try {
-            if (this.itemRepository.findByUrl(item.getUrl()) == null) this.itemRepository.save(factory
-                .create(source.getName())
-                .getItem(item));
+        try (final Parser parser = factory.create(source.getName())) {
+            if (this.itemRepository.findByUrl(item.getUrl()) == null) this.itemRepository.save(parser.getItem(item));
         } catch (final IOException e) {
             ParseTask.LOGGER.error("Failed to parse URL: " + item.getUrl(), e);
         } catch (final Exception e) {
