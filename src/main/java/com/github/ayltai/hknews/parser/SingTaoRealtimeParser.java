@@ -88,7 +88,7 @@ public final class SingTaoRealtimeParser extends Parser {
                     item.setCategory(category);
 
                     final String title = StringUtils.substringBetween(section, "<div class=\"title\">", SingTaoRealtimeParser.CLOSE);
-                    if (title != null) item.setTitle(title.replaceAll("<h1>", "").replaceAll("</h1>", ""));
+                    if (title != null) item.setTitle(title.replace("<h1>", "").replace("</h1>", ""));
 
                     return item;
                 } catch (final ParseException e) {
