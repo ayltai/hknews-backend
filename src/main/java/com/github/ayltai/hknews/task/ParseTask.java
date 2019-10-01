@@ -17,6 +17,7 @@ import com.github.ayltai.hknews.data.model.Source;
 import com.github.ayltai.hknews.data.repository.ItemRepository;
 import com.github.ayltai.hknews.data.repository.SourceRepository;
 import com.github.ayltai.hknews.net.ApiServiceFactory;
+import com.github.ayltai.hknews.parser.Parser;
 import com.github.ayltai.hknews.parser.ParserFactory;
 
 @Component
@@ -53,9 +54,9 @@ public class ParseTask {
     @Async
     protected void parse(@NonNull @lombok.NonNull final ParserFactory factory, @NonNull @lombok.NonNull final Source source, @NonNull @lombok.NonNull final Category category) {
         try {
-            factory.create(source.getName())
-                .getItems(category)
-                .forEach(item -> this.parse(factory, source, item));
+            final Parser parser = factory.create(source.getName());
+            parser.getItems(category).forEach(item -> this.parse(factory, source, item));
+            parser.close();
         } catch (final Exception e) {
             ParseTask.LOGGER.error("An unexpected error has occurred for category: " + category.getName(), e);
         }

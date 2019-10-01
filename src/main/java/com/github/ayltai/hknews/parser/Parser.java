@@ -1,5 +1,6 @@
 package com.github.ayltai.hknews.parser;
 
+import java.io.Closeable;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.Date;
@@ -17,7 +18,7 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
-public abstract class Parser {
+public abstract class Parser implements Closeable {
     @NonNull
     @lombok.NonNull
     protected final ApiServiceFactory apiServiceFactory;
@@ -38,6 +39,10 @@ public abstract class Parser {
 
     @NonNull
     public abstract Item getItem(@NonNull @lombok.NonNull Item item) throws IOException;
+
+    @Override
+    public void close() {
+    }
 
     protected static Date toSafeDate(@NonNull @lombok.NonNull final Date date) {
         final Date now = new Date();

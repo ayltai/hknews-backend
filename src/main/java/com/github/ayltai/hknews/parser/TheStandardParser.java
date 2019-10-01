@@ -136,4 +136,10 @@ public final class TheStandardParser extends Parser {
 
         return item;
     }
+
+    @Override
+    public void close() {
+        TheStandardParser.DATE_FORMAT_LONG.remove();
+        TheStandardParser.DATE_FORMAT_SHORT.remove();
+    }
 }

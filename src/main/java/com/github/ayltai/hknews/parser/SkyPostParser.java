@@ -39,13 +39,7 @@ public final class SkyPostParser extends Parser {
     private static final String OPEN_TITLE   = "<h4>";
     private static final String CLOSE_TITLE  = "</h4>";
 
-    private static final ThreadLocal<DateFormat> DATE_FORMAT = new ThreadLocal<DateFormat>() {
-        @NonNull
-        @Override
-        protected DateFormat initialValue() {
-            return new SimpleDateFormat("yyyy/MM/dd");
-        }
-    };
+    private static final ThreadLocal<DateFormat> DATE_FORMAT = ThreadLocal.withInitial(() -> new SimpleDateFormat("yyyy/MM/dd"));
 
     //endregion
 
@@ -135,5 +129,10 @@ public final class SkyPostParser extends Parser {
         }
 
         return item;
+    }
+
+    @Override
+    public void close() {
+        SkyPostParser.DATE_FORMAT.remove();
     }
 }

@@ -76,4 +76,9 @@ public abstract class RssParser extends Parser {
             .filter(Objects::nonNull)
             .collect(Collectors.toCollection((Supplier<Collection<Item>>)ArrayList::new));
     }
+
+    @Override
+    public void close() {
+        RssParser.DATE_FORMAT.remove();
+    }
 }

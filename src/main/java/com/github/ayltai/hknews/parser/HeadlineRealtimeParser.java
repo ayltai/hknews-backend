@@ -125,4 +125,9 @@ public final class HeadlineRealtimeParser extends Parser {
 
         return item;
     }
+
+    @Override
+    public void close() {
+        HeadlineRealtimeParser.DATE_FORMAT.remove();
+    }
 }

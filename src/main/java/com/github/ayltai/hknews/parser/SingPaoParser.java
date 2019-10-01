@@ -129,4 +129,9 @@ public final class SingPaoParser extends Parser {
 
         return item;
     }
+
+    @Override
+    public void close() {
+        SingPaoParser.DATE_FORMAT.remove();
+    }
 }

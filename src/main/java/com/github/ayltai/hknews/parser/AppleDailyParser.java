@@ -90,7 +90,7 @@ public final class AppleDailyParser extends Parser {
                 final Item item = new Item();
 
                 item.setTitle(StringUtils.substringBetween(section, AppleDailyParser.TITLE, AppleDailyParser.QUOTE));
-                item.setUrl(url.substring(0, url.lastIndexOf(AppleDailyParser.SLASH)).replaceAll("video", "news").replaceAll("actionnews/local", "local/daily/article").replaceAll("actionnews/international", "international/daily/article").replaceAll("actionnews/finance", "finance/daily/article").replaceAll("actionnews/entertainment", "entertainment/daily/article").replaceAll("actionnews/sports", "sports/daily/article"));
+                item.setUrl(url.substring(0, url.lastIndexOf(AppleDailyParser.SLASH)).replace("video", "news").replace("actionnews/local", "local/daily/article").replace("actionnews/international", "international/daily/article").replace("actionnews/finance", "finance/daily/article").replace("actionnews/entertainment", "entertainment/daily/article").replace("actionnews/sports", "sports/daily/article"));
                 item.setPublishDate(Parser.toSafeDate(new Date(Long.parseLong(time) * AppleDailyParser.SECOND)));
                 item.setSource(this.getSource());
                 item.setCategory(category);
@@ -111,7 +111,7 @@ public final class AppleDailyParser extends Parser {
 
         final String[] descriptions = StringUtils.substringsBetween(html, "<div class=\"ArticleContent_Inner\">", AppleDailyParser.DIV);
         if (descriptions != null) item.setDescription(Stream.of(descriptions)
-            .reduce("", (description, content) -> description + content.trim().replaceAll("\n", "").replaceAll("\t", "").replaceAll("<h2>", AppleDailyParser.OPEN_HEADER).replaceAll("</h2>", AppleDailyParser.CLOSE_HEADER)));
+            .reduce("", (description, content) -> description + content.trim().replace("\n", "").replace("\t", "").replace("<h2>", AppleDailyParser.OPEN_HEADER).replace("</h2>", AppleDailyParser.CLOSE_HEADER)));
 
         item.setDescription(item.getDescription().replace("<img src=\"https://staticlayout.appledaily.hk/web_images/layout/art_end.gif\" />", ""));
 
@@ -134,5 +134,10 @@ public final class AppleDailyParser extends Parser {
         }
 
         return item;
+    }
+
+    @Override
+    public void close() {
+        AppleDailyParser.DATE_FORMAT.remove();
     }
 }

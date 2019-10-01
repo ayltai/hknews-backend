@@ -127,4 +127,9 @@ public final class SingTaoRealtimeParser extends Parser {
 
         return item;
     }
+
+    @Override
+    public void close() {
+        SingTaoRealtimeParser.DATE_FORMAT.remove();
+    }
 }

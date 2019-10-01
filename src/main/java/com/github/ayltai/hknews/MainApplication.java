@@ -9,6 +9,6 @@ import org.springframework.lang.Nullable;
 @EnableConfigurationProperties({ AppConfig.class })
 public class MainApplication {
     public static void main(@Nullable final String[] args) {
-        SpringApplication.run(MainApplication.class, args);
+        SpringApplication.run(MainApplication.class);
     }
 }
