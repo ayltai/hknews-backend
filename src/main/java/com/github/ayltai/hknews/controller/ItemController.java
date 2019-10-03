@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.data.web.SortDefault;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
@@ -27,7 +28,7 @@ import com.github.ayltai.hknews.service.ItemService;
     RequestMethod.HEAD,
     RequestMethod.OPTIONS
 })
-public class ItemController {
+public class ItemController extends BaseController {
     private final ItemService itemService;
 
     public ItemController(@NonNull @lombok.NonNull final ItemService itemService) {
@@ -47,7 +48,7 @@ public class ItemController {
 
         item.setRecordId(item.get_id().toHexString());
 
-        return ResponseEntity.ok(item);
+        return this.createResponse(item);
     }
 
     @NonNull
@@ -76,12 +77,14 @@ public class ItemController {
         final Pageable pageable) {
         if (sourceNames == null || sourceNames.isEmpty() || categoryNames == null || categoryNames.isEmpty()) return ResponseEntity.badRequest().build();
 
-        return ResponseEntity.ok(this.itemService
+        final Page<Item> items = this.itemService
             .getItems(sourceNames, categoryNames, days, pageable)
             .map(item -> {
                 item.setRecordId(item.get_id().toHexString());
 
                 return item;
-            }));
+            });
+
+        return this.createResponse(items);
     }
 }

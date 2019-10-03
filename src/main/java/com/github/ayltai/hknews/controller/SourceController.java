@@ -4,6 +4,7 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +23,7 @@ import com.github.ayltai.hknews.data.model.Source;
         RequestMethod.OPTIONS
     }
 )
-public class SourceController {
+public class SourceController extends BaseController {
     private final SourceService sourceService;
 
     public SourceController(@NonNull @lombok.NonNull final SourceService sourceService) {
@@ -35,12 +36,12 @@ public class SourceController {
         sync       = true
     )
     @GetMapping(produces = "application/json")
-    public Page<Source> getSources(
+    public ResponseEntity<Page<Source>> getSources(
         @PageableDefault(
             page = 0,
             size = 20
         )
         final Pageable pageable) {
-        return this.sourceService.getAllSources(pageable);
+        return this.createResponse(this.sourceService.getAllSources(pageable));
     }
 }
