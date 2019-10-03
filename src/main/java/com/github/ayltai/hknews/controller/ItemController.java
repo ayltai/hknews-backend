@@ -3,6 +3,7 @@ package com.github.ayltai.hknews.controller;
 import java.util.List;
 
 import org.bson.types.ObjectId;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,7 +21,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.github.ayltai.hknews.data.model.Item;
+import com.github.ayltai.hknews.diagnostic.AgentFactory;
 import com.github.ayltai.hknews.service.ItemService;
+import com.instrumentalapp.Agent;
 
 @RestController
 @RequestMapping(method = {
@@ -29,10 +32,17 @@ import com.github.ayltai.hknews.service.ItemService;
     RequestMethod.OPTIONS
 })
 public class ItemController extends BaseController {
-    private final ItemService itemService;
+    private static final String METRIC_REQUEST       = "app.web.request";
+    private static final String METRIC_REQUEST_ITEM  = "app.web.request.item";
+    private static final String METRIC_REQUEST_ITEMS = "app.web.request.items";
 
-    public ItemController(@NonNull @lombok.NonNull final ItemService itemService) {
+    private final ItemService itemService;
+    private final Agent       agent;
+
+    @Autowired
+    public ItemController(@NonNull @lombok.NonNull final ItemService itemService, @NonNull @lombok.NonNull final AgentFactory agentFactory) {
         this.itemService = itemService;
+        this.agent       = agentFactory.create();
     }
 
     @NonNull
@@ -41,12 +51,17 @@ public class ItemController extends BaseController {
         produces = "application/json"
     )
     public ResponseEntity<Item> getItem(@PathVariable @Nullable final String id) {
+        final long startTime = System.currentTimeMillis();
+
         if (id == null) return ResponseEntity.badRequest().build();
 
         final Item item = this.itemService.getItem(new ObjectId(id));
         if (item == null) return ResponseEntity.notFound().build();
 
         item.setRecordId(item.get_id().toHexString());
+
+        this.agent.gauge(ItemController.METRIC_REQUEST_ITEM, System.currentTimeMillis() - startTime);
+        this.agent.gauge(ItemController.METRIC_REQUEST, System.currentTimeMillis() - startTime);
 
         return this.createResponse(item);
     }
@@ -75,6 +90,8 @@ public class ItemController extends BaseController {
             )
         })
         final Pageable pageable) {
+        final long startTime = System.currentTimeMillis();
+
         if (sourceNames == null || sourceNames.isEmpty() || categoryNames == null || categoryNames.isEmpty()) return ResponseEntity.badRequest().build();
 
         final Page<Item> items = this.itemService
@@ -84,6 +101,9 @@ public class ItemController extends BaseController {
 
                 return item;
             });
+
+        this.agent.gauge(ItemController.METRIC_REQUEST_ITEMS, System.currentTimeMillis() - startTime);
+        this.agent.gauge(ItemController.METRIC_REQUEST, System.currentTimeMillis() - startTime);
 
         return this.createResponse(items);
     }
