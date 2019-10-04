@@ -64,7 +64,6 @@ dependencies {
     implementation 'org.json:json:20190722'
 
     // Monitoring
-    implementation 'io.micrometer:micrometer-registry-prometheus:1.3.0'
     implementation 'com.instrumentalapp:instrumental_agent:1.0.1'
 
     // Code generation

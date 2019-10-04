@@ -32,9 +32,9 @@ import com.instrumentalapp.Agent;
     RequestMethod.OPTIONS
 })
 public class ItemController extends BaseController {
-    private static final String METRIC_REQUEST       = "app.web.request";
-    private static final String METRIC_REQUEST_ITEM  = "app.web.request.item";
-    private static final String METRIC_REQUEST_ITEMS = "app.web.request.items";
+    private static final String METRIC_REQUEST       = "app.api.request";
+    private static final String METRIC_REQUEST_ITEM  = "app.api.request.item";
+    private static final String METRIC_REQUEST_ITEMS = "app.api.request.items";
 
     private final ItemService itemService;
     private final Agent       agent;
