@@ -65,6 +65,7 @@ dependencies {
 
     // Monitoring
     implementation 'com.instrumentalapp:instrumental_agent:1.0.1'
+    implementation 'org.logback-extensions:logback-ext-loggly:0.1.5'
 
     // Code generation
     implementation      'org.aspectj:aspectjweaver:1.9.4'
