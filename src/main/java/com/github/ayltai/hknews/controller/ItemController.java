@@ -3,14 +3,12 @@ package com.github.ayltai.hknews.controller;
 import java.util.List;
 
 import org.bson.types.ObjectId;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.data.web.SortDefault;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
@@ -36,13 +34,12 @@ public class ItemController {
     private static final String METRIC_REQUEST_ITEM  = "app.api.request.item";
     private static final String METRIC_REQUEST_ITEMS = "app.api.request.items";
 
-    private final ItemService itemService;
-    private final Agent       agent;
+    private final ItemService  itemService;
+    private final AgentFactory agentFactory;
 
-    @Autowired
     public ItemController(@NonNull @lombok.NonNull final ItemService itemService, @NonNull @lombok.NonNull final AgentFactory agentFactory) {
-        this.itemService = itemService;
-        this.agent       = agentFactory.create();
+        this.itemService  = itemService;
+        this.agentFactory = agentFactory;
     }
 
     @NonNull
@@ -60,8 +57,9 @@ public class ItemController {
 
         item.setRecordId(item.get_id().toHexString());
 
-        this.agent.gauge(ItemController.METRIC_REQUEST_ITEM, System.currentTimeMillis() - startTime);
-        this.agent.gauge(ItemController.METRIC_REQUEST, System.currentTimeMillis() - startTime);
+        final Agent agent = this.agentFactory.create();
+        agent.gauge(ItemController.METRIC_REQUEST_ITEM, System.currentTimeMillis() - startTime);
+        agent.gauge(ItemController.METRIC_REQUEST, System.currentTimeMillis() - startTime);
 
         return ResponseEntity.ok(item);
     }
@@ -102,8 +100,9 @@ public class ItemController {
                 return item;
             });
 
-        this.agent.gauge(ItemController.METRIC_REQUEST_ITEMS, System.currentTimeMillis() - startTime);
-        this.agent.gauge(ItemController.METRIC_REQUEST, System.currentTimeMillis() - startTime);
+        final Agent agent = this.agentFactory.create();
+        agent.gauge(ItemController.METRIC_REQUEST_ITEMS, System.currentTimeMillis() - startTime);
+        agent.gauge(ItemController.METRIC_REQUEST, System.currentTimeMillis() - startTime);
 
         return ResponseEntity.ok(items);
     }

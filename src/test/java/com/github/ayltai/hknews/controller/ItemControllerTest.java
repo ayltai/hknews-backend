@@ -3,9 +3,12 @@ package com.github.ayltai.hknews.controller;
 import java.util.Arrays;
 
 import org.bson.types.ObjectId;
+import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentMatchers;
+import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.mongo.embedded.EmbeddedMongoAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -19,7 +22,9 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import com.github.ayltai.hknews.UnitTest;
 import com.github.ayltai.hknews.data.model.Item;
+import com.github.ayltai.hknews.diagnostic.AgentFactory;
 import com.github.ayltai.hknews.service.ItemService;
+import com.instrumentalapp.Agent;
 
 @WebMvcTest(
     controllers              = ItemController.class,
@@ -30,6 +35,20 @@ public final class ItemControllerTest extends UnitTest {
 
     @MockBean
     private ItemService itemService;
+
+    @MockBean
+    private AgentFactory agentFactory;
+
+    @Mock
+    private Agent agent;
+
+    @Before
+    @Override
+    public void setUp() {
+        MockitoAnnotations.initMocks(this);
+
+        Mockito.when(this.agentFactory.create()).thenReturn(this.agent);
+    }
 
     @Test
     public void when_getItem_then_returnItem() throws Exception {
