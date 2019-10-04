@@ -11,6 +11,6 @@ public final class DefaultAgentFactory implements AgentFactory {
     @NonNull
     @Override
     public Agent create() {
-        return new Agent(new AgentOptions().setApiKey(System.getenv("INSTRUMENTAL_API_KEY")));
+        return new Agent(new AgentOptions().setApiKey(System.getProperty("instrumental.api-key")));
     }
 }
