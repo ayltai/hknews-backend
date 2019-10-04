@@ -23,7 +23,7 @@ import com.github.ayltai.hknews.data.model.Source;
         RequestMethod.OPTIONS
     }
 )
-public class SourceController extends BaseController {
+public class SourceController {
     private final SourceService sourceService;
 
     public SourceController(@NonNull @lombok.NonNull final SourceService sourceService) {
@@ -42,6 +42,6 @@ public class SourceController extends BaseController {
             size = 20
         )
         final Pageable pageable) {
-        return this.createResponse(this.sourceService.getAllSources(pageable));
+        return ResponseEntity.ok(this.sourceService.getAllSources(pageable));
     }
 }

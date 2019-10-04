@@ -31,7 +31,7 @@ import com.instrumentalapp.Agent;
     RequestMethod.HEAD,
     RequestMethod.OPTIONS
 })
-public class ItemController extends BaseController {
+public class ItemController {
     private static final String METRIC_REQUEST       = "app.api.request";
     private static final String METRIC_REQUEST_ITEM  = "app.api.request.item";
     private static final String METRIC_REQUEST_ITEMS = "app.api.request.items";
@@ -63,7 +63,7 @@ public class ItemController extends BaseController {
         this.agent.gauge(ItemController.METRIC_REQUEST_ITEM, System.currentTimeMillis() - startTime);
         this.agent.gauge(ItemController.METRIC_REQUEST, System.currentTimeMillis() - startTime);
 
-        return this.createResponse(item);
+        return ResponseEntity.ok(item);
     }
 
     @NonNull
@@ -105,6 +105,6 @@ public class ItemController extends BaseController {
         this.agent.gauge(ItemController.METRIC_REQUEST_ITEMS, System.currentTimeMillis() - startTime);
         this.agent.gauge(ItemController.METRIC_REQUEST, System.currentTimeMillis() - startTime);
 
-        return this.createResponse(items);
+        return ResponseEntity.ok(items);
     }
 }
