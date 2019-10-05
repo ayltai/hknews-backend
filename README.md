@@ -45,19 +45,27 @@ Serves aggregated news from 10+ local news publishers in Hong Kong. Made with ‚ù
 1. Install [JDK 11](https://openjdk.java.net/install)<sup>*</sup>
 2. Install [MongoDB](https://docs.mongodb.com/manual/installation) 4.x
 3. Start MongoDB daemon
-   ```bash
+   ```sh
    mongod
    ```
 4. Build the project
-   ```bash
+   ```sh
    ./build.sh
    ```
-5. Start the server
-   ```bash
+5. Export SSL certificate key for using HTTPS
+   ```sh
+   export SSL_KEY=x123y456
+   ```
+6. Export Instrumental API key for using sending logs to cloud service
+   ```sh
+   export INSTRUMENTAL_API_KEY=a111b222
+   ```
+7. Start the server
+   ```sh
    java -server -Xverify:none -Xms320m -Xmx960m -Xss512k -XX:+UseConcMarkSweepGC -XX:+CMSParallelRemarkEnabled -XX:+ScavengeBeforeFullGC -XX:+CMSScavengeBeforeRemark -Dfile.encoding=UTF-8 -Dserver.ssl.enabled=false -jar ./build/libs/hknews-backend-1.0.0.jar
    ```
-6. Test specific API
-   ```bash
+8. Test specific API
+   ```sh
    curl https://hknews.dev/sources
    ```
 
