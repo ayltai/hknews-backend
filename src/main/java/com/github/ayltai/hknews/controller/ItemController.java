@@ -37,6 +37,8 @@ public class ItemController {
     private final ItemService  itemService;
     private final AgentFactory agentFactory;
 
+    private Agent agent;
+
     public ItemController(@NonNull @lombok.NonNull final ItemService itemService, @NonNull @lombok.NonNull final AgentFactory agentFactory) {
         this.itemService  = itemService;
         this.agentFactory = agentFactory;
@@ -57,9 +59,9 @@ public class ItemController {
 
         item.setRecordId(item.get_id().toHexString());
 
-        final Agent agent = this.agentFactory.create();
-        agent.gauge(ItemController.METRIC_REQUEST_ITEM, System.currentTimeMillis() - startTime);
-        agent.gauge(ItemController.METRIC_REQUEST, System.currentTimeMillis() - startTime);
+        if (this.agent == null) this.agent = this.agentFactory.create();
+        this.agent.gauge(ItemController.METRIC_REQUEST_ITEM, System.currentTimeMillis() - startTime);
+        this.agent.gauge(ItemController.METRIC_REQUEST, System.currentTimeMillis() - startTime);
 
         return ResponseEntity.ok(item);
     }
@@ -100,9 +102,9 @@ public class ItemController {
                 return item;
             });
 
-        final Agent agent = this.agentFactory.create();
-        agent.gauge(ItemController.METRIC_REQUEST_ITEMS, System.currentTimeMillis() - startTime);
-        agent.gauge(ItemController.METRIC_REQUEST, System.currentTimeMillis() - startTime);
+        if (this.agent == null) this.agent = this.agentFactory.create();
+        this.agent.gauge(ItemController.METRIC_REQUEST_ITEMS, System.currentTimeMillis() - startTime);
+        this.agent.gauge(ItemController.METRIC_REQUEST, System.currentTimeMillis() - startTime);
 
         return ResponseEntity.ok(items);
     }
