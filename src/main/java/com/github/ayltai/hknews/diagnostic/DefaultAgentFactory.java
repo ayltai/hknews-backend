@@ -8,9 +8,13 @@ import com.instrumentalapp.AgentOptions;
 
 @Component
 public final class DefaultAgentFactory implements AgentFactory {
+    private static Agent agent;
+
     @NonNull
     @Override
     public Agent create() {
-        return new Agent(new AgentOptions().setApiKey(System.getProperty("instrumental.api-key")));
+        if (DefaultAgentFactory.agent == null) DefaultAgentFactory.agent = new Agent(new AgentOptions().setApiKey(System.getProperty("instrumental.api-key")));
+
+        return DefaultAgentFactory.agent;
     }
 }

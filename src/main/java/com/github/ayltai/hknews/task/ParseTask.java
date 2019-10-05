@@ -32,14 +32,16 @@ public class ParseTask {
     private final ApiServiceFactory apiServiceFactory;
     private final SourceRepository  sourceRepository;
     private final ItemRepository    itemRepository;
-    private final Agent             agent;
+    private final AgentFactory      agentFactory;
+
+    private Agent agent;
 
     @Autowired
     public ParseTask(@NonNull @lombok.NonNull final ApiServiceFactory apiServiceFactory, @NonNull@lombok.NonNull final SourceRepository sourceRepository, @NonNull @lombok.NonNull final ItemRepository itemRepository, @NonNull @lombok.NonNull final AgentFactory agentFactory) {
         this.apiServiceFactory = apiServiceFactory;
         this.sourceRepository  = sourceRepository;
         this.itemRepository    = itemRepository;
-        this.agent             = agentFactory.create();
+        this.agentFactory      = agentFactory;
     }
 
     @CacheEvict(
@@ -59,6 +61,7 @@ public class ParseTask {
             .forEach(source -> source.getCategories()
                 .forEach(category -> this.parse(factory, source, category)));
 
+        if (this.agent == null) this.agent = this.agentFactory.create();
         this.agent.gauge(ParseTask.METRIC_TASK, System.currentTimeMillis() - startTime);
     }
 
@@ -69,6 +72,7 @@ public class ParseTask {
         try (Parser parser = factory.create(source.getName())) {
             parser.getItems(category).forEach(item -> this.parse(factory, source, item));
 
+            if (this.agent == null) this.agent = this.agentFactory.create();
             this.agent.gauge(ParseTask.METRIC_TASK_ITEMS, System.currentTimeMillis() - startTime);
         } catch (final Exception e) {
             ParseTask.LOGGER.error("An unexpected error has occurred for category: " + category.getName(), e);
