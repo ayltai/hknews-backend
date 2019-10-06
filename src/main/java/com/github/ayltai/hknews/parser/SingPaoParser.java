@@ -61,7 +61,10 @@ public final class SingPaoParser extends Parser {
         final List<String[]> htmls = new ArrayList<>();
         for (final String url : category.getUrls()) {
             try {
-                htmls.add(StringUtils.substringsBetween(this.apiServiceFactory.create().getHtml(url).execute().body(), "<tr valign='top'><td width='220'>", "</td></tr>"));
+                final String[] html = StringUtils.substringsBetween(this.apiServiceFactory.create().getHtml(url).execute().body(), "<tr valign='top'><td width='220'>", "</td></tr>");
+                if (html == null || html.length == 0) continue;
+
+                htmls.add(html);
             } catch (final IOException e) {
                 SingPaoParser.LOGGER.error(e.getMessage(), e);
             }

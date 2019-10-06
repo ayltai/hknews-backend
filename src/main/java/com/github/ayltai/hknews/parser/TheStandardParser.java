@@ -70,7 +70,10 @@ public final class TheStandardParser extends Parser {
             final String[] tokens = url.split(Pattern.quote("?"));
 
             try {
-                htmls.add(StringUtils.substringsBetween(this.apiServiceFactory.create().postHtml(tokens[0], Integer.parseInt(tokens[1].split("=")[1]), 1).execute().body(), "<li class='caption'>", "</li>"));
+                final String[] html = StringUtils.substringsBetween(this.apiServiceFactory.create().postHtml(tokens[0], Integer.parseInt(tokens[1].split("=")[1]), 1).execute().body(), "<li class='caption'>", "</li>");
+                if (html == null || html.length == 0) continue;
+
+                htmls.add(html);
             } catch (final IOException e) {
                 TheStandardParser.LOGGER.error(e.getMessage(), e);
             }

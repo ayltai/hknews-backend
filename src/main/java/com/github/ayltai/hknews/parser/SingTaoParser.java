@@ -60,7 +60,10 @@ public final class SingTaoParser extends Parser {
         final List<String[]> htmls = new ArrayList<>();
         for (final String url : category.getUrls()) {
             try {
-                htmls.add(StringUtils.substringsBetween(StringUtils.substringBetween(this.apiServiceFactory.create().getHtml(url).execute().body(), "<div class=\"main list\">", "input type=\"hidden\" id=\"totalnews\""), "underline\">", "</a>\n</div>"));
+                final String[] html = StringUtils.substringsBetween(StringUtils.substringBetween(this.apiServiceFactory.create().getHtml(url).execute().body(), "<div class=\"main list\">", "input type=\"hidden\" id=\"totalnews\""), "underline\">", "</a>\n</div>");
+                if (html == null || html.length == 0) continue;
+
+                htmls.add(html);
             } catch (final IOException e) {
                 SingTaoParser.LOGGER.error(e.getMessage(), e);
             }

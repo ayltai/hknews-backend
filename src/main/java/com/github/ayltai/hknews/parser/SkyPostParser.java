@@ -60,7 +60,10 @@ public final class SkyPostParser extends Parser {
         final List<String[]> htmls = new ArrayList<>();
         for (final String url : category.getUrls()) {
             try {
-                htmls.add(StringUtils.substringsBetween(StringUtils.substringBetween(this.apiServiceFactory.create().getHtml(url).execute().body(), "<section class=\"article-listing", "</section>"), "<h5 class='card-title'>", "<button class=\"share-container\""));
+                final String[] html = StringUtils.substringsBetween(StringUtils.substringBetween(this.apiServiceFactory.create().getHtml(url).execute().body(), "<section class=\"article-listing", "</section>"), "<h5 class='card-title'>", "<button class=\"share-container\"");
+                if (html == null || html.length == 0) continue;
+
+                htmls.add(html);
             } catch (final IOException e) {
                 SkyPostParser.LOGGER.error(e.getMessage(), e);
             }

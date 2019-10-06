@@ -41,11 +41,15 @@ public abstract class RssParser extends Parser {
         final List<Feed> feeds = new ArrayList<>();
         for (final String url : category.getUrls()) {
             try {
-                feeds.add(this.apiServiceFactory
+                final Feed feed = this.apiServiceFactory
                     .create()
                     .getFeed(url)
                     .execute()
-                    .body());
+                    .body();
+
+                if (feed == null || feed.getItems() == null || feed.getItems().isEmpty()) continue;
+
+                feeds.add(feed);
             } catch (final IOException e) {
                 LoggerFactory.getLogger(this.getClass()).error("Error downloading contents from URL: " + url, e);
             }

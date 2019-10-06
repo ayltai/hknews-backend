@@ -56,7 +56,10 @@ public final class WenWeiPoParser extends Parser {
         final List<String[]> htmls = new ArrayList<>();
         for (final String url : category.getUrls()) {
             try {
-                htmls.add(StringUtils.substringsBetween(this.apiServiceFactory.create().getHtml(url).execute().body(), "<div class=\"content-art-box\">", "</article>"));
+                final String[] html = StringUtils.substringsBetween(this.apiServiceFactory.create().getHtml(url).execute().body(), "<div class=\"content-art-box\">", "</article>");
+                if (html == null || html.length == 0) continue;
+
+                htmls.add(html);
             } catch (final IOException e) {
                 WenWeiPoParser.LOGGER.error(e.getMessage(), e);
             }

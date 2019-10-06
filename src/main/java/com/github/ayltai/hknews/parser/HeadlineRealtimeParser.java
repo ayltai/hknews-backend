@@ -62,7 +62,10 @@ public final class HeadlineRealtimeParser extends Parser {
         final List<String[]> htmls = new ArrayList<>();
         for (final String url : category.getUrls()) {
             try {
-                htmls.add(StringUtils.substringsBetween(this.apiServiceFactory.create().getHtml(url).execute().body(), "<div class=\"topic\">", "<p class=\"text-left\">"));
+                final String[] html = StringUtils.substringsBetween(this.apiServiceFactory.create().getHtml(url).execute().body(), "<div class=\"topic\">", "<p class=\"text-left\">");
+                if (html == null || html.length == 0) continue;
+
+                htmls.add(html);
             } catch (final IOException e) {
                 HeadlineRealtimeParser.LOGGER.error(e.getMessage(), e);
             }

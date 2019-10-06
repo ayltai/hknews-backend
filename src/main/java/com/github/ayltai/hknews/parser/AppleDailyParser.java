@@ -74,7 +74,10 @@ public final class AppleDailyParser extends Parser {
         final List<String[]> htmls = new ArrayList<>();
         for (final String url : category.getUrls()) {
             try {
-                htmls.add(StringUtils.substringsBetween(StringUtils.substringBetween(this.apiServiceFactory.create().getHtml(url.replaceAll(Pattern.quote("{}"), AppleDailyParser.DATE_FORMAT.get().format(new Date()))).execute().body(), "<div class=\"itemContainer\"", "<div class=\"clear\"></div>"), "<div class=\"item\">", AppleDailyParser.DIV));
+                final String[] html = StringUtils.substringsBetween(StringUtils.substringBetween(this.apiServiceFactory.create().getHtml(url.replaceAll(Pattern.quote("{}"), AppleDailyParser.DATE_FORMAT.get().format(new Date()))).execute().body(), "<div class=\"itemContainer\"", "<div class=\"clear\"></div>"), "<div class=\"item\">", AppleDailyParser.DIV);
+                if (html == null || html.length == 0) continue;
+
+                htmls.add(html);
             } catch (final IOException e) {
                 AppleDailyParser.LOGGER.error(this.getClass().getSimpleName(), e.getMessage(), e);
             }
