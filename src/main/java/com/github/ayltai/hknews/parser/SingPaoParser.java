@@ -58,18 +58,18 @@ public final class SingPaoParser extends Parser {
     public Collection<Item> getItems(@NonNull @lombok.NonNull final Category category) {
         if (category.getUrls().isEmpty()) return Collections.emptyList();
 
-        return category.getUrls()
-            .stream()
-            .map(url -> {
-                try {
-                    return StringUtils.substringsBetween(this.apiServiceFactory.create().getHtml(url).execute().body(), "<tr valign='top'><td width='220'>", "</td></tr>");
-                } catch (final IOException e) {
-                    SingPaoParser.LOGGER.error(e.getMessage(), e);
+        final List<String[]> htmls = new ArrayList<>();
+        for (final String url : category.getUrls()) {
+            try {
+                htmls.add(StringUtils.substringsBetween(this.apiServiceFactory.create().getHtml(url).execute().body(), "<tr valign='top'><td width='220'>", "</td></tr>"));
+            } catch (final IOException e) {
+                SingPaoParser.LOGGER.error(e.getMessage(), e);
+            }
+        }
 
-                    return null;
-                }
-            })
-            .filter(Objects::nonNull)
+        if (htmls.isEmpty()) return Collections.emptyList();
+
+        return htmls.stream()
             .map(Arrays::asList)
             .flatMap(Collection::stream)
             .collect(Collectors.toList())

@@ -65,20 +65,20 @@ public final class TheStandardParser extends Parser {
     public Collection<Item> getItems(@NonNull @lombok.NonNull final Category category) {
         if (category.getUrls().isEmpty()) return Collections.emptyList();
 
-        return category.getUrls()
-            .stream()
-            .map(url -> {
-                final String[] tokens = url.split(Pattern.quote("?"));
+        final List<String[]> htmls = new ArrayList<>();
+        for (final String url : category.getUrls()) {
+            final String[] tokens = url.split(Pattern.quote("?"));
 
-                try {
-                    return StringUtils.substringsBetween(this.apiServiceFactory.create().postHtml(tokens[0], Integer.parseInt(tokens[1].split("=")[1]), 1).execute().body(), "<li class='caption'>", "</li>");
-                } catch (final IOException e) {
-                    TheStandardParser.LOGGER.error(e.getMessage(), e);
+            try {
+                htmls.add(StringUtils.substringsBetween(this.apiServiceFactory.create().postHtml(tokens[0], Integer.parseInt(tokens[1].split("=")[1]), 1).execute().body(), "<li class='caption'>", "</li>"));
+            } catch (final IOException e) {
+                TheStandardParser.LOGGER.error(e.getMessage(), e);
+            }
+        }
 
-                    return null;
-                }
-            })
-            .filter(Objects::nonNull)
+        if (htmls.isEmpty()) return Collections.emptyList();
+
+        return htmls.stream()
             .map(Arrays::asList)
             .flatMap(Collection::stream)
             .collect(Collectors.toList())

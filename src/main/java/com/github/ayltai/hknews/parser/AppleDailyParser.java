@@ -71,18 +71,18 @@ public final class AppleDailyParser extends Parser {
     public Collection<Item> getItems(@NonNull @lombok.NonNull final Category category) {
         if (category.getUrls().isEmpty()) return Collections.emptyList();
 
-        return category.getUrls()
-            .stream()
-            .map(url -> {
-                try {
-                    return StringUtils.substringsBetween(StringUtils.substringBetween(this.apiServiceFactory.create().getHtml(url.replaceAll(Pattern.quote("{}"), AppleDailyParser.DATE_FORMAT.get().format(new Date()))).execute().body(), "<div class=\"itemContainer\"", "<div class=\"clear\"></div>"), "<div class=\"item\">", AppleDailyParser.DIV);
-                } catch (final IOException e) {
-                    AppleDailyParser.LOGGER.error(this.getClass().getSimpleName(), e.getMessage(), e);
+        final List<String[]> htmls = new ArrayList<>();
+        for (final String url : category.getUrls()) {
+            try {
+                htmls.add(StringUtils.substringsBetween(StringUtils.substringBetween(this.apiServiceFactory.create().getHtml(url.replaceAll(Pattern.quote("{}"), AppleDailyParser.DATE_FORMAT.get().format(new Date()))).execute().body(), "<div class=\"itemContainer\"", "<div class=\"clear\"></div>"), "<div class=\"item\">", AppleDailyParser.DIV));
+            } catch (final IOException e) {
+                AppleDailyParser.LOGGER.error(this.getClass().getSimpleName(), e.getMessage(), e);
+            }
+        }
 
-                    return null;
-                }
-            })
-            .filter(Objects::nonNull)
+        if (htmls.isEmpty()) return Collections.emptyList();
+
+        return htmls.stream()
             .map(Arrays::asList)
             .flatMap(Collection::stream)
             .collect(Collectors.toList())

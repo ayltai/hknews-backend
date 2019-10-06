@@ -38,22 +38,22 @@ public abstract class RssParser extends Parser {
     public final Collection<Item> getItems(@NonNull @lombok.NonNull final Category category) {
         if (category.getUrls().isEmpty()) return Collections.emptyList();
 
-        return category.getUrls()
-            .stream()
-            .map(url -> {
-                try {
-                    return this.apiServiceFactory
-                        .create()
-                        .getFeed(url)
-                        .execute()
-                        .body();
-                } catch (final IOException e) {
-                    LoggerFactory.getLogger(this.getClass()).error("Error downloading contents from URL: " + url, e);
-                }
+        final List<Feed> feeds = new ArrayList<>();
+        for (final String url : category.getUrls()) {
+            try {
+                feeds.add(this.apiServiceFactory
+                    .create()
+                    .getFeed(url)
+                    .execute()
+                    .body());
+            } catch (final IOException e) {
+                LoggerFactory.getLogger(this.getClass()).error("Error downloading contents from URL: " + url, e);
+            }
+        }
 
-                return null;
-            })
-            .filter(Objects::nonNull)
+        if (feeds.isEmpty()) return Collections.emptyList();
+
+        return feeds.stream()
             .map(Feed::getItems)
             .flatMap(Collection::stream)
             .collect(Collectors.toList())

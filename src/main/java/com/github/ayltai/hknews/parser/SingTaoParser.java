@@ -57,18 +57,18 @@ public final class SingTaoParser extends Parser {
     public Collection<Item> getItems(@NonNull @lombok.NonNull final Category category) {
         if (category.getUrls().isEmpty()) return Collections.emptyList();
 
-        return category.getUrls()
-            .stream()
-            .map(url -> {
-                try {
-                    return StringUtils.substringsBetween(StringUtils.substringBetween(this.apiServiceFactory.create().getHtml(url).execute().body(), "<div class=\"main list\">", "input type=\"hidden\" id=\"totalnews\""), "underline\">", "</a>\n</div>");
-                } catch (final IOException e) {
-                    SingTaoParser.LOGGER.error(e.getMessage(), e);
+        final List<String[]> htmls = new ArrayList<>();
+        for (final String url : category.getUrls()) {
+            try {
+                htmls.add(StringUtils.substringsBetween(StringUtils.substringBetween(this.apiServiceFactory.create().getHtml(url).execute().body(), "<div class=\"main list\">", "input type=\"hidden\" id=\"totalnews\""), "underline\">", "</a>\n</div>"));
+            } catch (final IOException e) {
+                SingTaoParser.LOGGER.error(e.getMessage(), e);
+            }
+        }
 
-                    return null;
-                }
-            })
-            .filter(Objects::nonNull)
+        if (htmls.isEmpty()) return Collections.emptyList();
+
+        return htmls.stream()
             .map(Arrays::asList)
             .flatMap(Collection::stream)
             .collect(Collectors.toList())

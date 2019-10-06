@@ -59,18 +59,16 @@ public final class HeadlineRealtimeParser extends Parser {
     public Collection<Item> getItems(@NonNull @lombok.NonNull final Category category) {
         if (category.getUrls().isEmpty()) return Collections.emptyList();
 
-        return category.getUrls()
-            .stream()
-            .map(url -> {
-                try {
-                    return StringUtils.substringsBetween(this.apiServiceFactory.create().getHtml(url).execute().body(), "<div class=\"topic\">", "<p class=\"text-left\">");
-                } catch (final IOException e) {
-                    HeadlineRealtimeParser.LOGGER.error(e.getMessage(), e);
+        final List<String[]> htmls = new ArrayList<>();
+        for (final String url : category.getUrls()) {
+            try {
+                htmls.add(StringUtils.substringsBetween(this.apiServiceFactory.create().getHtml(url).execute().body(), "<div class=\"topic\">", "<p class=\"text-left\">"));
+            } catch (final IOException e) {
+                HeadlineRealtimeParser.LOGGER.error(e.getMessage(), e);
+            }
+        }
 
-                    return null;
-                }
-            })
-            .filter(Objects::nonNull)
+        return htmls.stream()
             .map(Arrays::asList)
             .flatMap(Collection::stream)
             .collect(Collectors.toList())

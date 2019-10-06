@@ -67,6 +67,8 @@ public final class ScmpParser extends RssParser {
         for (int i = 0; i < elements.length(); i++) {
             final JSONObject json = elements.getJSONObject(i);
             if ("p".equals(json.getString(ScmpParser.JSON_TYPE)) || "span".equals(json.getString(ScmpParser.JSON_TYPE))) {
+                if (!json.has(ScmpParser.JSON_CHILDREN)) continue;
+
                 final JSONArray array = json.getJSONArray(ScmpParser.JSON_CHILDREN);
                 for (int j = 0; j < array.length(); j++) {
                     final JSONObject node = array.getJSONObject(j);
@@ -87,6 +89,8 @@ public final class ScmpParser extends RssParser {
         for (int i = 0; i < elements.length(); i++) {
             final JSONObject json = elements.getJSONObject(i);
             if ("p".equals(json.getString(ScmpParser.JSON_TYPE)) || "a".equals(json.getString(ScmpParser.JSON_TYPE))) {
+                if (!json.has(ScmpParser.JSON_CHILDREN)) continue;
+
                 final JSONArray array = json.getJSONArray(ScmpParser.JSON_CHILDREN);
                 for (int j = 0; j < array.length(); j++) {
                     final JSONObject node = array.getJSONObject(j);
@@ -108,7 +112,7 @@ public final class ScmpParser extends RssParser {
         for (int i = 0; i < elements.length(); i++) {
             final JSONObject json = elements.getJSONObject(i);
             if ("div".equals(json.getString(ScmpParser.JSON_TYPE))) {
-                if (!json.has(ScmpParser.JSON_CHILDREN)) return;
+                if (!json.has(ScmpParser.JSON_CHILDREN)) continue;
 
                 final JSONArray array = json.getJSONArray(ScmpParser.JSON_CHILDREN);
                 for (int j = 0; j < array.length(); j++) {
