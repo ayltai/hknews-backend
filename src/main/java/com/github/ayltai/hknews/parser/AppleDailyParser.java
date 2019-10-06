@@ -17,6 +17,7 @@ import java.util.stream.Stream;
 
 import org.apache.commons.lang3.StringUtils;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,6 +46,10 @@ public final class AppleDailyParser extends Parser {
     private static final String DIV          = "</div>";
     private static final String OPEN_HEADER  = "<h3>";
     private static final String CLOSE_HEADER = "</h3>";
+    private static final String TYPE         = "type";
+    private static final String URL          = "url";
+    private static final String PROMO_ITEMS  = "promo_items";
+    private static final String PROMO_IMAGE  = "promo_image";
 
     private static final long SECOND = 1000;
 
@@ -109,6 +114,8 @@ public final class AppleDailyParser extends Parser {
         final String fullHtml = this.apiServiceFactory.create().getHtml(item.getUrl()).execute().body();
         final String html     = StringUtils.substringBetween(fullHtml, "<!-- START ARTILCLE CONTENT -->", "<!-- END ARTILCLE CONTENT -->");
 
+        if (html == null) return this.getItem(item, fullHtml);
+
         final String[] descriptions = StringUtils.substringsBetween(html, "<div class=\"ArticleContent_Inner\">", AppleDailyParser.DIV);
         if (descriptions != null) item.setDescription(Stream.of(descriptions)
             .reduce("", (description, content) -> description + content.trim().replace("\n", "").replace("\t", "").replace("<h2>", AppleDailyParser.OPEN_HEADER).replace("</h2>", AppleDailyParser.CLOSE_HEADER)));
@@ -131,6 +138,41 @@ public final class AppleDailyParser extends Parser {
         if (videoUrl != null) {
             final String ngs = StringUtils.substringBetween(fullHtml, "var ngsobj = ", ";");
             if (ngs != null) item.getVideos().add(new Video(videoUrl, new JSONObject(ngs).optString("ngs_thumbnail")));
+        }
+
+        return item;
+    }
+
+    private Item getItem(final Item item, final String html) {
+        final JSONObject json     = new JSONObject(StringUtils.substringBetween(html, "Fusion.globalContent=", "};") + "}");
+        final JSONArray  contents = json.getJSONArray("content_elements");
+
+        for (int i = 0; i < contents.length(); i++) {
+            final JSONObject content = contents.getJSONObject(i);
+            final String     type    = content.getString(AppleDailyParser.TYPE);
+
+            if ("text".equals(type)) {
+                item.setDescription((item.getDescription() == null ? "" : item.getDescription()) + content.getString("content"));
+            } else if ("image".equals(type)) {
+                final Image image = new Image();
+                image.setDescription(content.getString("caption"));
+                image.setImageUrl(content.getString(AppleDailyParser.URL));
+
+                item.getImages().add(image);
+            }
+        }
+
+        if (json.has(AppleDailyParser.PROMO_ITEMS)) {
+            final JSONObject promoItem = json.getJSONObject(AppleDailyParser.PROMO_ITEMS).getJSONObject("basic");
+            if ("video".equals(promoItem.getString(AppleDailyParser.TYPE))) {
+                if (promoItem.has(AppleDailyParser.PROMO_IMAGE)) {
+                    final Video video = new Video();
+                    video.setImageUrl(promoItem.getJSONObject(AppleDailyParser.PROMO_IMAGE).getString(AppleDailyParser.URL));
+                    video.setVideoUrl(promoItem.getJSONArray("streams").getJSONObject(0).getString(AppleDailyParser.URL));
+
+                    item.getVideos().add(video);
+                }
+            }
         }
 
         return item;
