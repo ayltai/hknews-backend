@@ -72,7 +72,8 @@ public final class HeadlineRealtimeParser extends Parser {
             })
             .filter(Objects::nonNull)
             .map(Arrays::asList)
-            .collect((Supplier<List<String>>)ArrayList::new, List::addAll, List::addAll)
+            .flatMap(Collection::stream)
+            .collect(Collectors.toList())
             .stream()
             .map(section -> {
                 final String date = StringUtils.substringBetween(section, "<i class=\"fa fa-clock-o\"></i>", "</span>");

@@ -84,7 +84,8 @@ public final class AppleDailyParser extends Parser {
             })
             .filter(Objects::nonNull)
             .map(Arrays::asList)
-            .collect((Supplier<List<String>>)ArrayList::new, List::addAll, List::addAll)
+            .flatMap(Collection::stream)
+            .collect(Collectors.toList())
             .stream()
             .map(section -> {
                 final String url  = StringUtils.substringBetween(section, AppleDailyParser.HREF, AppleDailyParser.QUOTE);

@@ -48,14 +48,15 @@ public abstract class RssParser extends Parser {
                         .execute()
                         .body();
                 } catch (final IOException e) {
-                    LoggerFactory.getLogger(this.getClass()).error(e.getMessage(), e);
+                    LoggerFactory.getLogger(this.getClass()).error("Error downloading contents from URL: " + url, e);
                 }
 
                 return null;
             })
             .filter(Objects::nonNull)
             .map(Feed::getItems)
-            .collect((Supplier<List<com.github.ayltai.hknews.rss.Item>>)ArrayList::new, List::addAll, List::addAll)
+            .flatMap(Collection::stream)
+            .collect(Collectors.toList())
             .stream()
             .filter(rssItem -> Objects.nonNull(rssItem.getLink()))
             .map(rssItem -> {
