@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 
 @ToString
@@ -16,10 +17,12 @@ import lombok.ToString;
 @AllArgsConstructor
 public final class Category {
     @Getter
+    @Setter
     private List<String> urls;
 
     @EqualsAndHashCode.Include
     @Getter
+    @Setter
     @Indexed
     private String name;
 }

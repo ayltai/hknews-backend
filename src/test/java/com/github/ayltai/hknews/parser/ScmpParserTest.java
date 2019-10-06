@@ -1,23 +1,55 @@
 package com.github.ayltai.hknews.parser;
 
+import com.github.ayltai.hknews.data.model.Category;
 import com.github.ayltai.hknews.data.model.Item;
 import com.github.ayltai.hknews.net.ApiService;
 import com.github.ayltai.hknews.net.ApiServiceFactory;
+import com.github.ayltai.hknews.rss.Feed;
 
 import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mockito;
+import org.simpleframework.xml.core.Persister;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.stream.Collectors;
 
 import retrofit2.Call;
 import retrofit2.Response;
 
 public final class ScmpParserTest extends ParserTest {
+    @Test
+    public void testGetItems() throws Exception {
+        final ApiServiceFactory factory = Mockito.mock(ApiServiceFactory.class);
+        final ApiService        service = Mockito.mock(ApiService.class);
+
+        Mockito.doReturn(service).when(factory).create();
+
+        try (InputStreamReader inputStreamReader = new InputStreamReader(this.getClass().getClassLoader().getResourceAsStream("testdata/scmp.xml"), StandardCharsets.UTF_8)) {
+            try (BufferedReader bufferedReader = new BufferedReader(inputStreamReader)) {
+                final Call           call     = Mockito.mock(Call.class);
+                final Response<Feed> response = Response.success(new Persister().read(Feed.class, bufferedReader.lines().collect(Collectors.joining("\n"))));
+
+                Mockito.doReturn(call).when(service).getFeed("http://www.scmp.com/rss/2/feed");
+                Mockito.doReturn(response).when(call).execute();
+
+                final Category category = new Category();
+                category.setName("港聞");
+                category.setUrls(new ArrayList<>());
+                category.getUrls().add("http://www.scmp.com/rss/2/feed");
+
+                final Collection<Item> items = new ScmpParser(factory, this.sourceRepository, this.itemRepository).getItems(category);
+
+                Assert.assertEquals(50, items.size());
+                Assert.assertEquals("Hong Kong protests: no plans for foreign exchange controls finance chief says amid online rumours of more curbs after anti-mask law", items.iterator().next().getTitle());
+            }
+        }
+    }
     @Test
     public void testGetItem() throws IOException {
         final ApiServiceFactory factory = Mockito.mock(ApiServiceFactory.class);
