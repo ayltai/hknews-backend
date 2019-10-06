@@ -2,7 +2,6 @@ package com.github.ayltai.hknews.rss;
 
 import java.util.List;
 
-import org.simpleframework.xml.Element;
 import org.simpleframework.xml.ElementList;
 import org.simpleframework.xml.Path;
 import org.simpleframework.xml.Root;

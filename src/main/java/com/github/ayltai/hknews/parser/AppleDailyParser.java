@@ -168,14 +168,12 @@ public final class AppleDailyParser extends Parser {
 
         if (json.has(AppleDailyParser.PROMO_ITEMS)) {
             final JSONObject promoItem = json.getJSONObject(AppleDailyParser.PROMO_ITEMS).getJSONObject("basic");
-            if ("video".equals(promoItem.getString(AppleDailyParser.TYPE))) {
-                if (promoItem.has(AppleDailyParser.PROMO_IMAGE)) {
-                    final Video video = new Video();
-                    video.setImageUrl(promoItem.getJSONObject(AppleDailyParser.PROMO_IMAGE).getString(AppleDailyParser.URL));
-                    video.setVideoUrl(promoItem.getJSONArray("streams").getJSONObject(0).getString(AppleDailyParser.URL));
+            if ("video".equals(promoItem.getString(AppleDailyParser.TYPE)) && promoItem.has(AppleDailyParser.PROMO_IMAGE)) {
+                final Video video = new Video();
+                video.setImageUrl(promoItem.getJSONObject(AppleDailyParser.PROMO_IMAGE).getString(AppleDailyParser.URL));
+                video.setVideoUrl(promoItem.getJSONArray("streams").getJSONObject(0).getString(AppleDailyParser.URL));
 
-                    item.getVideos().add(video);
-                }
+                item.getVideos().add(video);
             }
         }
 
