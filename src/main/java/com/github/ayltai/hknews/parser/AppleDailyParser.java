@@ -143,7 +143,7 @@ public final class AppleDailyParser extends Parser {
         return item;
     }
 
-    private Item getItem(final Item item, final String html) {
+    private Item getItem(@NonNull @lombok.NonNull final Item item, @NonNull @lombok.NonNull final String html) {
         final JSONObject json     = new JSONObject(StringUtils.substringBetween(html, "Fusion.globalContent=", "};") + "}");
         final JSONArray  contents = json.getJSONArray("content_elements");
 

@@ -6,6 +6,9 @@ import org.springframework.lang.NonNull;
 
 @Root(name = "enclosure", strict = false)
 public final class Enclosure {
+    private static final String TYPE_IMAGE = "image/";
+    private static final String TYPE_VIDEO = "video/";
+
     @Attribute(name = "url")
     private String url;
 
@@ -30,5 +33,13 @@ public final class Enclosure {
 
     public String getType() {
         return this.type;
+    }
+
+    public boolean isImage() {
+        return this.type.startsWith(Enclosure.TYPE_IMAGE);
+    }
+
+    public boolean isVideo() {
+        return this.type.startsWith(Enclosure.TYPE_VIDEO);
     }
 }

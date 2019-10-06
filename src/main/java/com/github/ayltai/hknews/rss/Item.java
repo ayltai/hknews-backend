@@ -1,6 +1,9 @@
 package com.github.ayltai.hknews.rss;
 
+import java.util.List;
+
 import org.simpleframework.xml.Element;
+import org.simpleframework.xml.ElementList;
 import org.simpleframework.xml.Path;
 import org.simpleframework.xml.Root;
 import org.simpleframework.xml.Text;
@@ -28,8 +31,8 @@ public final class Item {
     @Text(required = false)
     private String pubDate;
 
-    @Element(name = "enclosure", required = false, type = Enclosure.class)
-    private Enclosure enclosure;
+    @ElementList(name = "enclosure", required = false, type = Enclosure.class, inline = true)
+    private List<Enclosure> enclosures;
 
     @NonNull
     public String getTitle() {
@@ -52,7 +55,7 @@ public final class Item {
         return this.pubDate;
     }
 
-    public Enclosure getEnclosure() {
-        return this.enclosure;
+    public List<Enclosure> getEnclosures() {
+        return this.enclosures;
     }
 }

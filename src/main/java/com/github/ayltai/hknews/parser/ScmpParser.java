@@ -108,6 +108,8 @@ public final class ScmpParser extends RssParser {
         for (int i = 0; i < elements.length(); i++) {
             final JSONObject json = elements.getJSONObject(i);
             if ("div".equals(json.getString(ScmpParser.JSON_TYPE))) {
+                if (!json.has(ScmpParser.JSON_CHILDREN)) return;
+
                 final JSONArray array = json.getJSONArray(ScmpParser.JSON_CHILDREN);
                 for (int j = 0; j < array.length(); j++) {
                     String videoId = array.getJSONObject(j).optString("video_id");
