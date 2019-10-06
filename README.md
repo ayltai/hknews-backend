@@ -56,11 +56,15 @@ Serves aggregated news from 10+ local news publishers in Hong Kong. Made with ‚ù
    ```sh
    export SSL_KEY=x123y456
    ```
-6. Export Instrumental API key for using sending logs to cloud service
+6. Export Instrumental API key for using sending system metrics to cloud service
    ```sh
    export INSTRUMENTAL_API_KEY=a111b222
    ```
-7. Start the server
+7. Export Logz.io token for using sending application logs to cloud service
+   ```sh
+   export LOGZIO_TOKEN=abcdef
+   ```
+8. Start the server
    ```sh
    java -server -Xverify:none -Xms320m -Xmx960m -Xss512k -XX:+UseConcMarkSweepGC -XX:+CMSParallelRemarkEnabled -XX:+ScavengeBeforeFullGC -XX:+CMSScavengeBeforeRemark -Dfile.encoding=UTF-8 -Dserver.ssl.enabled=false -jar ./build/libs/hknews-backend-1.0.0.jar
    ```
