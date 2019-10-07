@@ -27,7 +27,7 @@ configurations {
 
 ext {
     springVersion        = '2.1.9.RELEASE'
-    okhttpVersion        = '4.2.1'
+    okhttpVersion        = '4.2.2'
     retrofitVersion      = '2.6.2'
     jacksonVersion       = '2.10.0'
     lombokVersion        = '1.18.10'
