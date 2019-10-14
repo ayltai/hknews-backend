@@ -130,7 +130,7 @@ tasks.withType(com.github.spotbugs.SpotBugsTask) {
 //region JaCoCo configurations
 
 jacoco {
-    toolVersion '0.8.4'
+    toolVersion '0.8.5'
 }
 
 jacocoTestReport {
