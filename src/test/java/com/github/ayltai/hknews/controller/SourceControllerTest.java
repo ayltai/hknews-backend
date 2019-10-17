@@ -45,8 +45,7 @@ public final class SourceControllerTest extends UnitTest {
             .perform(MockMvcRequestBuilders.get("/sources"))
             .andExpect(MockMvcResultMatchers.status().isOk())
             .andExpect(MockMvcResultMatchers.content().contentTypeCompatibleWith("application/json"))
-            .andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("\"name\":\"蘋果日報\"")))
-            .andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("\"name\":\"港聞\"")))
+            .andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("\"imageUrl\":\"/images/appledaily.png\"")))
             .andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("\"urls\":[\"http://www.scmp.com/rss/92/feed\"]")));
     }
 
