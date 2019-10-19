@@ -3,7 +3,7 @@ plugins {
     id 'io.spring.dependency-management' version '1.0.8.RELEASE'
     id 'java'
     id 'checkstyle'
-    id 'com.github.spotbugs'             version '2.0.0'
+    id 'com.github.spotbugs'             version '2.0.1'
     id 'org.sonarqube'                   version '2.8'
     id 'jacoco'
     id 'com.github.ben-manes.versions'   version '0.27.0'
@@ -68,7 +68,7 @@ dependencies {
 
     // Monitoring
     implementation 'com.instrumentalapp:instrumental_agent:1.0.1'
-    implementation 'io.logz.logback:logzio-logback-appender:1.0.22'
+    implementation 'io.logz.logback:logzio-logback-appender:1.0.23'
 
     // Code generation
     implementation      'org.aspectj:aspectjweaver:1.9.4'
