@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration debug="true">
     <shutdownHook class="ch.qos.logback.core.hook.DelayingShutdownHook" />
-    <springProfile name="development | test">
+    <springProfile name="development,test">
         <include resource="org/springframework/boot/logging/logback/defaults.xml" />
         <appender
             name="ConsoleAppender"
@@ -16,6 +16,7 @@
         </root>
     </springProfile>
     <springProfile name="production">
+        <shutdownHook class="ch.qos.logback.core.hook.DelayingShutdownHook" />
         <appender
             name="LogzioLogbackAppender"
             class="io.logz.logback.LogzioLogbackAppender">
