@@ -52,28 +52,40 @@ Serves aggregated news from 10+ local news publishers in Hong Kong. Made with ‚ù
    ```sh
    ./build.sh
    ```
-5. Export SSL certificate key for using HTTPS
-   ```sh
-   export SSL_KEY=x123y456
-   ```
-6. Export Instrumental API key for using sending system metrics to cloud service
-   ```sh
-   export INSTRUMENTAL_API_KEY=a111b222
-   ```
-7. Export Logz.io token for using sending application logs to cloud service
-   ```sh
-   export LOGZIO_TOKEN=abcdef
-   ```
-8. Start the server
+
+<sup>*</sup> JDK 8, 9 and 10 also work. JDK 11 is used here for better runtime performance.
+
+### How to run for development environment
+1. Start the server
    ```sh
    java -server -Xverify:none -Xms320m -Xmx960m -Xss512k -XX:+UseConcMarkSweepGC -XX:+CMSParallelRemarkEnabled -XX:+ScavengeBeforeFullGC -XX:+CMSScavengeBeforeRemark -Dfile.encoding=UTF-8 -Dserver.ssl.enabled=false -jar ./build/libs/hknews-backend-1.0.0.jar
    ```
-8. Test specific API
+2. Test specific API
+   ```sh
+   curl http://localhost:8080/sources
+   ```
+
+### How to run for production environment
+1. Export SSL certificate key for using HTTPS
+   ```sh
+   export SSL_KEY=x123y456
+   ```
+2. Export Instrumental API key for using sending system metrics to cloud service
+   ```sh
+   export INSTRUMENTAL_API_KEY=a111b222
+   ```
+3. Export Logz.io token for using sending application logs to cloud service
+   ```sh
+   export LOGZIO_TOKEN=abcdef
+   ```
+4. Start the server
+   ```sh
+   java -server -Xverify:none -Xms320m -Xmx960m -Xss512k -XX:+UseConcMarkSweepGC -XX:+CMSParallelRemarkEnabled -XX:+ScavengeBeforeFullGC -XX:+CMSScavengeBeforeRemark -Dfile.encoding=UTF-8 -Dserver.ssl.enabled=false -jar ./build/libs/hknews-backend-1.0.0.jar
+   ```
+5. Test specific API
    ```sh
    curl https://hknews.dev/sources
    ```
-
-<sup>*</sup> JDK 8, 9 and 10 also work. JDK 11 is used here for better runtime performance.
 
 ## Acknowledgements
 This software is made with the support of open source projects:
