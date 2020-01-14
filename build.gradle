@@ -10,7 +10,7 @@ plugins {
 }
 
 group   = 'com.github.ayltai'
-version = '1.2.2'
+version = '1.2.3'
 
 sourceCompatibility = 11
 targetCompatibility = 11
@@ -26,7 +26,6 @@ configurations {
 //region Dependencies
 
 ext {
-    springVersion        = '2.2.2.RELEASE'
     okhttpVersion        = '4.3.1'
     retrofitVersion      = '2.7.1'
     jacksonVersion       = '2.10.2'
@@ -43,14 +42,14 @@ repositories {
 
 dependencies {
     // Spring Boot
-    implementation ("org.springframework.boot:spring-boot-starter-web:$springVersion") {
+    implementation ('org.springframework.boot:spring-boot-starter-web') {
         exclude group : 'org.springframework.boot', module : 'spring-boot-starter-json'
         exclude group : 'org.springframework.boot', module : 'spring-boot-starter-tomcat'
         exclude group : 'org.hibernate.validator',  module : 'hibernate-validator'
     }
-    implementation      "org.springframework.boot:spring-boot-starter-undertow:$springVersion"
-    implementation      "org.springframework.boot:spring-boot-starter-data-mongodb:$springVersion"
-    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor:$springVersion"
+    implementation      'org.springframework.boot:spring-boot-starter-undertow'
+    implementation      'org.springframework.boot:spring-boot-starter-data-mongodb'
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 
     // HTTP networking
     implementation "com.squareup.okhttp3:okhttp:$okhttpVersion"
@@ -67,8 +66,8 @@ dependencies {
     implementation 'org.json:json:20190722'
 
     // Monitoring
+    implementation 'com.google.cloud:google-cloud-logging-logback:0.116.0-alpha'
     implementation 'com.instrumentalapp:instrumental_agent:1.0.1'
-    implementation 'io.logz.logback:logzio-logback-appender:1.0.24'
 
     // Code generation
     implementation      'org.aspectj:aspectjweaver:1.9.5'
@@ -76,7 +75,7 @@ dependencies {
     annotationProcessor "org.projectlombok:lombok:$lombokVersion"
 
     // Unit testing
-    testImplementation "org.springframework.boot:spring-boot-starter-test:$springVersion"
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation "de.flapdoodle.embed:de.flapdoodle.embed.mongo:$embeddedMongoVersion"
 
     codacy 'com.codacy:codacy-coverage-reporter:6.2.0'

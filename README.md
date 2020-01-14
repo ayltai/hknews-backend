@@ -74,13 +74,14 @@ Serves aggregated news from 10+ local news publishers in Hong Kong. Made with ‚ù
    ```sh
    export INSTRUMENTAL_API_KEY=a111b222
    ```
-3. Export Logz.io token for using sending application logs to cloud service
+3. Export Google application credentials for using sending application logs to Stackdriver Logging service
    ```sh
-   export LOGZIO_TOKEN=abcdef
+   export GOOGLE_CLOUD_PROJECT="your-gcp-project-id"
+   export GOOGLE_APPLICATION_CREDENTIALS="/etc/google/auth/application_default_credentials.json"
    ```
 4. Start the server
    ```sh
-   java -server -Xverify:none -Xms320m -Xmx960m -Xss512k -XX:+UseConcMarkSweepGC -XX:+CMSParallelRemarkEnabled -XX:+ScavengeBeforeFullGC -XX:+CMSScavengeBeforeRemark -Dfile.encoding=UTF-8 -Dserver.ssl.enabled=false -jar ./build/libs/hknews-backend-1.0.0.jar
+   java -server -Xverify:none -Xms320m -Xmx960m -Xss512k -XX:+CMSParallelRemarkEnabled -XX:+ScavengeBeforeFullGC -XX:+CMSScavengeBeforeRemark -Dfile.encoding=UTF-8 -Dserver.ssl.enabled=false -jar ./build/libs/hknews-backend-1.2.3.jar
    ```
 5. Test specific API
    ```sh
@@ -89,25 +90,26 @@ Serves aggregated news from 10+ local news publishers in Hong Kong. Made with ‚ù
 
 ## Acknowledgements
 This software is made with the support of open source projects:
-* [Spring Boot](https://spring.io/projects/spring-boot): Makes it easy to create stand-alone, production-grade Spring-based applications.
-* [Spring Data](https://spring.io/projects/spring-data): Provides a familiar and consistent Spring-based programming model for data access.
-* [Spring Data MongoDB](https://spring.io/projects/spring-data-mongodb): Provides a familiar and consistent Spring-based programming model for MongoDB datastore.
-* [Undertow](http://undertow.io): The default web server in [Wildfly Application Server](https://github.com/wildfly/wildfly).
-* [OkHttp](http://square.github.io/okhttp): An HTTP & HTTP/2 client for Android and Java applications
-* [Retrofit](https://github.com/square/retrofit): Type-safe HTTP client for Android and Java by Square, Inc.
-* [Apache Commons Lang](https://commons.apache.org/proper/commons-lang): Provides extra functionality for classes in java.lang
-* [Project Lombok](https://projectlombok.org): Automatically plugs into your editor and build tools, spicing up your Java code
-* [JSON](https://json.org): Implements JSON encoders/decoders in Java based on org.json implementation
-* [Gson](https://github.com/google/gson): A Java serialization/deserialization library to convert Java Objects into JSON and back
-* [JUnit](https://junit.org/junit4): A simple framework to write repeatable tests
-* [Mockito](https://site.mockito.org): The most popular mocking framework for unit tests written in Java
-* [Checkstyle](http://checkstyle.sourceforge.net): A development tool to help programmers write Java code that adheres to a coding standard
-* [SpotBugs](https://spotbugs.github.io): A tool for static analysis to look for bugs in Java code
-* [JaCoCo](https://www.jacoco.org/jacoco): Java code coverage library
-* [OWASP Dependency Check](https://www.owasp.org/index.php/OWASP_Dependency_Check): Identifies project dependencies and checks if there are any known, publicly disclosed, vulnerabilities.
+* [Spring Boot](https://spring.io/projects/spring-boot)
+* [Spring Data](https://spring.io/projects/spring-data)
+* [Spring Data MongoDB](https://spring.io/projects/spring-data-mongodb)
+* [Spring Cloud GCP](https://spring.io/projects/spring-cloud-gcp)
+* [Undertow](http://undertow.io)
+* [OkHttp](http://square.github.io/okhttp)
+* [Retrofit](https://github.com/square/retrofit)
+* [Apache Commons Lang](https://commons.apache.org/proper/commons-lang)
+* [Project Lombok](https://projectlombok.org)
+* [JSON](https://json.org)
+* [Gson](https://github.com/google/gson)
+* [JUnit](https://junit.org/junit4)
+* [Mockito](https://site.mockito.org)
+* [Checkstyle](http://checkstyle.sourceforge.net)
+* [SpotBugs](https://spotbugs.github.io)
+* [JaCoCo](https://www.jacoco.org/jacoco)
+* [OWASP Dependency Check](https://www.owasp.org/index.php/OWASP_Dependency_Check)
 
 ... and closed source services:
-* [CircleCI](https://circleci.com): Continuous integration and delivery
-* [SonarCloud](https://sonarcloud.io): Online service for code quality and security
-* [Instrumental](https://instrumentalapp.com): Server and application monitoring service
-* [Logz.io](https://logz.io/): Application logs service based on ELK & Grafana
+* [CircleCI](https://circleci.com)
+* [SonarCloud](https://sonarcloud.io)
+* [Instrumental](https://instrumentalapp.com)
+* [Stackdriver Logging](https://cloud.google.com/logging/)
