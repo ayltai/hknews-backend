@@ -74,10 +74,9 @@ Serves aggregated news from 10+ local news publishers in Hong Kong. Made with ‚ù
    ```sh
    export INSTRUMENTAL_API_KEY=a111b222
    ```
-3. Export Google application credentials for using sending application logs to Stackdriver Logging service
+3. Export Logz.io token for using sending application logs to cloud service
    ```sh
-   export GOOGLE_CLOUD_PROJECT="your-gcp-project-id"
-   export GOOGLE_APPLICATION_CREDENTIALS="/etc/google/auth/application_default_credentials.json"
+   export LOGZIO_TOKEN=abcdef
    ```
 4. Start the server
    ```sh
@@ -93,7 +92,6 @@ This software is made with the support of open source projects:
 * [Spring Boot](https://spring.io/projects/spring-boot)
 * [Spring Data](https://spring.io/projects/spring-data)
 * [Spring Data MongoDB](https://spring.io/projects/spring-data-mongodb)
-* [Spring Cloud GCP](https://spring.io/projects/spring-cloud-gcp)
 * [Undertow](http://undertow.io)
 * [OkHttp](http://square.github.io/okhttp)
 * [Retrofit](https://github.com/square/retrofit)
@@ -112,4 +110,4 @@ This software is made with the support of open source projects:
 * [CircleCI](https://circleci.com)
 * [SonarCloud](https://sonarcloud.io)
 * [Instrumental](https://instrumentalapp.com)
-* [Stackdriver Logging](https://cloud.google.com/logging/)
+* [Logz.io](https://logz.io):

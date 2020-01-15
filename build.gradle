@@ -66,8 +66,8 @@ dependencies {
     implementation 'org.json:json:20190722'
 
     // Monitoring
-    implementation 'com.google.cloud:google-cloud-logging-logback:0.116.0-alpha'
     implementation 'com.instrumentalapp:instrumental_agent:1.0.1'
+    implementation 'io.logz.logback:logzio-logback-appender:1.0.24'
 
     // Code generation
     implementation      'org.aspectj:aspectjweaver:1.9.5'
