@@ -10,7 +10,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
-import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 import org.slf4j.LoggerFactory;
@@ -85,7 +84,7 @@ public abstract class RssParser extends Parser {
                 return null;
             })
             .filter(Objects::nonNull)
-            .collect(Collectors.toCollection((Supplier<Collection<Item>>)ArrayList::new));
+            .collect(Collectors.toCollection(ArrayList::new));
     }
 
     @Override

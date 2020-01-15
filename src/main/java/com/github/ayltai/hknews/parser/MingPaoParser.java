@@ -2,9 +2,7 @@ package com.github.ayltai.hknews.parser;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Objects;
-import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -60,7 +58,7 @@ public final class MingPaoParser extends RssParser {
                     return new Image(imageUrl, StringUtils.substringBetween(imageContainer, "dtitle=\"", MingPaoParser.QUOTE));
                 })
                 .filter(Objects::nonNull)
-                .collect(Collectors.toCollection((Supplier<Collection<Image>>)ArrayList::new)));
+                .collect(Collectors.toCollection(ArrayList::new)));
 
             final String[] videoContainers = StringUtils.substringsBetween(html, "id=\"zoom_video_", MingPaoParser.DIV_CLEAR);
             if (videoContainers != null) item.getVideos().addAll(Stream.of(videoContainers)
@@ -71,7 +69,7 @@ public final class MingPaoParser extends RssParser {
                     return new Video(videoUrl, videoUrl.replaceAll(".mp4", ".jpg"));
                 })
                 .filter(Objects::nonNull)
-                .collect(Collectors.toCollection((Supplier<Collection<Video>>)ArrayList::new)));
+                .collect(Collectors.toCollection(ArrayList::new)));
         }
 
         return item;

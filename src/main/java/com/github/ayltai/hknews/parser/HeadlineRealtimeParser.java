@@ -10,7 +10,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
-import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -100,7 +99,7 @@ public final class HeadlineRealtimeParser extends Parser {
                 }
             })
             .filter(Objects::nonNull)
-            .collect(Collectors.toCollection((Supplier<Collection<Item>>)ArrayList::new));
+            .collect(Collectors.toCollection(ArrayList::new));
     }
 
     @NonNull
@@ -122,7 +121,7 @@ public final class HeadlineRealtimeParser extends Parser {
                     return new Image(imageUrl.startsWith("//") ? HeadlineRealtimeParser.HTTP + imageUrl : imageUrl.startsWith(HeadlineRealtimeParser.HTTP) ? imageUrl : HeadlineRealtimeParser.IMAGE_URI + imageUrl, StringUtils.substringBetween(imageContainer, "title=\"", HeadlineRealtimeParser.QUOTE));
                 })
                 .filter(Objects::nonNull)
-                .collect(Collectors.toCollection((Supplier<Collection<Image>>)ArrayList::new)));
+                .collect(Collectors.toCollection(ArrayList::new)));
         }
 
         return item;

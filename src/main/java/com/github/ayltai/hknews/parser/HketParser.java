@@ -2,9 +2,7 @@ package com.github.ayltai.hknews.parser;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Objects;
-import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -57,7 +55,7 @@ public final class HketParser extends RssParser {
             if (imageContainers != null) item.getImages().addAll(Stream.of(imageContainers)
                 .map(HketParser::extractImage)
                 .filter(Objects::nonNull)
-                .collect(Collectors.toCollection((Supplier<Collection<Image>>)ArrayList::new)));
+                .collect(Collectors.toCollection(ArrayList::new)));
 
             final String videoId = StringUtils.substringBetween(html, " src=\"//www.youtube.com/embed/", "?rel=0");
             if (videoId != null) item.getVideos().add(new Video("https://www.youtube.com/watch?v=" + videoId, "https://img.youtube.com/vi/" + videoId + "/mqdefault.jpg"));

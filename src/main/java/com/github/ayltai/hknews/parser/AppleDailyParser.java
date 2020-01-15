@@ -10,7 +10,6 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
-import java.util.function.Supplier;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -107,7 +106,7 @@ public final class AppleDailyParser extends Parser {
                 return item;
             })
             .filter(Objects::nonNull)
-            .collect(Collectors.toCollection((Supplier<Collection<Item>>)ArrayList::new));
+            .collect(Collectors.toCollection(ArrayList::new));
     }
 
     @NonNull
@@ -118,6 +117,7 @@ public final class AppleDailyParser extends Parser {
         final String fullHtml = this.apiServiceFactory.create().getHtml(item.getUrl()).execute().body();
         final String html     = StringUtils.substringBetween(fullHtml, "<!-- START ARTILCLE CONTENT -->", "<!-- END ARTILCLE CONTENT -->");
 
+        if (fullHtml == null) return item;
         if (html == null) return this.getItem(item, fullHtml);
 
         final String[] descriptions = StringUtils.substringsBetween(html, "<div class=\"ArticleContent_Inner\">", AppleDailyParser.DIV);
@@ -135,7 +135,7 @@ public final class AppleDailyParser extends Parser {
                 return new Image(imageUrl, StringUtils.substringBetween(imageContainer, AppleDailyParser.TITLE, AppleDailyParser.QUOTE));
             })
             .filter(Objects::nonNull)
-            .collect(Collectors.toCollection((Supplier<Collection<Image>>)ArrayList::new)));
+            .collect(Collectors.toCollection(ArrayList::new)));
 
         final String videoUrl = StringUtils.substringBetween(fullHtml, "var videoUrl = '", "';");
 

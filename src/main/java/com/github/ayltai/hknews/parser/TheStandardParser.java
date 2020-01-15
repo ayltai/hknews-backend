@@ -11,7 +11,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
-import java.util.function.Supplier;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -111,7 +110,7 @@ public final class TheStandardParser extends Parser {
                 return null;
             })
             .filter(Objects::nonNull)
-            .collect(Collectors.toCollection((Supplier<Collection<Item>>)ArrayList::new));
+            .collect(Collectors.toCollection(ArrayList::new));
     }
 
     @NonNull
@@ -135,7 +134,7 @@ public final class TheStandardParser extends Parser {
                     return new Image(imageUrl, StringUtils.substringBetween(imageContainer, "<i>", "</i>"));
                 })
                 .filter(Objects::nonNull)
-                .collect(Collectors.toCollection((Supplier<Collection<Image>>)ArrayList::new)));
+                .collect(Collectors.toCollection(ArrayList::new)));
         }
 
         return item;

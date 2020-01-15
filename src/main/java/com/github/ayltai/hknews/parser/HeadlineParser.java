@@ -2,9 +2,7 @@ package com.github.ayltai.hknews.parser;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Objects;
-import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -59,7 +57,7 @@ public final class HeadlineParser extends RssParser {
                     return new Image(imageUrl.startsWith("//") ? HeadlineParser.HTTP + imageUrl : imageUrl.startsWith(HeadlineParser.HTTP) ? imageUrl : HeadlineParser.IMAGE_URI + imageUrl, StringUtils.substringBetween(imageContainer, "title=\"■", "\">"));
                 })
                 .filter(Objects::nonNull)
-                .collect(Collectors.toCollection((Supplier<Collection<Image>>)ArrayList::new)));
+                .collect(Collectors.toCollection(ArrayList::new)));
         }
 
         return item;

@@ -3,9 +3,7 @@ package com.github.ayltai.hknews.parser;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Objects;
-import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -69,7 +67,7 @@ public final class OrientalDailyParser extends RssParser {
                     return new Image(OrientalDailyParser.BASE_URI + imageUrl, StringUtils.substringBetween(imageContainer, "title=\"", OrientalDailyParser.QUOTE));
                 })
                 .filter(Objects::nonNull)
-                .collect(Collectors.toCollection((Supplier<Collection<Image>>)ArrayList::new)));
+                .collect(Collectors.toCollection(ArrayList::new)));
 
             final String date = StringUtils.substringBetween(item.getUrl(), "http://orientaldaily.on.cc/cnt/news/", OrientalDailyParser.SLASH);
             if (date != null) {
@@ -77,7 +75,7 @@ public final class OrientalDailyParser extends RssParser {
                 if (videoContainers != null) item.getVideos().addAll(Stream.of(videoContainers)
                     .map(videoContainer -> OrientalDailyParser.extractVideo(item.getUrl(), date, videoContainer))
                     .filter(Objects::nonNull)
-                    .collect(Collectors.toCollection((Supplier<Collection<Video>>)ArrayList::new)));
+                    .collect(Collectors.toCollection(ArrayList::new)));
             }
         }
 
