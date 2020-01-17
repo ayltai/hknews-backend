@@ -1,5 +1,5 @@
 plugins {
-    id 'org.springframework.boot'        version '2.2.2.RELEASE'
+    id 'org.springframework.boot'        version '2.2.3.RELEASE'
     id 'io.spring.dependency-management' version '1.0.8.RELEASE'
     id 'java'
     id 'checkstyle'
@@ -86,7 +86,7 @@ dependencies {
 //region Checkstyle configurations
 
 checkstyle {
-    toolVersion    '8.25'
+    toolVersion    '8.28'
     configFile     rootProject.file('./checkstyle.xml')
     ignoreFailures true
     showViolations true
