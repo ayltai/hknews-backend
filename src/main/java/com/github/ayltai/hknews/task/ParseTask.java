@@ -62,7 +62,7 @@ public class ParseTask {
                 .forEach(category -> this.parse(factory, source, category)));
 
         if (this.agent == null) this.agent = this.agentFactory.create();
-        this.agent.gauge(ParseTask.METRIC_TASK, System.currentTimeMillis() - startTime);
+        if (this.agent != null) this.agent.gauge(ParseTask.METRIC_TASK, System.currentTimeMillis() - startTime);
     }
 
     @Async
@@ -73,7 +73,7 @@ public class ParseTask {
             parser.getItems(category).forEach(item -> this.parse(factory, source, item));
 
             if (this.agent == null) this.agent = this.agentFactory.create();
-            this.agent.gauge(ParseTask.METRIC_TASK_ITEMS, System.currentTimeMillis() - startTime);
+            if (this.agent != null) this.agent.gauge(ParseTask.METRIC_TASK_ITEMS, System.currentTimeMillis() - startTime);
         } catch (final Exception e) {
             ParseTask.LOGGER.error("An unexpected error has occurred for category: " + category.getName(), e);
         }

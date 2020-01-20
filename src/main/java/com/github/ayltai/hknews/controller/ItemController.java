@@ -60,8 +60,10 @@ public class ItemController {
         item.setRecordId(item.get_id().toHexString());
 
         if (this.agent == null) this.agent = this.agentFactory.create();
-        this.agent.gauge(ItemController.METRIC_REQUEST_ITEM, System.currentTimeMillis() - startTime);
-        this.agent.gauge(ItemController.METRIC_REQUEST, System.currentTimeMillis() - startTime);
+        if (this.agent != null) {
+            this.agent.gauge(ItemController.METRIC_REQUEST_ITEM, System.currentTimeMillis() - startTime);
+            this.agent.gauge(ItemController.METRIC_REQUEST, System.currentTimeMillis() - startTime);
+        }
 
         return ResponseEntity.ok(item);
     }
@@ -103,8 +105,10 @@ public class ItemController {
             });
 
         if (this.agent == null) this.agent = this.agentFactory.create();
-        this.agent.gauge(ItemController.METRIC_REQUEST_ITEMS, System.currentTimeMillis() - startTime);
-        this.agent.gauge(ItemController.METRIC_REQUEST, System.currentTimeMillis() - startTime);
+        if (this.agent != null) {
+            this.agent.gauge(ItemController.METRIC_REQUEST_ITEMS, System.currentTimeMillis() - startTime);
+            this.agent.gauge(ItemController.METRIC_REQUEST, System.currentTimeMillis() - startTime);
+        }
 
         return ResponseEntity.ok(items);
     }

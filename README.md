@@ -58,7 +58,8 @@ Serves aggregated news from 10+ local news publishers in Hong Kong. Made with ‚ù
 ### How to run for development environment
 1. Start the server
    ```sh
-   java -server -Xverify:none -Xms320m -Xmx960m -Xss512k -XX:+UseConcMarkSweepGC -XX:+CMSParallelRemarkEnabled -XX:+ScavengeBeforeFullGC -XX:+CMSScavengeBeforeRemark -Dfile.encoding=UTF-8 -Dserver.ssl.enabled=false -jar ./build/libs/hknews-backend-1.0.0.jar
+   export SPRING_PROFILES_ACTIVE=development
+   ./gradlew bootRun
    ```
 2. Test specific API
    ```sh
@@ -80,7 +81,7 @@ Serves aggregated news from 10+ local news publishers in Hong Kong. Made with ‚ù
    ```
 4. Start the server
    ```sh
-   java -server -Xverify:none -Xms320m -Xmx960m -Xss512k -XX:+CMSParallelRemarkEnabled -XX:+ScavengeBeforeFullGC -XX:+CMSScavengeBeforeRemark -Dfile.encoding=UTF-8 -Dserver.ssl.enabled=false -jar ./build/libs/hknews-backend-1.2.3.jar
+   java -server -Xverify:none -Xms256m -Xmx512m -Xss512k -XX:+ScavengeBeforeFullGC -XX:+CMSScavengeBeforeRemark -Dfile.encoding=UTF-8 -Dserver.ssl.key-store-password=${SSL_KEY} -Dserver.ssl.trust-store-password=${SSL_KEY} -Dspring.profiles.active=production -jar ./build/libs/hknews-backend-1.2.3.jar
    ```
 5. Test specific API
    ```sh
