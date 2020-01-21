@@ -1,6 +1,6 @@
 plugins {
-    id 'org.springframework.boot'        version '2.2.3.RELEASE'
-    id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+    id 'org.springframework.boot'        version '2.2.4.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.9.RELEASE'
     id 'java'
     id 'checkstyle'
     id 'com.github.spotbugs'             version '3.0.0'
@@ -26,10 +26,10 @@ configurations {
 //region Dependencies
 
 ext {
-    okhttpVersion        = '4.3.1'
+    okhttpVersion        = '4.4.0'
     retrofitVersion      = '2.7.1'
     jacksonVersion       = '2.10.2'
-    lombokVersion        = '1.18.10'
+    lombokVersion        = '1.18.12'
     embeddedMongoVersion = '2.2.0'
 }
 
@@ -78,7 +78,7 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation "de.flapdoodle.embed:de.flapdoodle.embed.mongo:$embeddedMongoVersion"
 
-    codacy 'com.codacy:codacy-coverage-reporter:6.2.0'
+    codacy 'com.codacy:codacy-coverage-reporter:7.0.0'
 }
 
 //endregion

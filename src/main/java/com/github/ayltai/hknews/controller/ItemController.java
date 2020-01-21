@@ -12,6 +12,7 @@ import org.springframework.data.web.SortDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,6 +30,7 @@ import com.instrumentalapp.Agent;
     RequestMethod.HEAD,
     RequestMethod.OPTIONS
 })
+@CrossOrigin
 public class ItemController {
     private static final String METRIC_REQUEST       = "app.api.request";
     private static final String METRIC_REQUEST_ITEM  = "app.api.request.item";
