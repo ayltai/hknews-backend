@@ -27,7 +27,7 @@ configurations {
 
 ext {
     okhttpVersion        = '4.4.1'
-    retrofitVersion      = '2.7.2'
+    retrofitVersion      = '2.8.0'
     jacksonVersion       = '2.10.3'
     lombokVersion        = '1.18.12'
     embeddedMongoVersion = '2.2.0'
