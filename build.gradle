@@ -26,7 +26,7 @@ configurations {
 //region Dependencies
 
 ext {
-    okhttpVersion        = '4.4.1'
+    okhttpVersion        = '4.5.0'
     retrofitVersion      = '2.8.1'
     jacksonVersion       = '2.10.3'
     lombokVersion        = '1.18.12'
