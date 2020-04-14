@@ -3,7 +3,7 @@
         "name"               : "hknews-backend",
         "script"             : "java",
         "interpreter"        : "none",
-        "args"               : "-server -Xverify:none -Xms225m -Xmx450m -Xss512k -XX:MaxRAM=480m -XX:+UseSerialGC -XX:+ScavengeBeforeFullGC -XX:+CMSScavengeBeforeRemark -Dfile.encoding=UTF-8 -Dserver.ssl.key-store-password=${SSL_KEY} -Dserver.ssl.trust-store-password=${SSL_KEY} -Dspring.profiles.active=production -jar ./build/libs/hknews-backend-1.2.3.jar",
+        "args"               : "-server -Xverify:none -Xms225m -Xmx450m -Xss512k -XX:MaxRAM=480m -XX:+UseSerialGC -XX:+ScavengeBeforeFullGC -XX:+CMSScavengeBeforeRemark -Dfile.encoding=UTF-8 -Dserver.ssl.key-store-password=${SSL_KEY} -Dserver.ssl.trust-store-password=${SSL_KEY} -Dspring.profiles.active=production -jar ./build/libs/hknews-backend-1.2.2.jar",
         "instances"          : 1,
         "autorestart"        : true,
         "watch"              : false,

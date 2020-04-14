@@ -10,7 +10,7 @@ plugins {
 }
 
 group   = 'com.github.ayltai'
-version = '1.2.3'
+version = '1.2.2'
 
 sourceCompatibility = 11
 targetCompatibility = 11
@@ -86,7 +86,7 @@ dependencies {
 //region Checkstyle configurations
 
 checkstyle {
-    toolVersion    '8.29'
+    toolVersion    '8.31'
     configFile     rootProject.file('./checkstyle.xml')
     ignoreFailures true
     showViolations true
