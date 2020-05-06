@@ -1,9 +1,7 @@
 package com.github.ayltai.hknews.net;
 
 import org.springframework.lang.NonNull;
-
 import com.github.ayltai.hknews.rss.Feed;
-
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;

@@ -1,19 +1,17 @@
 package com.github.ayltai.hknews.parser;
 
-import com.github.ayltai.hknews.data.model.Item;
-import com.github.ayltai.hknews.net.ApiService;
-import com.github.ayltai.hknews.net.ApiServiceFactory;
-
-import org.junit.Assert;
-import org.junit.Test;
-import org.mockito.Mockito;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.stream.Collectors;
 
+import org.junit.Assert;
+import org.junit.Test;
+import org.mockito.Mockito;
+import com.github.ayltai.hknews.data.model.Item;
+import com.github.ayltai.hknews.net.ApiService;
+import com.github.ayltai.hknews.net.ApiServiceFactory;
 import retrofit2.Call;
 import retrofit2.Response;
 

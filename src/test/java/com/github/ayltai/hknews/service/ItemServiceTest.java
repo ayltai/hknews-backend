@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-
 import com.github.ayltai.hknews.UnitTest;
 import com.github.ayltai.hknews.data.model.Category;
 import com.github.ayltai.hknews.data.model.Item;

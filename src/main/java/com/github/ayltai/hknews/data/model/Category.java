@@ -3,7 +3,6 @@ package com.github.ayltai.hknews.data.model;
 import java.util.List;
 
 import org.springframework.data.mongodb.core.index.Indexed;
-
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

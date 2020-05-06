@@ -9,7 +9,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
-
 import com.github.ayltai.hknews.data.model.Item;
 
 public interface ItemRepository extends MongoRepository<Item, Integer> {

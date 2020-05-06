@@ -14,7 +14,6 @@ import java.util.stream.Collectors;
 
 import org.slf4j.LoggerFactory;
 import org.springframework.lang.NonNull;
-
 import com.github.ayltai.hknews.data.model.Category;
 import com.github.ayltai.hknews.data.model.Image;
 import com.github.ayltai.hknews.data.model.Item;

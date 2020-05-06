@@ -8,7 +8,6 @@ import org.springframework.lang.NonNull;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-
 import com.github.ayltai.hknews.AppConfig;
 import com.github.ayltai.hknews.data.repository.ItemRepository;
 

@@ -10,9 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.github.ayltai.hknews.service.SourceService;
 import com.github.ayltai.hknews.data.model.Source;
+import com.github.ayltai.hknews.service.SourceService;
 
 @RestController
 @RequestMapping(

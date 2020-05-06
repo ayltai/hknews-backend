@@ -2,7 +2,6 @@ package com.github.ayltai.hknews.diagnostic;
 
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
-
 import com.instrumentalapp.Agent;
 import com.instrumentalapp.AgentOptions;
 

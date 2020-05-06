@@ -8,9 +8,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.apache.commons.lang3.StringUtils;
-
 import org.springframework.lang.NonNull;
-
 import com.github.ayltai.hknews.data.model.Image;
 import com.github.ayltai.hknews.data.model.Item;
 import com.github.ayltai.hknews.data.model.Source;
@@ -18,7 +16,6 @@ import com.github.ayltai.hknews.data.model.Video;
 import com.github.ayltai.hknews.data.repository.ItemRepository;
 import com.github.ayltai.hknews.data.repository.SourceRepository;
 import com.github.ayltai.hknews.net.ApiServiceFactory;
-
 import lombok.Getter;
 
 public final class OrientalDailyParser extends RssParser {

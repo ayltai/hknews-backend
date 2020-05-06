@@ -264,8 +264,14 @@
                 name="separateLineBetweenGroups"
                 value="true"/>
             <property
+                name="thirdPartyPackageRegExp"
+                value="^(org\.|net\.|com\.|io\.|dagger\.|retrofit2\.|lombok\.).*" />
+            <property
+                name="specialImportsRegExp"
+                value="^(android\.|androidx\.).*" />
+            <property
                 name="customImportOrderRules"
-                value="STATIC###THIRD_PARTY_PACKAGE"/>
+                value="STANDARD_JAVA_PACKAGE###SPECIAL_IMPORTS###THIRD_PARTY_PACKAGE###STATIC" />
         </module>
         <module name="MethodParamPad"/>
         <module name="ParenPad"/>

@@ -10,7 +10,6 @@ import org.springframework.lang.NonNull;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-
 import com.github.ayltai.hknews.data.model.Category;
 import com.github.ayltai.hknews.data.model.Item;
 import com.github.ayltai.hknews.data.model.Source;
@@ -54,7 +53,7 @@ public class ParseTask {
     public void parse() {
         final long startTime = System.currentTimeMillis();
 
-        final ParserFactory factory = ParserFactory.getInstance(this.apiServiceFactory, this.sourceRepository, this.itemRepository);
+        final ParserFactory factory = ParserFactory.getInstance(this.apiServiceFactory, this.sourceRepository);
 
         this.sourceRepository
             .findAll()

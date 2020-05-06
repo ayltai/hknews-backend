@@ -5,7 +5,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.lang.NonNull;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-
 import com.github.ayltai.hknews.data.repository.SourceRepository;
 import com.github.ayltai.hknews.service.SourceService;
 

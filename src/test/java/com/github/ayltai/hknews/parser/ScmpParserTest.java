@@ -1,16 +1,5 @@
 package com.github.ayltai.hknews.parser;
 
-import com.github.ayltai.hknews.data.model.Category;
-import com.github.ayltai.hknews.data.model.Item;
-import com.github.ayltai.hknews.net.ApiService;
-import com.github.ayltai.hknews.net.ApiServiceFactory;
-import com.github.ayltai.hknews.rss.Feed;
-
-import org.junit.Assert;
-import org.junit.Test;
-import org.mockito.Mockito;
-import org.simpleframework.xml.core.Persister;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -19,6 +8,15 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
+import org.junit.Assert;
+import org.junit.Test;
+import org.mockito.Mockito;
+import org.simpleframework.xml.core.Persister;
+import com.github.ayltai.hknews.data.model.Category;
+import com.github.ayltai.hknews.data.model.Item;
+import com.github.ayltai.hknews.net.ApiService;
+import com.github.ayltai.hknews.net.ApiServiceFactory;
+import com.github.ayltai.hknews.rss.Feed;
 import retrofit2.Call;
 import retrofit2.Response;
 
