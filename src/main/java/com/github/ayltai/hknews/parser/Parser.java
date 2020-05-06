@@ -9,7 +9,6 @@ import org.springframework.lang.NonNull;
 import com.github.ayltai.hknews.data.model.Category;
 import com.github.ayltai.hknews.data.model.Item;
 import com.github.ayltai.hknews.data.model.Source;
-import com.github.ayltai.hknews.data.repository.ItemRepository;
 import com.github.ayltai.hknews.data.repository.SourceRepository;
 import com.github.ayltai.hknews.net.ApiServiceFactory;
 import lombok.AccessLevel;
@@ -24,10 +23,6 @@ public abstract class Parser implements Closeable {
     @NonNull
     @lombok.NonNull
     protected final SourceRepository sourceRepository;
-
-    @NonNull
-    @lombok.NonNull
-    protected final ItemRepository itemRepository;
 
     @NonNull
     public abstract Source getSource();

@@ -18,7 +18,6 @@ import com.github.ayltai.hknews.data.model.Category;
 import com.github.ayltai.hknews.data.model.Image;
 import com.github.ayltai.hknews.data.model.Item;
 import com.github.ayltai.hknews.data.model.Video;
-import com.github.ayltai.hknews.data.repository.ItemRepository;
 import com.github.ayltai.hknews.data.repository.SourceRepository;
 import com.github.ayltai.hknews.net.ApiServiceFactory;
 import com.github.ayltai.hknews.rss.Enclosure;
@@ -27,8 +26,8 @@ import com.github.ayltai.hknews.rss.Feed;
 public abstract class RssParser extends Parser {
     private static final ThreadLocal<DateFormat> DATE_FORMAT = ThreadLocal.withInitial(() -> new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z", Locale.ENGLISH));
 
-    RssParser(@NonNull @lombok.NonNull final ApiServiceFactory apiServiceFactory, @NonNull @lombok.NonNull final SourceRepository sourceRepository, @NonNull @lombok.NonNull final ItemRepository itemRepository) {
-        super(apiServiceFactory, sourceRepository, itemRepository);
+    RssParser(@NonNull @lombok.NonNull final ApiServiceFactory apiServiceFactory, @NonNull @lombok.NonNull final SourceRepository sourceRepository) {
+        super(apiServiceFactory, sourceRepository);
     }
 
     @NonNull

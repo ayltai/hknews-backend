@@ -3,7 +3,6 @@ package com.github.ayltai.hknews.parser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
-import com.github.ayltai.hknews.data.repository.ItemRepository;
 import com.github.ayltai.hknews.data.repository.SourceRepository;
 import com.github.ayltai.hknews.net.ApiServiceFactory;
 
@@ -35,21 +34,19 @@ public final class ParserFactory {
 
     private final ApiServiceFactory apiServiceFactory;
     private final SourceRepository  sourceRepository;
-    private final ItemRepository    itemRepository;
 
     //endregion
 
-    public static ParserFactory getInstance(@NonNull @lombok.NonNull final ApiServiceFactory apiServiceFactory, @NonNull @lombok.NonNull final SourceRepository sourceRepository, @NonNull @lombok.NonNull final ItemRepository itemRepository) {
-        if (ParserFactory.instance == null) ParserFactory.instance = new ParserFactory(apiServiceFactory, sourceRepository, itemRepository);
+    public static ParserFactory getInstance(@NonNull @lombok.NonNull final ApiServiceFactory apiServiceFactory, @NonNull @lombok.NonNull final SourceRepository sourceRepository) {
+        if (ParserFactory.instance == null) ParserFactory.instance = new ParserFactory(apiServiceFactory, sourceRepository);
 
         return ParserFactory.instance;
     }
 
     @Autowired
-    private ParserFactory(@NonNull @lombok.NonNull final ApiServiceFactory apiServiceFactory, @NonNull @lombok.NonNull final SourceRepository sourceRepository, @NonNull @lombok.NonNull final ItemRepository itemRepository) {
-        this.apiServiceFactory  = apiServiceFactory;
-        this.sourceRepository   = sourceRepository;
-        this.itemRepository     = itemRepository;
+    private ParserFactory(@NonNull @lombok.NonNull final ApiServiceFactory apiServiceFactory, @NonNull @lombok.NonNull final SourceRepository sourceRepository) {
+        this.apiServiceFactory = apiServiceFactory;
+        this.sourceRepository  = sourceRepository;
     }
 
     @SuppressWarnings("CyclomaticComplexity")
@@ -57,49 +54,49 @@ public final class ParserFactory {
     public Parser create(@NonNull @lombok.NonNull final String sourceName) {
         switch (sourceName) {
             case ParserFactory.SOURCE_APPLE_DAILY:
-                return new AppleDailyParser(this.apiServiceFactory, this.sourceRepository, this.itemRepository);
+                return new AppleDailyParser(this.apiServiceFactory, this.sourceRepository);
 
             case ParserFactory.SOURCE_HEADLINE:
-                return new HeadlineParser(this.apiServiceFactory, this.sourceRepository, this.itemRepository);
+                return new HeadlineParser(this.apiServiceFactory, this.sourceRepository);
 
             case ParserFactory.SOURCE_HEADLINE_REALTIME:
-                return new HeadlineRealtimeParser(this.apiServiceFactory, this.sourceRepository, this.itemRepository);
+                return new HeadlineRealtimeParser(this.apiServiceFactory, this.sourceRepository);
 
             case ParserFactory.SOURCE_HKEJ:
-                return new HkejParser(this.apiServiceFactory, this.sourceRepository, this.itemRepository);
+                return new HkejParser(this.apiServiceFactory, this.sourceRepository);
 
             case ParserFactory.SOURCE_HKET:
-                return new HketParser(this.apiServiceFactory, this.sourceRepository, this.itemRepository);
+                return new HketParser(this.apiServiceFactory, this.sourceRepository);
 
             case ParserFactory.SOURCE_MING_PAO:
-                return new MingPaoParser(this.apiServiceFactory, this.sourceRepository, this.itemRepository);
+                return new MingPaoParser(this.apiServiceFactory, this.sourceRepository);
 
             case ParserFactory.SOURCE_ORIENTAL_DAILY:
-                return new OrientalDailyParser(this.apiServiceFactory, this.sourceRepository, this.itemRepository);
+                return new OrientalDailyParser(this.apiServiceFactory, this.sourceRepository);
 
             case ParserFactory.SOURCE_RTHK:
-                return new RthkParser(this.apiServiceFactory, this.sourceRepository, this.itemRepository);
+                return new RthkParser(this.apiServiceFactory, this.sourceRepository);
 
             case ParserFactory.SOURCE_SCMP:
-                return new ScmpParser(this.apiServiceFactory, this.sourceRepository, this.itemRepository);
+                return new ScmpParser(this.apiServiceFactory, this.sourceRepository);
 
             case ParserFactory.SOURCE_SING_PAO:
-                return new SingPaoParser(this.apiServiceFactory, this.sourceRepository, this.itemRepository);
+                return new SingPaoParser(this.apiServiceFactory, this.sourceRepository);
 
             case ParserFactory.SOURCE_SING_TAO:
-                return new SingTaoParser(this.apiServiceFactory, this.sourceRepository, this.itemRepository);
+                return new SingTaoParser(this.apiServiceFactory, this.sourceRepository);
 
             case ParserFactory.SOURCE_SING_TAO_REALTIME:
-                return new SingTaoRealtimeParser(this.apiServiceFactory, this.sourceRepository, this.itemRepository);
+                return new SingTaoRealtimeParser(this.apiServiceFactory, this.sourceRepository);
 
             case ParserFactory.SOURCE_SKYPOST:
-                return new SkyPostParser(this.apiServiceFactory, this.sourceRepository, this.itemRepository);
+                return new SkyPostParser(this.apiServiceFactory, this.sourceRepository);
 
             case ParserFactory.SOURCE_THE_STANDARD:
-                return new TheStandardParser(this.apiServiceFactory, this.sourceRepository, this.itemRepository);
+                return new TheStandardParser(this.apiServiceFactory, this.sourceRepository);
 
             case ParserFactory.SOURCE_WEN_WEI_PO:
-                return new WenWeiPoParser(this.apiServiceFactory, this.sourceRepository, this.itemRepository);
+                return new WenWeiPoParser(this.apiServiceFactory, this.sourceRepository);
 
             default:
                 throw new IllegalArgumentException("Unrecognized source name " + sourceName);

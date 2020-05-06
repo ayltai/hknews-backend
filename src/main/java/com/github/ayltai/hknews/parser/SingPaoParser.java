@@ -21,7 +21,6 @@ import com.github.ayltai.hknews.data.model.Category;
 import com.github.ayltai.hknews.data.model.Image;
 import com.github.ayltai.hknews.data.model.Item;
 import com.github.ayltai.hknews.data.model.Source;
-import com.github.ayltai.hknews.data.repository.ItemRepository;
 import com.github.ayltai.hknews.data.repository.SourceRepository;
 import com.github.ayltai.hknews.net.ApiServiceFactory;
 import lombok.Getter;
@@ -43,8 +42,8 @@ public final class SingPaoParser extends Parser {
     @Getter
     private final Source source;
 
-    SingPaoParser(@NonNull @lombok.NonNull final ApiServiceFactory apiServiceFactory, @NonNull @lombok.NonNull final SourceRepository sourceRepository, @NonNull @lombok.NonNull final ItemRepository itemRepository) {
-        super(apiServiceFactory, sourceRepository, itemRepository);
+    SingPaoParser(@NonNull @lombok.NonNull final ApiServiceFactory apiServiceFactory, @NonNull @lombok.NonNull final SourceRepository sourceRepository) {
+        super(apiServiceFactory, sourceRepository);
 
         this.source = sourceRepository.findByName(ParserFactory.SOURCE_SING_PAO);
     }

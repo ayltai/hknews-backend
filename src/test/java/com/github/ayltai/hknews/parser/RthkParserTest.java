@@ -34,7 +34,7 @@ public final class RthkParserTest extends ParserTest {
                 final Item item = new Item();
                 item.setUrl("http://news.rthk.hk/rthk/ch/component/k2/1404750-20180702.htm");
 
-                final Item updatedItem = new RthkParser(factory, this.sourceRepository, this.itemRepository).getItem(item);
+                final Item updatedItem = new RthkParser(factory, this.sourceRepository).getItem(item);
 
                 Assert.assertEquals("Incorrect item description", "香港航空宣布，昨日受熱帶風暴派比安影響而延誤的4班往來香港至沖繩航班，將改為今日出發。<br />\n<br />\n受影響的航班包括HX6652、HX6653、HX658、HX659，更改後的航班編號為HX6652D、HX6653D、HX658D、HX659D。", updatedItem.getDescription());
                 Assert.assertEquals("Incorrect image count", 1, updatedItem.getImages().size());
