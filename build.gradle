@@ -63,7 +63,7 @@ dependencies {
     implementation "com.fasterxml.jackson.core:jackson-annotations:$jacksonVersion"
     implementation "com.fasterxml.jackson.core:jackson-core:$jacksonVersion"
     implementation "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
-    implementation 'org.json:json:20190722'
+    implementation 'org.json:json:20200518'
 
     // Monitoring
     implementation 'com.instrumentalapp:instrumental_agent:1.0.1'
