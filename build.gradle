@@ -70,7 +70,7 @@ dependencies {
     implementation 'io.logz.logback:logzio-logback-appender:1.0.24'
 
     // Code generation
-    implementation      'org.aspectj:aspectjweaver:1.9.5'
+    implementation      'org.aspectj:aspectjweaver:1.9.6'
     compileOnly         "org.projectlombok:lombok:$lombokVersion"
     annotationProcessor "org.projectlombok:lombok:$lombokVersion"
 
