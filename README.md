@@ -1,3 +1,6 @@
+## Warning
+This repository is deprecated. Please check out [hknews](https://github.com/ayltai/hknews).
+
 # HK News Backend
 
 | Category      | Measurement                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
